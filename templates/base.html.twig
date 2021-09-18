@@ -43,7 +43,13 @@
             {% if block('bestSeller') is defined %}
                 {% include "z-helpers/bestSeller.html.twig" %}
             {% endif %}
+            {% if block('services') is defined %}
+                {% include "z-helpers/services.html.twig" %}
+            {% endif %}
         </div>
+        {% if block('temoignage') is defined %}
+            {% include "z-helpers/temoignage.html.twig" %}
+        {% endif %}
     </main>    
     <!-- End Main -->
 

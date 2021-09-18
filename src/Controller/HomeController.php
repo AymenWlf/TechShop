@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Header;
 use App\Entity\Product;
+use App\Entity\Temoignage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,13 +24,15 @@ class HomeController extends AbstractController
         $headers = $this->em->getRepository(Header::class)->findAll();
         $categories = $this->em->getRepository(Category::class)->findAll();
         $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
+        $temoignages = $this->em->getRepository(Temoignage::class)->findAll();
         // dd($best_products);
         // dd($categories);
         
         return $this->render('home/index.html.twig',[
             'headers' => $headers,
             'categories' => $categories,
-            'bestProducts' => $best_products
+            'bestProducts' => $best_products,
+            'temoignages' => $temoignages
         ]);
     }
 }

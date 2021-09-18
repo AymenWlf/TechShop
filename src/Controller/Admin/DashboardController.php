@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Header;
 use App\Entity\Product;
+use App\Entity\Temoignage;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -33,6 +34,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Header', 'fa fa-tv',Header::class);
         yield MenuItem::linkToCrud('Category', 'fa fa-clipboard-list',Category::class);
         yield MenuItem::linkToCrud('Product', 'fa fa-tag',Product::class);
+        yield MenuItem::linkToCrud('Temoignage', 'fa fa-user-tie',Temoignage::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
