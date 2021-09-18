@@ -1,0 +1,46 @@
+<!-- Hero -->
+    <div class="hero">
+        <div class="glide" id="glide_1">
+         <div class="glide__track" data-glide-el="track">
+          <ul ul class="glide__slides">
+          {% set key = 0 %}
+            {% for header in headers %}
+                <li class="glide__slide">
+                    <div class="hero__center">
+                        <div class="hero__left">
+                            <span class=""> {{header.topCmnt}} </span>
+                            <h1 class="">{{header.middleCmnt}} </h1>
+                            <p>{{header.lastCmnt}} </p>
+                            <a href="#"><button class="hero__btn">{{header.btnTitle}} </button></a>
+                        </div>
+                        <div class="hero__right">
+                            <div class="hero__img-container">
+                                <img class="banner_01" src="/uploads/{{header.illustration}}" alt="banner2" />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% set key = key + 1 %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="glide__bullets" data-glide-el="controls[nav]">
+          {% for header in headers %}
+              <button class="glide__bullet" data-glide-dir="={{key}}"></button>
+          {% endfor %}
+        </div>
+
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+            <svg>
+              <use xlink:href="images/sprite.svg#icon-arrow-left2"></use>
+            </svg>
+          </button>
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+            <svg>
+              <use xlink:href="images/sprite.svg#icon-arrow-right2"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
