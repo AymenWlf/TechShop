@@ -25,8 +25,10 @@
           </ul>
         </div>
         <div class="glide__bullets" data-glide-el="controls[nav]">
+        {% set key = 0 %}
           {% for header in headers %}
               <button class="glide__bullet" data-glide-dir="={{key}}"></button>
+              {% set key = key + 1 %}
           {% endfor %}
         </div>
 

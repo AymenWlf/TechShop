@@ -10,7 +10,6 @@
 
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 
-
   <!-- Carousel -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
@@ -25,21 +24,37 @@
 
 <body>
 
-  <!-- Header -->
-  {% include "z-helpers/header.html.twig" %}
-  <!-- End Header -->
+    <!-- Header -->
+    {% include "z-helpers/header.html.twig" %}
+    <!-- End Header -->
 
-  <!-- Main -->
-  <!-- End Main -->
+    <!-- Carousel -->
+    {% if block('carousel') is defined %}
+        {% include "z-helpers/carousel.html.twig" %}
+    {% endif %}
+    <!-- End Carousel -->
 
-  <!-- Footer -->
-  <!-- End Footer -->
+    <!-- Main -->
+    <main id="main">
+        <div class="container">
+            {% if block('category') is defined %}
+                {% include "z-helpers/category.html.twig" %}
+            {% endif %}
+            {% if block('bestSeller') is defined %}
+                {% include "z-helpers/bestSeller.html.twig" %}
+            {% endif %}
+        </div>
+    </main>    
+    <!-- End Main -->
 
-  <!-- PopUp -->
-  <!-- End PopUp -->
- 
-  <!-- Go To -->
-  <!-- End Go To -->
+    <!-- Footer -->
+    <!-- End Footer -->
+
+    <!-- PopUp -->
+    <!-- End PopUp -->
+    
+    <!-- Go To -->
+    <!-- End Go To -->
 
 
   <!-- Glide Carousel Script -->
@@ -51,6 +66,8 @@
   <script src="js/products.js"></script>
   <script src="js/index.js"></script>
   <script src="js/slider.js"></script>
+
+  
 
 </body>
 

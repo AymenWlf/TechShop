@@ -1,0 +1,21 @@
+<section id="collection" class="section collection">
+        <div class="collection__container" >
+
+
+        
+            {% for category in categories %}
+                <div class="collection__box">
+                    <div class="img__container">
+                        <img class="collection_02" src="/uploads/{{category.illustration}}" alt="">
+                    </div>
+                    <div class="collection__content">
+                        <div class="collection__data">
+                            <span>Distrubute by TechShop</span>
+                            <h1 class=" text-uppercase"> {{category.name}} </h1>
+                            <a href="#shop">SHOP NOW</a>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>

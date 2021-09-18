@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Header;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +21,15 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $headers = $this->em->getRepository(Header::class)->findAll();
+        $categories = $this->em->getRepository(Category::class)->findAll();
+        $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
+        // dd($best_products);
+        // dd($categories);
         
         return $this->render('home/index.html.twig',[
-            'headers' => $headers
+            'headers' => $headers,
+            'categories' => $categories,
+            'bestProducts' => $best_products
         ]);
     }
 }
