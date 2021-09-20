@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Header;
 use App\Entity\Product;
 use App\Entity\Temoignage;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -31,10 +32,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Header', 'fa fa-tv',Header::class);
-        yield MenuItem::linkToCrud('Category', 'fa fa-clipboard-list',Category::class);
-        yield MenuItem::linkToCrud('Product', 'fa fa-tag',Product::class);
-        yield MenuItem::linkToCrud('Temoignage', 'fa fa-user-tie',Temoignage::class);
+        yield MenuItem::linkToCrud('Users', 'fa fa-users',User::class);
+        yield MenuItem::linkToCrud('Headers', 'fa fa-tv',Header::class);
+        yield MenuItem::linkToCrud('Categories', 'fa fa-clipboard-list',Category::class);
+        yield MenuItem::linkToCrud('Products', 'fa fa-tag',Product::class);
+        yield MenuItem::linkToCrud('Temoignages', 'fa fa-user-tie',Temoignage::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

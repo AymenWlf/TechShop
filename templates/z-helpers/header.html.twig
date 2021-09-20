@@ -10,15 +10,15 @@
           </div>
 
           <div class="nav__logo">
-            <a href="/" class="scroll-link">
+            <a href="{{path('home')}}" class="scroll-link">
               TechShop
             </a>
           </div>
 
           <div class="nav__menu">
             <div class="menu__top">
-              <span class="nav__category">PHONE</span>
-              <a href="#" class="close__toggle">
+              <span class="nav__category">TechShop</span>
+              <a href=" {{path('home')}} " class="close__toggle">
                 <svg>
                   <use xlink:href="images/sprite.svg#icon-cross"></use>
                 </svg>
@@ -41,7 +41,8 @@
           </div>
 
           <div class="nav__icons">
-            <a href="#" class="icon__item">
+          
+            <a href="{% if app.user %} {{path('app_logout')}} {% else %} {{path('app_login')}}{% endif %}" class="icon__item">
               <svg class="icon__user">
                 <use xlink:href="images/sprite.svg#icon-user"></use>
               </svg>

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
   <!-- Custom StyleSheet -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="{{asset('styles.css')}}" />
 
   <title> {% block title %}{% endblock title %} </title>
 </head>
@@ -50,6 +50,7 @@
         {% if block('temoignage') is defined %}
             {% include "z-helpers/temoignage.html.twig" %}
         {% endif %}
+        {% block content %}{% endblock content %}
     </main>    
     <!-- End Main -->
 

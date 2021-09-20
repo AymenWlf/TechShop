@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TechShop - Inscription{% endblock title %}
+
+{% block header %}{% endblock header %}
+{% block content %}
+    
+
+<link rel="stylesheet" href=" {{asset('form.css')}} ">
+<div class="formulaire-sty">
+    <div class="container">
+        <div class="title">Inscription</div>
+        <div class="content">
+                <div class="user-details">
+                    {{form_start(form)}}
+                    
+                    {# <div class="error"> {{form_errors(form,{'label':'Error'})}} </div> #}
+                    <div class="input-box">
+                        {{form_label(form.firstname,'Votre Prénom',{'label_attr':{'class':'details'}})}} {{form_widget(form.firstname,{'attr':{'class':'place'}})}}
+                    </div>
+                    <div class="input-box">
+                        {{form_label(form.pseudoname,'Votre Pseudoname',{'label_attr':{'class':'details'}})}} {{form_widget(form.pseudoname,{'attr':{'class':'place'}})}}
+                    </div>
+                    <div class="input-box">
+                        {{form_label(form.email,'Votre Email',{'label_attr':{'class':'details'}})}} {{form_widget(form.email,{'attr':{'class':'place'}})}}
+                    </div>
+                    <div class="input-box">
+                        {{form_label(form.password.pass,'Votre Mot de passe',{'label_attr':{'class':'details'}})}} {{form_widget(form.password.pass,{'attr':{'class':'place'}})}}
+                    </div>
+                    <div class="input-box">
+                         {{form_label(form.password.confirm,'Confirmez votre Mot de passe',{'label_attr':{'class':'details'}})}}
+                          {{form_errors(form.password)}} {{form_widget(form.password.confirm,{'attr':{'class':'place'}})}}
+                    </div>
+                    <div class="button">
+                        {{ form_row(form.submit, { 'label': "S'inscrire",'attr':{'class':'btn' } }) }}
+                        {# {{form_rest(form)}} #}
+                    </div>
+                    {{form_end(form)}}
+
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+    
+{% endblock content %}
+
