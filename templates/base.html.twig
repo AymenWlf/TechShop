@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="UTF-8" />
@@ -12,8 +12,7 @@
 
   <!-- Carousel -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
-">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
   <!-- Custom StyleSheet -->
@@ -43,18 +42,25 @@
             {% if block('bestSeller') is defined %}
                 {% include "z-helpers/bestSeller.html.twig" %}
             {% endif %}
+            {% block content %}{% endblock content %}
             {% if block('services') is defined %}
                 {% include "z-helpers/services.html.twig" %}
             {% endif %}
         </div>
+        {% block products %}{% endblock products %}
         {% if block('temoignage') is defined %}
             {% include "z-helpers/temoignage.html.twig" %}
         {% endif %}
-        {% block content %}{% endblock content %}
+        {% if block('newsletter') is defined %}
+            {% include "z-helpers/newsletter.html.twig" %}
+        {% endif %}
     </main>    
     <!-- End Main -->
 
     <!-- Footer -->
+    {% if block('footer') is defined %}
+            {% include "z-helpers/footer.html.twig" %}
+    {% endif %}
     <!-- End Footer -->
 
     <!-- PopUp -->
@@ -73,7 +79,7 @@
   <script src="js/products.js"></script>
   <script src="js/index.js"></script>
   <script src="js/slider.js"></script>
-
+  <script src="js/script.js"></script>
   
 
 </body>

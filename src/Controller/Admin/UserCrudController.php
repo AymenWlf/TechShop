@@ -17,7 +17,7 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }
 
-    
+    /*
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -25,8 +25,9 @@ class UserCrudController extends AbstractCrudController
             TextField::new('pseudoname','Pseudo'),
             EmailField::new('email','Email'),
             TextField::new('password','Password encoded'),
-            BooleanField::new('roles','Role')
+            TextField::new('roles','Role')
         ];
     }
+    */
     
 }
