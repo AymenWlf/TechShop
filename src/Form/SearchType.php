@@ -21,7 +21,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Votre recherche ici ...',
-                    'class' => 'newsletter__email'
+                    'class' => 'filter_search'
                 ]
                 ])
             ->add('categories',EntityType::class,[
@@ -33,6 +33,9 @@ class SearchType extends AbstractType
             ])
             ->add('submit',SubmitType::class,[
                 'label' => 'Filtrer',
+                'attr' => [
+                    'class' => 'btn'
+                ]
             ])
             ;
             
