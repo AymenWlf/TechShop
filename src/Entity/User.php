@@ -45,6 +45,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $pseudoname;
 
+    /**
+     * @ORM\OneToOne(targetEntity=WishList::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $wishList;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudoname(string $pseudoname): self
     {
         $this->pseudoname = $pseudoname;
+
+        return $this;
+    }
+
+    public function getWishList(): ?WishList
+    {
+        return $this->wishList;
+    }
+
+    public function setWishList(WishList $wishList): self
+    {
+        // set the owning side of the relation if necessary
+        if ($wishList->getUser() !== $this) {
+            $wishList->setUser($this);
+        }
+
+        $this->wishList = $wishList;
 
         return $this;
     }

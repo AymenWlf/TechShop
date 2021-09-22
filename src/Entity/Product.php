@@ -59,9 +59,15 @@ class Product
      */
     private $isBest;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=WishList::class, mappedBy="products")
+     */
+    private $wishLists;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->wishLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,6 +179,33 @@ class Product
     public function setIsBest(bool $isBest): self
     {
         $this->isBest = $isBest;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WishList[]
+     */
+    public function getWishLists(): Collection
+    {
+        return $this->wishLists;
+    }
+
+    public function addWishList(WishList $wishList): self
+    {
+        if (!$this->wishLists->contains($wishList)) {
+            $this->wishLists[] = $wishList;
+            $wishList->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWishList(WishList $wishList): self
+    {
+        if ($this->wishLists->removeElement($wishList)) {
+            $wishList->removeProduct($this);
+        }
 
         return $this;
     }
