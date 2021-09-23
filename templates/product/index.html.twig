@@ -167,23 +167,16 @@ button.btn:hover {
                             </div>
                             <ul>
                                 <li>
-                                    <a data-tip="Quick View" data-place="left" href="#">
+                                    <a data-tip="Quick View" data-place="left" href="{{path('product_show' ,{'slug': product.slug} )}}">
                                         <svg>
                             <use xlink:href="images/sprite.svg#icon-eye"></use>
                           </svg>
                                     </a>
                                 </li>
                                 <li>
-                                    <a data-tip="Add To Wishlist" data-place="left" href="#">
+                                    <a data-tip="Add To Wishlist" data-place="left" href=" {{path('wish_list_add',{'slug' : product.slug})}} ">
                                         <svg>
                             <use xlink:href="images/sprite.svg#icon-heart-o"></use>
-                          </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-tip="Add To Compare" data-place="left" href="#">
-                                        <svg>
-                            <use xlink:href="images/sprite.svg#icon-loop2"></use>
                           </svg>
                                     </a>
                                 </li>

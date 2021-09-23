@@ -27,7 +27,7 @@ class RegisterController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegisterType::class,$user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $search_email = $this->em->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
@@ -39,6 +39,8 @@ class RegisterController extends AbstractController
                 $this->em->flush();
                 return $this->redirectToRoute('app_login');
             }
+        }else{
+            $this->addFlash('notice','Il y a eu probleme lors de votre inscription !');
         }
             
         return $this->render('register/index.html.twig',[

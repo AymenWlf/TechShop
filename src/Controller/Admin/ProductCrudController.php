@@ -31,11 +31,26 @@ class ProductCrudController extends AbstractCrudController
             ->setUploadedFileNamePattern('[randomhash].[extension]'),
             TextField::new('name','Nom du Produit'),
             SlugField::new('slug','Slug')->setTargetFieldName('name'),
-            AssociationField::new('category'),
+            AssociationField::new('category','Categorie'),
             TextareaField::new('description','Description'),
             BooleanField::new('isBest'),
             TextField::new('subtitle','Sous-Titre'),
-            MoneyField::new('price')->setCurrency('MAD')
+            MoneyField::new('price')->setCurrency('MAD'),
+            ImageField::new('illustration2')
+            ->setBasePath('uploads/')
+            ->setUploadDir('public/uploads')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->hideOnDetail(),
+            ImageField::new('illustration3')
+            ->setBasePath('uploads/')
+            ->setUploadDir('public/uploads')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->hideOnDetail(),
+            ImageField::new('illustration4')
+            ->setBasePath('uploads/')
+            ->setUploadDir('public/uploads')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->hideOnDetail(),
             
         ];
     }

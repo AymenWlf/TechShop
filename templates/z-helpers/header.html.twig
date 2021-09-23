@@ -20,7 +20,7 @@
               <span class="nav__category">TechShop</span>
               <a href="" class="close__toggle">
                 <svg>
-                  <use xlink:href="images/sprite.svg#icon-cross"></use>
+                  <use xlink:href="images/sprite.svg#icon-cross{{asset('')}} "></use>
                 </svg>
               </a>
             </div>
@@ -30,6 +30,9 @@
               </li>
               <li class="nav__item">
                 <a href=" {{path('product')}} " class="nav__link">Produits</a>
+              </li>
+              <li class="nav__item">
+                <a href=" {{path('wish_list')}} " class="nav__link">WishList</a>
               </li>
               <li class="nav__item">
                 <a href="#news" class="nav__link scroll-link">Blog</a>
@@ -42,21 +45,30 @@
 
           <div class="nav__icons">
           
-            <a href="{% if app.user %} {{path('app_logout')}} {% else %} {{path('app_login')}}{% endif %}" class="icon__item">
+          {% if app.user %}
+            <a href=" {{path('app_logout')}}" class="icon__item">
               <svg class="icon__user">
-                <use xlink:href="images/sprite.svg#icon-user"></use>
+                <use xlink:href="{{asset('images/sprite.svg#icon-arrow-right2')}} "></use>
               </svg>
             </a>
+          {% else %}
+            <a href=" {{path('app_login')}}" class="icon__item">
+              <svg class="icon__user">
+                <use xlink:href="{{asset('images/sprite.svg#icon-user')}} "></use>
+              </svg>
+            </a>
+          {% endif %}
+            
 
             <a href="#" class="icon__item">
               <svg class="icon__search">
-                <use xlink:href="images/sprite.svg#icon-search"></use>
+                <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
               </svg>
             </a>
 
             <a href="#" class="icon__item">
               <svg class="icon__cart">
-                <use xlink:href="images/sprite.svg#icon-shopping-basket"></use>
+                <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
               </svg>
               <span id="cart__total">0</span>
             </a>

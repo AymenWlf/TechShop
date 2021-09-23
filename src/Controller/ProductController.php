@@ -38,4 +38,14 @@ class ProductController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/product-show/{slug}', name: 'product_show')]
+    public function show($slug): Response
+    {
+        $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
+        // dd($product);
+        return $this->render('product/product_show.html.twig',[
+            'product' => $product
+        ]);
+    }
 }

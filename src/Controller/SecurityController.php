@@ -20,6 +20,10 @@ class SecurityController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        if ($error) {
+            $this->addFlash('notice','Il y a eu un prbleme lors de la connexion , Essayez à nouveau !');
+        }
+        
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 

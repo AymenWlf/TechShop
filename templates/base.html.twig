@@ -8,7 +8,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href=" {{asset('images/favicon.ico')}} " type="image/x-icon" />
 
   <!-- Carousel -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
@@ -20,9 +20,9 @@
 
   <title> {% block title %}{% endblock title %} </title>
 </head>
- {% for message in app.flashes('notice') %}
+    {% for message in app.flashes('notice') %}
         {% include "z-helpers/alert.html.twig" %}
-     {% endfor %}
+    {% endfor %}
 <body>
 
     <!-- Header -->
@@ -82,10 +82,10 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <!-- Custom JavaScript -->
-  <script src="js/products.js"></script>
-  <script src="js/index.js"></script>
-  <script src="js/slider.js"></script>
-  <script src="js/script.js"></script>
+  <script src=" {{asset('js/products.js')}}"></script>
+  <script src=" {{asset('js/index.js')}}"></script>
+  <script src=" {{asset('js/slider.js')}}"></script>
+  <script src="{{asset('js/script.js ')}}"></script>
   
 
 </body>

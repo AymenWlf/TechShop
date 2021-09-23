@@ -22,22 +22,28 @@ class WishListController extends AbstractController
     {
         $this->em = $em;
     }
-    #[Route('/wishlist', name: 'wish_list')]
+    #[Route('/account/wishlist', name: 'wish_list')]
     public function index(): Response
     {
         $user = $this->getUser();
+        if ($user) {
+            $wishList = $this->em->getRepository(WishList::class)->findByWish($user);
+        }else{
+            $this->addFlash('notice','Connecter vous pour accéder à votre WishList !');
+            return $this->redirectToRoute('app_login');
+        }
 
         
-        $wishList = $this->em->getRepository(WishList::class)->findByWish($user);
         // $wishProducts = $wishList->getProducts();
         // dd($wishProducts);
         // dd($wishProducts);
+        // dd($wishList);
         return $this->render('wish_list/index.html.twig',[
             'wishList' => $wishList
         ]);
     }
 
-    #[Route('/wishlist/add/{slug}', name: 'wish_list_add')]
+    #[Route('/account/wishlist/add/{slug}', name: 'wish_list_add')]
     public function add($slug,Session $session): Response
     {
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
@@ -45,7 +51,7 @@ class WishListController extends AbstractController
         $user = $this->getUser();
         // dd($user);
         if (!$user) {
-            return $this->redirect($_SERVER['HTTP_REFERER']);
+            $this->addFlash('notice','Connecter vous pour ajouter un produits à votre WishList !');
         }
         $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
         if (!$wishList) {
@@ -55,18 +61,31 @@ class WishListController extends AbstractController
             // dd($wishList);
 
         }
-        $wishList->addProduct($product);
-        // dd($wishList);
-        $this->em->persist($wishList);
-        $this->em->flush();
-        $this->addFlash('notice','Produit ajoutée à la wishList avec succes !');
+
+        $products = $this->getUser()->getWishList()->getProducts()->getValues();
+        $c = null;
+        foreach ($products as $wish_product) {
+            if ($product === $wish_product) {
+                $c = 1;
+            }
+        }
+        if ($c === 1) {
+            $this->addFlash('notice','Ce produit se trouve dejà dans votre wishList !');
+        }else{
+            $wishList->addProduct($product);
+            // dd($wishList);
+            $this->em->persist($wishList);
+            $this->em->flush();
+            $this->addFlash('notice','Produit ajoutée à la wishList avec succes !');
+        }
+        
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
        
 
     }
 
-    #[Route('/wishlist/remove/{slug}', name: 'wish_list_remove')]
+    #[Route('/account/wishlist/remove/{slug}', name: 'wish_list_remove')]
     public function remove($slug): Response
     {
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
@@ -75,11 +94,26 @@ class WishListController extends AbstractController
         $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
         // dd($user);
         if (!$user || !$wishList) {
+            $this->addFlash('notice',"Votre wishList es vide !");
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
-        $wishList->removeProduct($product);
-        $this->em->flush();
+        $products = $this->getUser()->getWishList()->getProducts()->getValues();
+        $c = null;
+        foreach ($products as $wish_product) {
+            if ($product === $wish_product) {
+                $c = 1;
+            }
+        }
+        if ($c === 1) {
+            $wishList->removeProduct($product);
+            $this->em->flush();
+            $this->addFlash('notice','Vous avez retiré ce produit de votre wishList avec succes !');
+        }else{
+            $this->addFlash('notice','Ce produit ne se trouve pas dans votre wishList !');
+        }
+
+       
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
        
