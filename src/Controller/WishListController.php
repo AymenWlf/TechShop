@@ -59,6 +59,27 @@ class WishListController extends AbstractController
         // dd($wishList);
         $this->em->persist($wishList);
         $this->em->flush();
+        $this->addFlash('notice','Produit ajoutée à la wishList avec succes !');
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
+       
+
+    }
+
+    #[Route('/wishlist/remove/{slug}', name: 'wish_list_remove')]
+    public function remove($slug): Response
+    {
+        $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
+        // dd($product);
+        $user = $this->getUser();
+        $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
+        // dd($user);
+        if (!$user || !$wishList) {
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        $wishList->removeProduct($product);
+        $this->em->flush();
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
        

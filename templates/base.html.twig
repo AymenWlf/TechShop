@@ -20,11 +20,15 @@
 
   <title> {% block title %}{% endblock title %} </title>
 </head>
-
+ {% for message in app.flashes('notice') %}
+        {% include "z-helpers/alert.html.twig" %}
+     {% endfor %}
 <body>
 
     <!-- Header -->
     {% include "z-helpers/header.html.twig" %}
+
+   
     <!-- End Header -->
 
     <!-- Carousel -->
@@ -68,6 +72,8 @@
     
     <!-- Go To -->
     <!-- End Go To -->
+
+
 
 
   <!-- Glide Carousel Script -->
