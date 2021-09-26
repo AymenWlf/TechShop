@@ -79,6 +79,12 @@ class Product
      */
     private $illustration4;
 
+    /**
+     * @ORM\OneToMany(targetEntity=VariationOption::class, mappedBy="product")
+     */
+    private $variationOptions;
+
+    
    
 
     public function __construct()
@@ -86,8 +92,14 @@ class Product
         $this->category = new ArrayCollection();
         $this->wishLists = new ArrayCollection();
         $this->illustrations = new ArrayCollection();
+        $this->variationOptions = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +183,7 @@ class Product
     public function getCategory(): Collection
     {
         return $this->category;
+
     }
 
     public function addCategory(Category $category): self
@@ -260,6 +273,36 @@ class Product
     public function setIllustration4(?string $illustration4): self
     {
         $this->illustration4 = $illustration4;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VariationOption[]
+     */
+    public function getVariationOptions(): Collection
+    {
+        return $this->variationOptions;
+    }
+
+    public function addVariationOption(VariationOption $variationOption): self
+    {
+        if (!$this->variationOptions->contains($variationOption)) {
+            $this->variationOptions[] = $variationOption;
+            $variationOption->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariationOption(VariationOption $variationOption): self
+    {
+        if ($this->variationOptions->removeElement($variationOption)) {
+            // set the owning side to null (unless already changed)
+            if ($variationOption->getProduct() === $this) {
+                $variationOption->setProduct(null);
+            }
+        }
 
         return $this;
     }

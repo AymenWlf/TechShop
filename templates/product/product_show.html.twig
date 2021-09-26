@@ -11,21 +11,11 @@
                     <div class="product-detail__left">
                         <div class="details__container--left">
                             <div class="product__pictures">
-                                <div class="pictures__container">
-                                    <img class="picture" src="{{asset('images/products/iPhone/iphone1.jpeg')}} " id="pic1" />
-                                </div>
-                                <div class="pictures__container">
-                                    <img class="picture" src="{{asset('images/products/iPhone/iphone2.jpeg')}} " id="pic2" />
-                                </div>
-                                <div class="pictures__container">
-                                    <img class="picture" src="{{asset('images/products/iPhone/iphone3.jpeg')}} " id="pic3" />
-                                </div>
-                                <div class="pictures__container">
-                                    <img class="picture" src="{{asset('images/products/iPhone/iphone4.jpeg')}} " id="pic4" />
-                                </div>
-                                <div class="pictures__container">
-                                    <img class="picture" src="{{asset('images/products/iPhone/iphone5.jpeg')}} " id="pic5" />
-                                </div>
+                                {% for illustration in illustrations %}
+                                    <div class="pictures__container">
+                                        <img class="picture" src="/uploads/{{illustration}}" id="/uploads/{{illustration}}" />
+                                    </div>
+                                {% endfor %}
                             </div>
                             <div class="product__picture" id="product__picture">
                                 <!-- <div class="rect" id="rect"></div> -->
@@ -86,19 +76,23 @@
                                 <ul class="product__info">
                                     <li class="select">
                                         <div class="select__option">
-                                            <label for="colors">Color</label>
+                                        
+                                            <label for="colors">Couleur</label>
                                             <select name="colors" id="colors" class="select-box">
-                                                <option value="blue">blue</option>
-                                                <option value="red">red</option>
+                                            {% for couleur in couleurs %}
+                                                <option value="blue">{{couleur}}</option>
+                                            {% endfor %}
                                             </select>
+                                        
+                                            
                                         </div>
-                                        <div class="select__option">
+                                        {# <div class="select__option">
                                             <label for="size">Inches</label>
                                             <select name="size" id="size" class="select-box">
                                                 <option value="6.65">6.65</option>
                                                 <option value="7.50">7.50</option>
                                             </select>
-                                        </div>
+                                        </div> #}
                                     </li>
                                     <li>
 
@@ -125,17 +119,19 @@
                                         <a href="#" class="new__price">{{(product.price / 100)|number_format(2,',','.')}} DH</a>
                                     </li>
                                     <li>
-                                        <span>Brand:</span>
-                                        <a href="#">Apple</a>
+                                        <span>Marque:</span>
+                                        <a href="#">{{marque}}</a>
                                     </li>
                                     <li>
-                                        <span>Product Type:</span>
-                                        <a href="#">Phone</a>
+                                        <span>Categorie:</span>
+                                        {% for category in product.category %}
+                                            <a href="#">{{category.name}}</a>  
+                                        {% endfor %}
                                     </li>
-                                    <li>
+                                    {# <li>
                                         <span>Availability:</span>
-                                        <a href="#" class="in-stock">In Stock (7 Items)</a>
-                                    </li>
+                                        <a href="#" class="in-stock">En Stock ({{product.qtestock}} pièce)</a>
+                                    </li> #}
                                 </ul>
                                 <div class="product-info__btn">
                                     <a href="#">

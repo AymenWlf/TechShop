@@ -143,32 +143,35 @@ const pic = document.getElementById("pic");
 const picList = [pic1, pic2, pic3, pic4, pic5];
 
 // Active Picture
-let picActive = 1;
+// let picActive = 1;
 
-["mouseover", "touchstart"].forEach(event => {
-    if (picContainer) {
-        picContainer.addEventListener(event, e => {
-            const target = e.target.closest("img");
-            if (!target) return;
-            const id = target.id.slice(3);
-            changeImage(`{{asset('images/products/iPhone/iphone${id}.jpeg')}}`, id);
-        });
-    }
-});
+// ["mouseover", "touchstart"].forEach(event => {
+//     if (picContainer) {
+//         picContainer.addEventListener(event, e => {
+//             const target = e.target.closest("img");
+//             if (!target) return;
+//             const id = target.id.slice(3);
+//             const src = target.src;
+//             // console.log(src);
+//             // // changeImage(`{{asset('images/products/iPhone/iphone${id}.jpeg')}}`, id);
+//             // changeImage(`${src}`, src);
+//         });
+//     }
+// });
 
-// change active image
-const changeImage = (imgSrc, n) => {
-    // change the main image
-    pic.src = imgSrc;
-    // change the background-image
-    zoom.style.backgroundImage = `url(${imgSrc})`;
-    //   remove the border from the previous active side image
-    picList[picActive - 1].classList.remove("img-active");
-    // add to the active image
-    picList[n - 1].classList.add("img-active");
-    //   update the active side picture
-    picActive = n;
-};
+// // change active image
+// const changeImage = (imgSrc, n) => {
+//     // change the main image
+//     pic.src = imgSrc;
+//     // change the background-image
+//     zoom.style.backgroundImage = `url(${imgSrc})`;
+//     //   remove the border from the previous active side image
+//     picList[picActive - 1].classList.remove("img-active");
+//     // add to the active image
+//     picList[n - 1].classList.add("img-active");
+//     //   update the active side picture
+//     picActive = n;
+// };
 
 /*
 =============

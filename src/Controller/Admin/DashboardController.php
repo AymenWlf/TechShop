@@ -7,6 +7,8 @@ use App\Entity\Header;
 use App\Entity\Product;
 use App\Entity\Temoignage;
 use App\Entity\User;
+use App\Entity\Variation;
+use App\Entity\VariationOption;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -37,6 +39,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categories', 'fa fa-clipboard-list',Category::class);
         yield MenuItem::linkToCrud('Products', 'fa fa-tag',Product::class);
         yield MenuItem::linkToCrud('Temoignages', 'fa fa-user-tie',Temoignage::class);
+        yield MenuItem::linkToCrud('Variations', 'fa fa-palette',Variation::class);
+        yield MenuItem::linkToCrud('Variations-options', 'fa fa-swatchbook',VariationOption::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
