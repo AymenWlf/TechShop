@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\TextEditorType;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -33,12 +35,10 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name','Nom du Produit'),
             SlugField::new('slug','Slug')->setTargetFieldName('name')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
             AssociationField::new('category','Categorie'),
-            TextareaField::new('description','Description')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
+            TextEditorField::new('description','Description')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
             BooleanField::new('isBest'),
             TextField::new('subtitle','Sous-Titre')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
             MoneyField::new('price')->setCurrency('MAD'),
-            IntegerField::new('qte_stock','Quantité en stock'),
-            TextField::new('marque','Marque')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
             ImageField::new('illustration2')
             ->setBasePath('uploads/')
             ->setUploadDir('public/uploads')

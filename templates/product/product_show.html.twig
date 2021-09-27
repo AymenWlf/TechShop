@@ -67,7 +67,7 @@
                     <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
                   </svg>
                                 </div>
-                                <a href="#" class="rating__quatity">3 reviews</a>
+                                <a href="#" class="rating__quatity">{{allReviews|length}} Avis</a>
                             </div>
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt a doloribus iste natus et facere? dolor sit amet consectetur adipisicing elit. Sunt a doloribus iste natus et facere?
@@ -174,7 +174,7 @@
                         <div class="section__titles">
                             <div class="section__title detail-btn" data-id="reviews">
                                 <span class="dot"></span>
-                                <h1 class="primary__title">Reviews</h1>
+                                <h1 class="primary__title">Avis</h1>
                             </div>
                         </div>
 
@@ -190,8 +190,8 @@
                         <div class="content active" id="description">
                             <p>{{product.description}} </p>
                         </div>
-                        <div class="content" id="reviews">
-                            <h1>Customer Reviews</h1>
+                        <div class="content" id="reviews" style="width: 100%;">
+                            {# <h1>Customer Reviews</h1>
                             <div class="rating">
                                 <svg>
                   <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
@@ -208,7 +208,10 @@
                                 <svg>
                   <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
                 </svg>
-                            </div>
+                            </div> #}
+                            {% include "z-helpers/reviewForm.html.twig" %}
+
+                           
                         </div>
                         <div class="content" id="shipping">
                             <h3>Returns Policy</h3>
@@ -232,4 +235,6 @@
                     </div>
                 </div>
             </section>
+
+             
 {% endblock content %}

@@ -1,0 +1,163 @@
+
+<style>
+
+.review-sty .container{}
+.review-sty .title{
+    font-size: -webkit-xxx-large;
+    margin-bottom: 4rem;
+    text-align: center;
+    
+}
+.review-sty .contenue{
+    height: 100%;
+    width: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+.review-sty .review-form{
+    height: 100%;
+    width: 100%;
+}
+.review-sty h3{
+    font-weight: 500;
+    font-size: x-large;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    /* font-family: 'Archivo'; */
+}
+.review-sty .input-box{
+    margin: 6px;
+}
+.review-sty input:focus,
+.review-sty input:valid{
+    border-color: green;
+}
+.review-sty .title-widg{
+    height: 4rem;
+    width: 50%;
+    padding: 1rem;
+}
+.review-sty .desc-widg{
+    height: 10rem;
+    width: 70%;
+    padding: 1rem;
+}
+
+.review-sty .input-box div{
+    height: 5rem;
+}
+.review-sty .submit-widg {
+    height: 90%;
+    /* width: 100%; */
+    border-radius: 5px;
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.review-sty .submit-widg:hover{
+    background-color: #EB0028;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+/* Affichage des reviews */
+
+.review-card{
+}
+.review-title-rat{
+}
+.review-title{
+}
+.review-rat{}
+.review-desc{
+}
+.review-user{}
+
+/* Fin Affichage Reviews*/
+
+@media screen and (max-width:570px) {
+    .review-sty .container{
+        text-align: center;
+    }
+    .review-sty .title-widg{
+    height: 4rem;
+    width: 80%;
+    padding: 1rem;
+    }
+    .review-sty .desc-widg{
+        height: 8rem;
+        width: 100%;
+        padding: 1rem;
+    }
+    .review-sty .submit-widg {
+    height: 71%;
+    width: 47%;
+    /* border-radius: 5px; */
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid black;
+}
+}
+@media screen and (max-width:421px) {
+    .review-sty h3{
+        font-size: 2rem;
+    }
+    .review-sty .title{
+        font-size: 3rem;
+    }
+}
+</style>
+
+<div class="review-sty">
+    <div class="container">
+        {# <div class="title">Avis</div> #}
+        <div class="rating"></div>
+        <div class="contenue">
+            <div class="review-form">
+                <h3>Ajouter un avis :</h3>
+                {{form_start(form)}}
+                    <div class="input-box">
+                        {{form_widget(form.title, {'attr' : {'class' : 'title-widg' , 'placeholder' : 'Titre du commentaire'} }  ) }}
+                    </div>
+                    <div class="input-box">
+                        {{form_widget(form.description, {'attr' : {'class' : 'desc-widg' , 'placeholder' : 'Ecrivez ici votre commentaire...'} }  ) }}
+                    </div>
+                    <div class="input-box">
+                        {{form_row(form.submit, {'label' : 'Ajouter', 'attr' : {'class' : 'submit-widg'} }  ) }}
+                    </div>
+                {{form_end(form)}}
+            </div>
+            <div class="reviews">
+            
+            </div>
+        </div>
+    </div>
+
+    <h3>Avis</h3>
+{# <div class="review-container">
+    <div class="review-card">
+        <div class="review-title-rat">
+            <div class="review-title">Title</div>
+            <div class="review-rat">5</div>
+        </div>
+        <div class="review-desc"><p>hhhhhhhhhhhhhhhhhhhhhhhhhh</p></div>
+        <div class="review-user">par Aymen , le 24/7/2021</div>
+    </div>
+</div> #}
+    
+</div>

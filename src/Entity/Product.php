@@ -84,6 +84,11 @@ class Product
      */
     private $variationOptions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="product")
+     */
+    private $reviews;
+
     
    
 
@@ -93,6 +98,7 @@ class Product
         $this->wishLists = new ArrayCollection();
         $this->illustrations = new ArrayCollection();
         $this->variationOptions = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function __toString()
@@ -301,6 +307,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($variationOption->getProduct() === $this) {
                 $variationOption->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getProduct() === $this) {
+                $review->setProduct(null);
             }
         }
 

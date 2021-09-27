@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Header;
 use App\Entity\Product;
+use App\Entity\Review;
 use App\Entity\Temoignage;
 use App\Entity\User;
 use App\Entity\Variation;
@@ -41,6 +42,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Temoignages', 'fa fa-user-tie',Temoignage::class);
         yield MenuItem::linkToCrud('Variations', 'fa fa-palette',Variation::class);
         yield MenuItem::linkToCrud('Variations-options', 'fa fa-swatchbook',VariationOption::class);
+        yield MenuItem::linkToCrud('Reviews', 'fa fa-star',Review::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
