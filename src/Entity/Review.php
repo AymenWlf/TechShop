@@ -39,10 +39,12 @@ class Review
     private $description;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="string", length=255)
      */
-    private $createdAt;
+    private $CreatedAt;
 
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -96,15 +98,17 @@ class Review
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?string
     {
-        return $this->createdAt;
+        return $this->CreatedAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(string $CreatedAt): self
     {
-        $this->createdAt = $createdAt;
+        $this->CreatedAt = $CreatedAt;
 
         return $this;
     }
+
+
 }

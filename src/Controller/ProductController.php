@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Class\Search;
-use App\Entity\Product;
 use App\Entity\Review;
-use App\Entity\VariationOption;
+use DateTimeImmutable;
+use App\Entity\Product;
 use App\Form\ReviewType;
 use App\Form\SearchType;
-use DateTimeImmutable;
+use App\Entity\VariationOption;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProductController extends AbstractController
 {
@@ -46,8 +48,9 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product-show/{slug}', name: 'product_show')]
-    public function show($slug,Request $request): Response
+    public function show($slug,Request $request,Session $session): Response
     {   
+        dd($session);
         //Declaration
         $c = 0;
         $illustrations = [];
@@ -77,11 +80,11 @@ class ProductController extends AbstractController
                     $this->addFlash('notice','Vous avez ajouté trop de commentaire pour ce produit !');
                 }else{
                     //Remplissage de review et flush()
-                    $date = new DateTimeImmutable();
+                    $date = new DateTime();
                     $review = $form->getData();
                     $review->setUser($user);
                     $review->setProduct($product);
-                    $review->setCreatedAt($date);
+                    $review->setCreatedAt($date->format('d/m/Y'));
                     $this->em->persist($review);
                     $this->em->flush();
                     $this->addFlash('notice','Commentaire ajouté avec succes !');
@@ -95,36 +98,25 @@ class ProductController extends AbstractController
         //Recuperation variation du produit
         $productID = $product->getId();
         $variations = $this->em->getRepository(VariationOption::class)->findBy(['product' => $productID]);
-
-        //Remplir marque et couleur
+        
+        //Remplir marque et couleur et illustrations
         foreach ($variations as $var) {
+            
             $varition_name = $var->getVariation()->getName();
             if ($varition_name == 'Couleur') {
                 $couleurs[] = $var->getName();
+                $illustrations[] = $var->getIllustration();
             }elseif ($varition_name == 'Marque'){
                 $marque = $var->getName();
             }
         }
         
-        //recuperer Illustrations
-        $illustration2 = $product->getIllustration2();
-        $illustration3 = $product->getIllustration3();
-        $illustration4 = $product->getIllustration4();
-        
-        //remplir tableau d illustrations
-        if ($illustration2) {
-            $illustrations[] = $illustration2;
-        }
-        if ($illustration3) {
-            $illustrations[] = $illustration3;
-        }
-        if ($illustration4) {
-            $illustrations[] = $illustration4;
-        }
+       
 
 
         //Variables Extra affichage
         $allReviews = $this->em->getRepository(Review::class)->findBy(['product' => $product]);
+       
         return $this->render('product/product_show.html.twig',[
             'product' => $product,
             'illustrations' => $illustrations,

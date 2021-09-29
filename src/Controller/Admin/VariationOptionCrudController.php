@@ -6,6 +6,7 @@ use App\Entity\VariationOption;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -27,6 +28,10 @@ class VariationOptionCrudController extends AbstractCrudController
             AssociationField::new('variation','Variation'),
             TextField::new('name','Variable'),
             TextField::new('var_code','code'),
+            ImageField::new('illustration')
+            ->setBasePath('uploads/')
+            ->setUploadDir('public/uploads')
+            ->setUploadedFileNamePattern('[randomhash].[extension]'),
             IntegerField::new('stock','Stock'),
         ];
     }

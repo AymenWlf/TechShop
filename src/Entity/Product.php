@@ -64,20 +64,6 @@ class Product
      */
     private $wishLists;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $illustration2;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $illustration3;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $illustration4;
 
     /**
      * @ORM\OneToMany(targetEntity=VariationOption::class, mappedBy="product")
@@ -247,41 +233,6 @@ class Product
         return $this;
     }
 
-    public function getIllustration2(): ?string
-    {
-        return $this->illustration2;
-    }
-
-    public function setIllustration2(?string $illustration2): self
-    {
-        $this->illustration2 = $illustration2;
-
-        return $this;
-    }
-
-    public function getIllustration3(): ?string
-    {
-        return $this->illustration3;
-    }
-
-    public function setIllustration3(?string $illustration3): self
-    {
-        $this->illustration3 = $illustration3;
-
-        return $this;
-    }
-
-    public function getIllustration4(): ?string
-    {
-        return $this->illustration4;
-    }
-
-    public function setIllustration4(?string $illustration4): self
-    {
-        $this->illustration4 = $illustration4;
-
-        return $this;
-    }
 
     /**
      * @return Collection|VariationOption[]

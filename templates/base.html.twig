@@ -16,7 +16,9 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
   <!-- Custom StyleSheet -->
-  <link rel="stylesheet" href="{{asset('styles.css')}}" />
+  <link rel="stylesheet" href="{{asset("styles.css?t=<? echo time(); ?>")}}" />
+  
+  {# <link type="text/css" rel="stylesheet" href="styles.css?t=<? echo time(); ?>" media="all">         #}
 
   <title> {% block title %}{% endblock title %} </title>
 </head>
@@ -82,10 +84,10 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <!-- Custom JavaScript -->
-   <script src=" {{asset('js/products.js')}}"></script>
-  <script src=" {{asset('js/index.js')}}"></script>
-  <script src=" {{asset('js/slider.js')}}"></script>
-  <script src="{{asset('js/script.js ')}}"></script>
+ <script src=" {{asset('js/products.js?t= <? echo time(); ?>')}}"></script>
+  <script src=" {{asset('js/index.js?t= <? echo time(); ?>')}}"></script>
+  <script src=" {{asset('js/slider.js?t= <? echo time(); ?>')}}"></script>
+  <script src="{{asset('js/script.js?t= <? echo time(); ?>')}}"></script>
   
 
 </body>

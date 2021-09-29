@@ -130,19 +130,19 @@ if (categoryContainer) {
 Product Details Left
 =============
  */
-const pic1 = document.getElementById("pic1");
-const pic2 = document.getElementById("pic2");
-const pic3 = document.getElementById("pic3");
-const pic4 = document.getElementById("pic4");
-const pic5 = document.getElementById("pic5");
-const picContainer = document.querySelector(".product__pictures");
-const zoom = document.getElementById("zoom");
-const pic = document.getElementById("pic");
+// const pic1 = document.getElementById("pic1");
+// const pic2 = document.getElementById("pic2");
+// const pic3 = document.getElementById("pic3");
+// const pic4 = document.getElementById("pic4");
+// const pic5 = document.getElementById("pic5");
+// const picContainer = document.querySelector(".product__pictures");
+// const zoom = document.getElementById("zoom");
+// const pic = document.getElementById("pic");
 
-// Picture List
-const picList = [pic1, pic2, pic3, pic4, pic5];
+// // Picture List
+// const picList = [pic1, pic2, pic3, pic4, pic5];
 
-// Active Picture
+// // Active Picture
 // let picActive = 1;
 
 // ["mouseover", "touchstart"].forEach(event => {
@@ -151,10 +151,7 @@ const picList = [pic1, pic2, pic3, pic4, pic5];
 //             const target = e.target.closest("img");
 //             if (!target) return;
 //             const id = target.id.slice(3);
-//             const src = target.src;
-//             // console.log(src);
-//             // // changeImage(`{{asset('images/products/iPhone/iphone${id}.jpeg')}}`, id);
-//             // changeImage(`${src}`, src);
+//             changeImage(`{{asset('images/products/iPhone/iphone${id}.jpeg')}}`, id);
 //         });
 //     }
 // });
@@ -164,7 +161,7 @@ const picList = [pic1, pic2, pic3, pic4, pic5];
 //     // change the main image
 //     pic.src = imgSrc;
 //     // change the background-image
-//     zoom.style.backgroundImage = `url(${imgSrc})`;
+//     zoom.style.backgroundImage = `url(${id})`;
 //     //   remove the border from the previous active side image
 //     picList[picActive - 1].classList.remove("img-active");
 //     // add to the active image
@@ -172,6 +169,7 @@ const picList = [pic1, pic2, pic3, pic4, pic5];
 //     //   update the active side picture
 //     picActive = n;
 // };
+
 
 /*
 =============
@@ -204,3 +202,93 @@ if (detail) {
         }
     });
 }
+
+/*
+=============
+Counter btns
+=============
+ */
+
+//Mettre une valeur par defaut 
+document.querySelector('.minus-btn').setAttribute("disabled", "disabled");
+document.querySelector('.minus-svg').classList.add("disabled-btn");
+
+
+//declarer variable count
+var valueCount = 0;
+var new_price = document.getElementById('new__price').innerText;
+
+function calculPrice() {
+    document.getElementById("new__price").innerText = new_price * valueCount;
+}
+
+//plus btn
+document.querySelector('.plus-btn').addEventListener("click", function() {
+
+    //valeur de l input
+    valueCount = document.getElementById('counter-btn').innerText;
+
+    if (valueCount > 1) {
+        //enlever la valeur par defaut
+        document.querySelector('.minus-btn').removeAttribute("disabled");
+        document.querySelector('.minus-svg').classList.remove("disabled-btn");
+    }
+    if (valueCount < 10) {
+        //incrementer
+        valueCount++;
+
+        if (valueCount > 1) {
+            //enlever la valeur par defaut
+            document.querySelector('.minus-btn').removeAttribute("disabled");
+            document.querySelector('.minus-svg').classList.remove("disabled-btn");
+        }
+
+        //afficher sur input
+        document.getElementById('counter-btn').innerText = valueCount;
+    } else {
+        //ajouter disabled
+        document.querySelector('.plus-btn').setAttribute("disabled", "disabled");
+        document.querySelector('.plus-svg').classList.add("disabled-btn");
+    }
+
+    calculPrice();
+});
+
+document.querySelector('.minus-btn').addEventListener("click", function() {
+
+    //valeur de l input
+    valueCount = document.getElementById('counter-btn').innerText;
+
+    if (valueCount < 10) {
+        //enlever la valeur par defaut
+        document.querySelector('.plus-btn').removeAttribute("disabled");
+        document.querySelector('.plus-svg').classList.remove("disabled-btn");
+    }
+
+    if (valueCount > 1) {
+        //incrementer
+        valueCount--;
+
+
+        if (valueCount < 10) {
+            //enlever la valeur par defaut
+            document.querySelector('.plus-btn').removeAttribute("disabled");
+            document.querySelector('.plus-svg').classList.remove("disabled-btn");
+        }
+
+        //afficher sur input
+        document.getElementById('counter-btn').innerText = valueCount;
+
+        //Enlever disabled
+        document.querySelector('.minus-btn').removeAttribute("disabled");
+        document.querySelector('.minus-svg').classList.remove("disabled-btn");
+    } else {
+        //Ajouter disabled
+        document.querySelector('.minus-btn').setAttribute("disabled", "disabled");
+        document.querySelector('.minus-svg').classList.add("disabled-btn");
+    }
+
+    calculPrice();
+
+
+});

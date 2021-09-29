@@ -43,6 +43,11 @@ class VariationOption
      */
     private $stock;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $illustration;
+
     
 
     public function getId(): ?int
@@ -106,6 +111,18 @@ class VariationOption
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getIllustration(): ?string
+    {
+        return $this->illustration;
+    }
+
+    public function setIllustration(?string $illustration): self
+    {
+        $this->illustration = $illustration;
 
         return $this;
     }
