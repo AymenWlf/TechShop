@@ -10,6 +10,7 @@ use App\Entity\Product;
 use App\Form\ReviewType;
 use App\Form\SearchType;
 use App\Entity\VariationOption;
+use App\Form\CartType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,9 +49,9 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product-show/{slug}', name: 'product_show')]
-    public function show($slug,Request $request,Session $session): Response
+    public function show($slug,Request $request): Response
     {   
-        dd($session);
+
         //Declaration
         $c = 0;
         $illustrations = [];
@@ -110,8 +111,14 @@ class ProductController extends AbstractController
                 $marque = $var->getName();
             }
         }
+
+        $formVar = $this->createForm(CartType::class,null,[
+            'couleurs' => $couleurs
+        ]);
         
-       
+       if (isset($_POST['submit'])) {
+           dd($_POST);
+       }
 
 
         //Variables Extra affichage
@@ -123,7 +130,8 @@ class ProductController extends AbstractController
             'couleurs' => $couleurs,
             'marque' => $marque,
             'form' => $form->createView(),
-            'allReviews' => $allReviews
+            'allReviews' => $allReviews,
+            'formVar' => $formVar->createView()
         ]);
     }
 }

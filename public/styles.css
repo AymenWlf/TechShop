@@ -1815,9 +1815,31 @@ Product Details
 }
 
 .product-details__btn {
-    /* display: flex; */
-    /* justify-content: center; */
+    /* display: flex;
+    justify-content: center; */
     margin-top: 2rem;
+}
+
+.product-details__btn .btn {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.product-details__btn .btn:hover {
+    background-color: #EB0028;
+    color: #fff;
+    border: 1px solid #fff;
 }
 
 .product-details__btn a {
@@ -1921,7 +1943,7 @@ Product Details
     outline: none;
 }
 
-.select__option label {
+.select__option .label {
     font-size: 1.4rem;
     color: var(--black3);
     display: inline-block;

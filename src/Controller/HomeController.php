@@ -25,6 +25,9 @@ class HomeController extends AbstractController
         $categories = $this->em->getRepository(Category::class)->findAll();
         $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
         $temoignages = $this->em->getRepository(Temoignage::class)->findAll();
+        if (isset($_POST['submit'])) {
+            dd($_POST);
+        }
 
         // dd($best_products);
         // dd($categories);

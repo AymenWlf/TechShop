@@ -225,8 +225,8 @@ function calculPrice() {
 //plus btn
 document.querySelector('.plus-btn').addEventListener("click", function() {
 
-    //valeur de l input
-    valueCount = document.getElementById('counter-btn').innerText;
+    //valeur de l 
+    valueCount = document.getElementById('counter-btn').value;
 
     if (valueCount > 1) {
         //enlever la valeur par defaut
@@ -244,7 +244,7 @@ document.querySelector('.plus-btn').addEventListener("click", function() {
         }
 
         //afficher sur input
-        document.getElementById('counter-btn').innerText = valueCount;
+        document.getElementById('counter-btn').value = valueCount;
     } else {
         //ajouter disabled
         document.querySelector('.plus-btn').setAttribute("disabled", "disabled");
@@ -257,7 +257,7 @@ document.querySelector('.plus-btn').addEventListener("click", function() {
 document.querySelector('.minus-btn').addEventListener("click", function() {
 
     //valeur de l input
-    valueCount = document.getElementById('counter-btn').innerText;
+    valueCount = document.getElementById('counter-btn').value;
 
     if (valueCount < 10) {
         //enlever la valeur par defaut
@@ -277,7 +277,7 @@ document.querySelector('.minus-btn').addEventListener("click", function() {
         }
 
         //afficher sur input
-        document.getElementById('counter-btn').innerText = valueCount;
+        document.getElementById('counter-btn').value = valueCount;
 
         //Enlever disabled
         document.querySelector('.minus-btn').removeAttribute("disabled");
