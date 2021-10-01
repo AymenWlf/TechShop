@@ -2388,6 +2388,79 @@ Cart Area
     border: 1px solid var(--black);
 }
 
+.cart__area .t3,
+.cart__area .t5 {
+    display: none;
+}
+
+
+/*Perso*/
+
+.cart__area .product__price .price {
+    width: 50%;
+    text-align: center;
+}
+
+.cart__area .cart__form {
+    padding: 2rem;
+}
+
+@media screen and (max-width: 650px) {
+    .cart__area .cart__totals {
+        width: 45rem;
+    }
+}
+
+@media screen and (max-width: 542px) {
+    .cart__area .product__thumbnail img {
+        width: 8rem;
+    }
+}
+
+@media screen and (max-width: 484px) {
+    .cart__area .cart__totals {
+        width: 35rem;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .cart__area .product__thumbnail img {
+        width: 6rem;
+    }
+    .cart__area a:link {
+        font-size: 1.1rem;
+    }
+    .cart__area .cart__form {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 385px) {
+    .cart__area .product__thumbnail img {
+        width: 5rem;
+    }
+    .cart__area a:link {
+        font-size: 1rem;
+    }
+    .cart__area .cart__form {
+        padding: 0;
+    }
+    .cart__area .cart__totals {
+        width: 27rem;
+        padding: 4rem 2rem;
+    }
+    .cart__area .input-counter .minus-btn,
+    .cart__area .input-counter .plus-btn {
+        display: none;
+    }
+    .cart__area .new__price {
+        font-size: 1.5rem;
+    }
+    .cart__area .continue__shopping a:link {
+        padding: 1.2rem 1rem;
+    }
+}
+
 
 /*
 ======================

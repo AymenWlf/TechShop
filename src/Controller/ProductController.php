@@ -115,9 +115,19 @@ class ProductController extends AbstractController
         $formVar = $this->createForm(CartType::class,null,[
             'couleurs' => $couleurs
         ]);
+
+        $productId = $product->getId();
         
        if (isset($_POST['submit'])) {
-           dd($_POST);
+            // $url = $this->generateUrl('add_cart',['id' => $productId]);
+            $color = $_POST['colors'];
+            $quantity = $_POST['quantity'];
+            return $this->redirectToRoute('add_cart',[
+                'id'=> $productID,
+                'color' => $color,
+                'quantity' => $quantity
+            ]);
+           
        }
 
 
@@ -135,3 +145,4 @@ class ProductController extends AbstractController
         ]);
     }
 }
+ 

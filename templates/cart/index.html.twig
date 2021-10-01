@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TechShop - Mon panier{% endblock title %}
+{% block content %}
+    <section class="section cart__area">
+            <div class="container">
+                <div class="responsive__cart-area">
+                    <form class="cart__form">
+                        <div class="cart__table table-responsive">
+                            <table width="100%" class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="t1"></th>
+                                        <th class="t2"></th>
+                                        <th class="t3"></th>
+                                        <th class="t4"></th>
+                                        <th class="t5"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product__thumbnail">
+                                            <a href="#">
+                                                <img src="./images/products/iPhone/iphone6.jpeg" alt="">
+                                            </a>
+                                        </td>
+                                        <td class="product__name">
+                                            <a href="#">Apple iPhone 11</a>
+                                            <br>
+                                            <small>White/6.25</small>
+                                            <br><br>
+                                             <div class="price">
+                                                <span class="new__price">$250.99</span>
+                                            </div>
+                                        </td>
+                                        <td class="product__quantity">
+                                            <div class="input-counter">
+                                                <div>
+                                                    <span class="minus-btn">
+                                                        <svg>
+                                                            <use xlink:href="./images/sprite.svg#icon-minus"></use>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text" min="1" value="1" max="10" class="counter-btn">
+                                                    <span class="plus-btn">
+                                                        <svg>
+                                                            <use xlink:href="./images/sprite.svg#icon-plus"></use>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="product__subtotal">
+                                            <a href="#" class="remove__cart-item">
+                                                <svg>
+                                                    <use xlink:href="./images/sprite.svg#icon-trash"></use>
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="cart-btns">
+                            <div class="continue__shopping">
+                                <a href="/">Continue Shopping</a>
+                            </div>
+                            <div class="check__shipping">
+                                <input type="checkbox">
+                                <span>Shipping(+7$)</span>
+                            </div>
+                        </div>
+
+                        
+                    </form>
+                    <div class="right">
+                        <div class="cart__totals">
+                            <h3>Cart Totals</h3>
+                            <ul>
+                                <li>
+                                    Subtotal
+                                    <span class="new__price">$250.99</span>
+                                </li>
+                                <li>
+                                    Shipping
+                                    <span>$0</span>
+                                </li>
+                                <li>
+                                    Total
+                                    <span class="new__price">$250.99</span>
+                                </li>
+                            </ul>
+                            <a href="">PROCEED TO CHECKOUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock content %}
+
+{% block services %}{% endblock services %}
+{% block footer %}{% endblock footer %}
+
+
