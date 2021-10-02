@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Class\Search;
+use App\Entity\CartItem;
 use App\Entity\Review;
 use DateTimeImmutable;
 use App\Entity\Product;
@@ -116,17 +117,27 @@ class ProductController extends AbstractController
             'couleurs' => $couleurs
         ]);
 
-        $productId = $product->getId();
         
        if (isset($_POST['submit'])) {
             // $url = $this->generateUrl('add_cart',['id' => $productId]);
             $color = $_POST['colors'];
             $quantity = $_POST['quantity'];
-            return $this->redirectToRoute('add_cart',[
-                'id'=> $productID,
-                'color' => $color,
-                'quantity' => $quantity
-            ]);
+
+            $cartItem = new CartItem();
+            if (!$this->getUser()) {
+                return $this->redirectToRoute('app_login');
+            }else{
+                $cartItem->setUser($this->getUser());
+                $cartItem->setProduct($product);
+                $cartItem->setQuantity($quantity);
+                $cartItemColor = $this->em->getRepository(VariationOption::class)->findOneBy(['name' => $color]);
+                $cartItem->addVariation($cartItemColor);
+                $this->em->persist($cartItem);
+                $this->em->flush();
+    
+            }
+           
+            return $this->redirectToRoute('cart');
            
        }
 

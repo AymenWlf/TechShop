@@ -28,6 +28,7 @@ class Cart {
 
     }   
 
+
     public function get()
     {
         return $this->session->get('cart');
@@ -41,11 +42,10 @@ class Cart {
 
         return $this->session->set('cart',$cart);
     }
-
+    
     public function getFull()
     {
         $cartComplete = [];
-
         if ($this->get() == null) {
             return null;
         }else{
@@ -56,10 +56,12 @@ class Cart {
                     continue;
                 }
 
+
                 $cartComplete[] = [
                     'product' => $cartProduct,
                     'quantity' => $quantity
                 ];
+                
             }
         }
 

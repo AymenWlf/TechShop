@@ -1,105 +1,162 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}TechShop - Mon panier{% endblock title %} {% block content %}
+<style>
+    .btn-modif {
+        border: 1px solid black;
+        padding: 1rem;
+        color: black;
+        transition: all 0.5s;
+        cursor: pointer;
+        float: right;
+        margin-left: auto;
+    }
+    
+    .btn-modif:hover {
+        color: white;
+        background-color: red;
+        border-color: white;
+    }
+    
+    .header-cart {
+        display: flex;
+        justify-content: normal;
+        align-items: center;
+    }
+    
+    .header-cart h1 {
+        margin-right: 2rem;
+    }
+</style>
+<section class="section cart__area">
+    <div class="container">
+        <div class="responsive__cart-area">
+            <form class="cart__form">
+                <div class="cart__table table-responsive">
+                    <div class="header-cart">
+                        <p>
+                            <h1>Mon Panier : </h1> {{cart|length}} elements</p>
+                        <a class="btn-modif" id="btn-modif">
+                            <span id="btn-modif-span">
+                                            Modifier
+                            </span>
+                        </a>
+                    </div>
 
-{% block title %}TechShop - Mon panier{% endblock title %}
-{% block content %}
-    <section class="section cart__area">
-            <div class="container">
-                <div class="responsive__cart-area">
-                    <form class="cart__form">
-                        <div class="cart__table table-responsive">
-                            <table width="100%" class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="t1"></th>
-                                        <th class="t2"></th>
-                                        <th class="t3"></th>
-                                        <th class="t4"></th>
-                                        <th class="t5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product__thumbnail">
-                                            <a href="#">
-                                                <img src="./images/products/iPhone/iphone6.jpeg" alt="">
-                                            </a>
-                                        </td>
-                                        <td class="product__name">
-                                            <a href="#">Apple iPhone 11</a>
-                                            <br>
-                                            <small>White/6.25</small>
-                                            <br><br>
-                                             <div class="price">
-                                                <span class="new__price">$250.99</span>
-                                            </div>
-                                        </td>
-                                        <td class="product__quantity">
-                                            <div class="input-counter">
-                                                <div>
-                                                    <span class="minus-btn">
-                                                        <svg>
-                                                            <use xlink:href="./images/sprite.svg#icon-minus"></use>
-                                                        </svg>
-                                                    </span>
-                                                    <input type="text" min="1" value="1" max="10" class="counter-btn">
-                                                    <span class="plus-btn">
-                                                        <svg>
-                                                            <use xlink:href="./images/sprite.svg#icon-plus"></use>
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="product__subtotal">
-                                            <a href="#" class="remove__cart-item">
-                                                <svg>
-                                                    <use xlink:href="./images/sprite.svg#icon-trash"></use>
+
+                    <table width="100%" class="table">
+                        <thead>
+                            <tr>
+                                <th class="t1"></th>
+                                <th class="t2"></th>
+                                <th class="t3"></th>
+                                <th class="t4"></th>
+                                <th class="t5"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for product in cart %}
+                            <tr>
+                                <td class="product__thumbnail">
+                                    <a href="#">
+                                        <img src="uploads/{{product.product.illustration}}" alt="">
+                                    </a>
+                                </td>
+                                <td class="product__name">
+                                    <a href="#">{{product.product.name}} </a>
+                                    <br>
+                                    <small>{{product.variation}}</small>
+                                    <br><br>
+                                    <div class="price">
+                                        <span class="new__price">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH</span>
+                                    </div>
+                                </td>
+                                <td class="product__quantity">
+                                    <div class="input-counter">
+                                        <div>
+
+                                            <input type="number" min="1" value="{{product.quantity}}" max="10" class="counter-btn" id="counter-btn" name="quantity" disabled> {# <span class="counter-btn" id="counter-btn">1</span> #}
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="product__subtotal">
+                                    <a href="{{path('delete_cart',{'id': product.id}  )}} " class="remove__cart-item">
+                                        <svg>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
                                                 </svg>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </a>
 
-                        <div class="cart-btns">
-                            <div class="continue__shopping">
-                                <a href="/">Continue Shopping</a>
-                            </div>
-                            <div class="check__shipping">
-                                <input type="checkbox">
-                                <span>Shipping(+7$)</span>
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-                        
-                    </form>
-                    <div class="right">
-                        <div class="cart__totals">
-                            <h3>Cart Totals</h3>
-                            <ul>
-                                <li>
-                                    Subtotal
-                                    <span class="new__price">$250.99</span>
-                                </li>
-                                <li>
-                                    Shipping
-                                    <span>$0</span>
-                                </li>
-                                <li>
-                                    Total
-                                    <span class="new__price">$250.99</span>
-                                </li>
-                            </ul>
-                            <a href="">PROCEED TO CHECKOUT</a>
-                        </div>
+                <div class="cart-btns">
+                    <div class="continue__shopping">
+                        <a href="/">Continue Shopping</a>
+                    </div>
+                    <div class="check__shipping">
+                        <input type="checkbox">
+                        <span>Shipping(+7$)</span>
                     </div>
                 </div>
+
+
+            </form>
+            <div class="right">
+                <div class="cart__totals">
+                    <h3>Cart Totals</h3>
+                    <ul>
+                        <li>
+                            Subtotal
+                            <span class="new__price">$250.99</span>
+                        </li>
+                        <li>
+                            Shipping
+                            <span>$0</span>
+                        </li>
+                        <li>
+                            Total
+                            <span class="new__price">$250.99</span>
+                        </li>
+                    </ul>
+                    <a href="">PROCEED TO CHECKOUT</a>
+                </div>
             </div>
-        </section>
-{% endblock content %}
+        </div>
+    </div>
+</section>
 
-{% block services %}{% endblock services %}
-{% block footer %}{% endblock footer %}
+<script>
+    var CounterValue = document.getElementById('counter-btn').value;
+    var modifierText = document.getElementById('btn-modif-span').innerText;
+    var input = null;
+
+    document.querySelector('.btn-modif').addEventListener("click", function() {
+        if (document.getElementById('btn-modif-span').innerText == "Modifier") {
+            document.getElementById('btn-modif-span').innerText = "Confirmer";
+            input = document.querySelectorAll('.counter-btn')
+            console.log(input);
+            for (let index = 0; index < input.length; index++) {
+                const element = input[index];
+                console.log(element);
+                element.removeAttribute("disabled");
+            }
 
 
+        } else if (document.getElementById('btn-modif-span').innerText == "Confirmer") {
+
+            document.getElementById('btn-modif-span').innerText = "Modifier";
+
+            input = document.querySelectorAll('.counter-btn')
+
+            for (let index = 0; index < input.length; index++) {
+                const element = input[index];
+                element.setAttribute("disabled", "disabled");
+            }
+        }
+    })
+</script>
+{% endblock content %} {% block services %}{% endblock services %} {% block footer %}{% endblock footer %}

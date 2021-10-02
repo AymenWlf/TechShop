@@ -290,5 +290,11 @@ document.querySelector('.minus-btn').addEventListener("click", function() {
 
     calculPrice();
 
-
 });
+
+//Modif-Btn
+
+document.querySelector('.btn-modif').addEventListener("click", function() {
+    alert("dddddddddd");
+
+})
