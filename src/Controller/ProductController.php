@@ -41,11 +41,17 @@ class ProductController extends AbstractController
             //Tous recuperer
             $products = $this->em->getRepository(Product::class)->findAll();
         }
+        
 
+        //Variable extra 
+
+        
+        $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
 
         return $this->render('product/index.html.twig',[
             'products' => $products,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'cart' => $cart
         ]);
     }
 
@@ -123,10 +129,47 @@ class ProductController extends AbstractController
             $color = $_POST['colors'];
             $quantity = $_POST['quantity'];
 
-            $cartItem = new CartItem();
             if (!$this->getUser()) {
                 return $this->redirectToRoute('app_login');
             }else{
+                $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $user]);
+                foreach ($cartItems as $item) {
+                    if ($item->getProduct() == $product) {
+                        $variation = $item->getVariation()->getValues();
+                        foreach ($variation as $var) {
+                            $VarName = $var->getVariation()->getName();
+                            if ($VarName == 'Couleur') {
+                                $variationName = $var->getName();
+                            }
+                        }
+                        if ($variationName == $color) {
+                            $itemQuantity = $item->getQuantity();
+                            $totalQuantity = $quantity + $itemQuantity;
+                            if ($totalQuantity >= 10) {
+                                $item->setQuantity(10);
+                                $this->em->flush();
+                                $this->addFlash('notice',"le maximum de piece pour ce produit est de 10 piece,pour en commandez plus veuillez nous contacter en privé !");
+                                return $this->redirectToRoute('cart');
+                            }else{
+                                $item->setQuantity($totalQuantity);
+                                $this->em->flush();
+                                return $this->redirectToRoute('cart');
+                            }
+                        }else{
+                            $cartItem = new CartItem();
+                            $cartItem->setUser($this->getUser());
+                            $cartItem->setProduct($product);
+                            $cartItem->setQuantity($quantity);
+                            $cartItemColor = $this->em->getRepository(VariationOption::class)->findOneBy(['name' => $color]);
+                            $cartItem->addVariation($cartItemColor);
+                            $this->em->persist($cartItem);
+                            $this->em->flush();
+                            return $this->redirectToRoute('cart');
+                        }
+                    }
+                }
+                
+                $cartItem = new CartItem();
                 $cartItem->setUser($this->getUser());
                 $cartItem->setProduct($product);
                 $cartItem->setQuantity($quantity);
@@ -134,16 +177,16 @@ class ProductController extends AbstractController
                 $cartItem->addVariation($cartItemColor);
                 $this->em->persist($cartItem);
                 $this->em->flush();
-    
+                return $this->redirectToRoute('cart');
+                
             }
-           
             return $this->redirectToRoute('cart');
-           
        }
 
 
         //Variables Extra affichage
         $allReviews = $this->em->getRepository(Review::class)->findBy(['product' => $product]);
+        $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
        
         return $this->render('product/product_show.html.twig',[
             'product' => $product,
@@ -152,7 +195,8 @@ class ProductController extends AbstractController
             'marque' => $marque,
             'form' => $form->createView(),
             'allReviews' => $allReviews,
-            'formVar' => $formVar->createView()
+            'formVar' => $formVar->createView(),
+            'cart' => $cart
         ]);
     }
 }

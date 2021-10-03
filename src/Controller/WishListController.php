@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Class\Search;
 use App\Entity\Product;
+use App\Entity\CartItem;
 use App\Entity\WishList;
 use App\Form\SearchType;
 use App\Repository\WishListRepository;
@@ -33,13 +34,16 @@ class WishListController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // variable extra :
         
+        $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         // $wishProducts = $wishList->getProducts();
         // dd($wishProducts);
         // dd($wishProducts);
         // dd($wishList);
         return $this->render('wish_list/index.html.twig',[
-            'wishList' => $wishList
+            'wishList' => $wishList,
+            'cart' => $cart
         ]);
     }
 

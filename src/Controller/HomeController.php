@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CartItem;
 use App\Entity\Category;
 use App\Entity\Header;
 use App\Entity\Product;
@@ -25,9 +26,8 @@ class HomeController extends AbstractController
         $categories = $this->em->getRepository(Category::class)->findAll();
         $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
         $temoignages = $this->em->getRepository(Temoignage::class)->findAll();
-        if (isset($_POST['submit'])) {
-            dd($_POST);
-        }
+        $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        
 
         // dd($best_products);
         // dd($categories);
@@ -36,7 +36,8 @@ class HomeController extends AbstractController
             'headers' => $headers,
             'categories' => $categories,
             'bestProducts' => $best_products,
-            'temoignages' => $temoignages
+            'temoignages' => $temoignages,
+            'cart' => $cart
         ]);
     }
 }

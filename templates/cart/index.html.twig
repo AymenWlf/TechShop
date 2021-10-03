@@ -18,12 +18,16 @@
     
     .header-cart {
         display: flex;
-        justify-content: normal;
-        align-items: center;
+        flex-direction: column;
     }
     
     .header-cart h1 {
         margin-right: 2rem;
+    }
+    
+    .line1 {
+        display: flex;
+        justify-content: normal;
     }
 </style>
 <section class="section cart__area">
@@ -32,13 +36,20 @@
             <form class="cart__form">
                 <div class="cart__table table-responsive">
                     <div class="header-cart">
-                        <p>
-                            <h1>Mon Panier : </h1> {{cart|length}} elements</p>
-                        <a class="btn-modif" id="btn-modif">
-                            <span id="btn-modif-span">
-                                            Modifier
-                            </span>
-                        </a>
+                        <div class="line1">
+                            <h1>Mon Panier : </h1>
+                            <a class="btn-modif" id="btn-modif">
+                                <span id="btn-modif-span">
+                                                Modifier
+                                </span>
+                            </a>
+                        </div>
+                        <div class="line2">
+                            <p> {{cart|length}} elements</p>
+                        </div>
+
+
+
                     </div>
 
 
@@ -67,7 +78,7 @@
                                     <small>{{product.variation}}</small>
                                     <br><br>
                                     <div class="price">
-                                        <span class="new__price">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH</span>
+                                        <p><span class="new__price">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small></p>
                                     </div>
                                 </td>
                                 <td class="product__quantity">
@@ -95,7 +106,7 @@
 
                 <div class="cart-btns">
                     <div class="continue__shopping">
-                        <a href="/">Continue Shopping</a>
+                        <a href="/">Poursuivre mes achats</a>
                     </div>
                     <div class="check__shipping">
                         <input type="checkbox">
