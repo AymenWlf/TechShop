@@ -2449,10 +2449,10 @@ Cart Area
         width: 27rem;
         padding: 4rem 2rem;
     }
-    .cart__area .input-counter .minus-btn,
+    /* .cart__area .input-counter .minus-btn,
     .cart__area .input-counter .plus-btn {
         display: none;
-    }
+    } */
     .cart__area .new__price {
         font-size: 1.4rem;
     }

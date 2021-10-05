@@ -55,8 +55,43 @@ class CartController extends AbstractController
         $quantity = $_POST['quantity'];
         $cartItem->setQuantity($quantity);
         $this->em->flush();
+        $this->addFlash('notice',$cartItem->getProduct()->getName().' a été ajouté dans votre panier !');
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
+
+    #[Route('/plus-cart/{id}', name: 'plus_cart')]
+    public function plus($id): Response
+    {
+        $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['id' => $id]);
+
+        $quantity = $cartItem->getQuantity();
+        if ($quantity >= 10) {
+            $quantity = 10;
+            $this->addFlash('notice',"Le maximum de pièce pour ce produit est 10 !");
+        }else if ($quantity >=1 && $quantity < 10) {
+            $quantity++;
+        }
+        $cartItem->setQuantity($quantity);
+        $this->em->flush();
+        return $this->redirectToRoute('cart');
+    }
+
+    #[Route('/minus-cart/{id}', name: 'minus_cart')]
+    public function minus($id): Response
+    {
+        $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['id' => $id]);
+
+        $quantity = $cartItem->getQuantity();
+        if ($quantity <= 1) {
+           $this->delete($id);
+        }else if ($quantity >1 && $quantity <= 10) {
+            $quantity--;
+        }
+        $cartItem->setQuantity($quantity);
+        $this->em->flush();
+        return $this->redirectToRoute('cart');
+    }
+    
 
     #[Route('/delete-cart/{id}', name: 'delete_cart')]
     public function delete($id): Response
@@ -65,6 +100,8 @@ class CartController extends AbstractController
 
         $this->em->remove($cartItem);
         $this->em->flush();
+        
+        $this->addFlash('notice',$cartItem->getProduct()->getName().' a été supprimer de votre panier !');
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 

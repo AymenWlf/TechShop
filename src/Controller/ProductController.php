@@ -46,7 +46,11 @@ class ProductController extends AbstractController
         //Variable extra 
 
         
-        $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        if ($this->getUser()) {
+            $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        }else{
+            $cart = null;
+        }
 
         return $this->render('product/index.html.twig',[
             'products' => $products,

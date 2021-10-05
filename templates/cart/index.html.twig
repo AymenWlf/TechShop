@@ -1,6 +1,17 @@
 {% extends 'base.html.twig' %} {% block title %}TechShop - Mon panier{% endblock title %} {% block content %}
 <style>
-    .btn-modif {
+    .h2-panier-vide {
+        text-align: center;
+        padding: 3rem;
+    }
+    
+    .btn-conf {
+        display: none;
+    }
+    
+    .btn-modif,
+    .btn-conf {
+        display: none;
         border: 1px solid black;
         padding: 1rem;
         color: black;
@@ -10,7 +21,8 @@
         margin-left: auto;
     }
     
-    .btn-modif:hover {
+    .btn-modif:hover,
+    .btn-conf:hover {
         color: white;
         background-color: red;
         border-color: white;
@@ -29,6 +41,25 @@
         display: flex;
         justify-content: normal;
     }
+    
+    .old__price {
+        font-size: 1.5rem;
+        color: var(--green);
+    }
+    
+    .responsive-counter {
+        display: none;
+    }
+    
+    @media screen and (max-width: 438px) {
+        .product__quantity .input-counter {
+            display: none;
+        }
+        .responsive-counter {
+            display: initial;
+            margin-top: 0.5rem;
+        }
+    }
 </style>
 <section class="section cart__area">
     <div class="container">
@@ -43,9 +74,14 @@
                                                 Modifier
                                 </span>
                             </a>
+                            <a class="btn-conf" id="btn-conf">
+                                <span id="btn-modif-span">
+                                                Confirmer
+                                </span>
+                            </a>
                         </div>
                         <div class="line2">
-                            <p> {{cart|length}} elements</p>
+                            <p> {{cart|length}} éléments</p>
                         </div>
 
 
@@ -54,7 +90,11 @@
 
 
                     <table width="100%" class="table">
+                        {% if cart|length == 0 %}
+                        <h2 class="h2-panier-vide">Votre panier est vide !!!</h2>
+                        {% else %}
                         <thead>
+
                             <tr>
                                 <th class="t1"></th>
                                 <th class="t2"></th>
@@ -64,8 +104,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            {% for product in cart %}
+                            {% set totalPriceProduct = 0 %} {% set total = 0 %} {% for product in cart %}
                             <tr>
                                 <td class="product__thumbnail">
                                     <a href="#">
@@ -76,16 +115,47 @@
                                     <a href="#">{{product.product.name}} </a>
                                     <br>
                                     <small>{{product.variation}}</small>
-                                    <br><br>
+                                    <br><br> {% set totalPriceProduct = (product.product.price / 100) * product.quantity %}
                                     <div class="price">
-                                        <p><span class="new__price">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small></p>
+                                        <p><span class="old__price">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small></p>
+                                        <p><span class="new__price">{{totalPriceProduct|number_format(2, ',', '.')}} DH</span></p>
                                     </div>
+                                    <div class="input-counter responsive-counter">
+                                        <div>
+
+                                            <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}} ">
+                                                <svg class="minus-cart-svg">
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
+                                                </svg>
+                                            </a>
+
+                                            <input type="number" min="1" value="{{product.quantity}}" max="10" class="counter-btn" id="counter-btn" name="quantity" disabled> {# <span class="counter-btn" id="counter-btn">1</span> #}
+
+                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}} " disabled>
+                                                <svg class="plus-cart-svg">
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
+                                                </svg>
+                                            </a>
+
+                                        </div>
                                 </td>
                                 <td class="product__quantity">
                                     <div class="input-counter">
                                         <div>
 
+                                            <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}} ">
+                                                <svg class="minus-cart-svg">
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
+                                                </svg>
+                                            </a>
+
                                             <input type="number" min="1" value="{{product.quantity}}" max="10" class="counter-btn" id="counter-btn" name="quantity" disabled> {# <span class="counter-btn" id="counter-btn">1</span> #}
+
+                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}} " disabled>
+                                                <svg class="plus-cart-svg">
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
+                                                </svg>
+                                            </a>
 
                                         </div>
                                     </div>
@@ -93,81 +163,51 @@
                                 <td class="product__subtotal">
                                     <a href="{{path('delete_cart',{'id': product.id}  )}} " class="remove__cart-item">
                                         <svg>
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
-                                                </svg>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
+                                        </svg>
                                     </a>
-
                                 </td>
                             </tr>
-                            {% endfor %}
+                            {% set total = total + totalPriceProduct %} {% endfor %}
                         </tbody>
-                    </table>
-                </div>
+                        {% endif %}
 
-                <div class="cart-btns">
-                    <div class="continue__shopping">
-                        <a href="/">Poursuivre mes achats</a>
+                    </table>
                     </div>
-                    <div class="check__shipping">
-                        <input type="checkbox">
-                        <span>Shipping(+7$)</span>
+
+                    <div class="cart-btns">
+                        <div class="continue__shopping">
+                            <a href="{{path('product')}}">Poursuivre mes achats</a>
+                        </div>
                     </div>
-                </div>
 
 
             </form>
-            <div class="right">
+            <div class="right" {% if (cart|length)==(0) %} style="display: none;" {% endif %}>
                 <div class="cart__totals">
-                    <h3>Cart Totals</h3>
+                    <h3>Prix du panier <small>(Livraison et taxe non inclue !)</small></h3>
                     <ul>
                         <li>
-                            Subtotal
-                            <span class="new__price">$250.99</span>
-                        </li>
-                        <li>
-                            Shipping
-                            <span>$0</span>
-                        </li>
-                        <li>
                             Total
-                            <span class="new__price">$250.99</span>
+                            <span class="new__price">{{total|number_format(2, ',', '.')}} DH </span>
                         </li>
                     </ul>
-                    <a href="">PROCEED TO CHECKOUT</a>
+                    <a href="">Choisir mon adresse</a>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 </section>
 
 <script>
-    var CounterValue = document.getElementById('counter-btn').value;
-    var modifierText = document.getElementById('btn-modif-span').innerText;
-    var input = null;
+    // Plus et moin Btn
+    $inputValue = document.getElementById('counter-btn').value;
+    if ($inputValue > 1 && $inputValue < 10) {
+        document.querySelector('.minus-cart-svg').classList.remove("disabled-btn");
+        document.querySelector('.plus-cart-svg').classList.remove("disabled-btn");
+    } else if ($inputValue == 10) {
+        document.querySelector('.plus-cart-svg').classList.add("disabled-btn");
 
-    document.querySelector('.btn-modif').addEventListener("click", function() {
-        if (document.getElementById('btn-modif-span').innerText == "Modifier") {
-            document.getElementById('btn-modif-span').innerText = "Confirmer";
-            input = document.querySelectorAll('.counter-btn')
-            console.log(input);
-            for (let index = 0; index < input.length; index++) {
-                const element = input[index];
-                console.log(element);
-                element.removeAttribute("disabled");
-            }
-
-
-        } else if (document.getElementById('btn-modif-span').innerText == "Confirmer") {
-
-            document.getElementById('btn-modif-span').innerText = "Modifier";
-
-            input = document.querySelectorAll('.counter-btn')
-
-            for (let index = 0; index < input.length; index++) {
-                const element = input[index];
-                element.setAttribute("disabled", "disabled");
-            }
-        }
-    })
+    }
 </script>
 {% endblock content %} {% block services %}{% endblock services %} {% block footer %}{% endblock footer %}

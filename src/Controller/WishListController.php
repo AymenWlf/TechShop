@@ -36,7 +36,11 @@ class WishListController extends AbstractController
 
         // variable extra :
         
-        $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        if ($this->getUser()) {
+            $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        }else{
+            $cart = null;
+        }
         // $wishProducts = $wishList->getProducts();
         // dd($wishProducts);
         // dd($wishProducts);

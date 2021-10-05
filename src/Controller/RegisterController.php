@@ -42,9 +42,16 @@ class RegisterController extends AbstractController
         }else{
             $this->addFlash('notice','Il y a eu probleme lors de votre inscription !');
         }
+        
+        if ($this->getUser()) {
+            $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        }else{
+            $cart = null;
+        }
             
         return $this->render('register/index.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'cart' => $cart
         ]);
     }
 }
