@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Class\Cart;
+use App\Entity\Address;
 use App\Entity\Carrier;
 use App\Entity\CartItem;
+use App\Form\AddressType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +23,7 @@ class AddressController extends AbstractController
     #[Route('/address', name: 'address')]
     public function index(): Response
     {
-         
+        $user = $this->getUser();         
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
        
         $cart = [];
@@ -45,9 +48,45 @@ class AddressController extends AbstractController
 
         $carriers = $this->em->getRepository(Carrier::class)->findAll();
 
+        $addresses = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
+
+        if (isset($_POST['submitAd'])) {
+            dd($_POST);
+        }
         return $this->render('address/index.html.twig',[
             'cart' => $cart,
-            'carriers' => $carriers
+            'carriers' => $carriers,
+            'addresses' => $addresses
+        ]);
+    }
+
+    #[Route('/nouvel-adresse', name: 'new_address')]
+    public function new(Request $request): Response
+    {
+        $address = new Address();
+        $form = $this->createForm(AddressType::class,$address);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $address->setUser($this->getUser());
+            $this->em->persist($address);
+            $this->em->flush();
+
+            
+            return $this->redirectToRoute('address');
+        }
+
+        if ($this->getUser()) {
+            $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        }else{
+            $cart = null;
+        }
+
+        
+
+        return $this->render('address/address-form.html.twig',[
+            'form' => $form->createView(),
+            'cart' => $cart
         ]);
     }
 }

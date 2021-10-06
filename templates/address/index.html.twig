@@ -140,9 +140,6 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
-                                <div class="product-details__btn">
-                                    <input type="submit" value="Confirmer" class="btn">
-                                </div>
                             </tbody>
                         </table>
                     </div>
@@ -150,10 +147,10 @@
                     <div class="content-form">
                         <div class="content-form-header">
                             <h2 class="content-form-title">Vos adresses :</h2>
-                            <p>0 Adresses</p>
+                            <p>{{addresses|length}} Adresses</p>
                         </div>
                         <div>
-                            <a class="address-link" href="">Ajouter une nouvel adresse</a>
+                            <a class="address-link" href="{{path('new_address')}} ">Ajouter une nouvel adresse</a>
                         </div>
                         <table class="table" width="100%">
                             <thead>
@@ -163,17 +160,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% set key = null %} {% if addresses %} {% for address in addresses %}
                                 <tr>
-                                    <td><input type="radio" name="address" id="address"></td>
+                                    <td><input type="radio" name="address" id="address{{key}}"></td>
                                     <td>
-                                        <label for="address">Aymen Ouallaf <br> Lissafsa el khouzama 2 imm 3 app 5 <br>Casablanca , MA <br> 20230 <br>Aymen's Matjar
+                                        <label for="address{{key}}"><strong>Nom : </strong> {{address.name}} <br><br> <strong>Adresse :</strong> {{address.address}} <br><br> {{address.city}} , {{address.country}} <br><br><strong>Postal : </strong> {{address.postal}} {% if address.company %} <br><br> <strong>Entreprise : </strong> {{address.company}} {% endif %}
                                         </label></td>
                                 </tr>
-                                <tr>
-                                    <td><input type="radio" name="address" id="address2"></td>
-                                    <td>
-                                        <label for="address2">>Aymen Ouallaf <br> Lissafsa el khouzama 2 imm 3 app 5 <br>Casablanca , MA <br> 20230 </label></td>
-                                </tr>
+                                {% set key = key + 1 %} {% endfor %} {% else %}
+                                <div class="address-null" style="margin-top: 1rem;">
+                                    <strong>Vous n'avez aucune adresse , veuillez en ajouter une ou plusieur.</strong>
+                                </div> {% endif %}
+
+
                             </tbody>
                         </table>
                     </div>
@@ -200,10 +199,13 @@
                                 {% set key = key + 1 %} {% endfor %}
                             </tbody>
                         </table>
-                    </div>
+                    </div><div class="product-details__btn">
+                                    <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn">
+                                </div>
                 </form>
 
-
+            
+                                
             </div>
         </div>
     </div>

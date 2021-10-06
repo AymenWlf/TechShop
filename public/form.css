@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background: var(--primaryColor);
+    /* background: var(--primaryColor); */
 }
 
 .formulaire-sty .container {
@@ -21,7 +21,7 @@
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); */
 }
 
 .formulaire-sty .container .title {
@@ -146,6 +146,13 @@ input[type="radio"] {
     background-color: #EB0028;
     color: #fff;
     border: 1px solid #fff;
+}
+
+@media(max-height: 900px) {
+    .formulaire-sty .container {
+        overflow-y: scroll;
+        /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); */
+    }
 }
 
 @media(max-width: 584px) {

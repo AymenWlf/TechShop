@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %} {% block title %}TechShop - Nouvel Adresse{% endblock title %} {% block header %}{% endblock header %} {% block content %}
+
+
+<link rel="stylesheet" href="{{asset('form.css?t=<?8>')}} ">
+<div class="formulaire-sty">
+    <div class="container">
+        <div class="title">Nouvel adresse</div>
+        <div class="content">
+            <div class="user-details">
+                {{form_start(form)}} {#
+                <div class="error"> {{form_errors(form,{'label':'Error'})}} </div> #}
+                <div class="input-box">
+                    {{form_label(form.name,'Nommer cette adresse',{'label_attr':{'class':'details'}})}} {{form_widget(form.name,{'attr':{'class':'place'}})}}
+                </div>
+                <div class="input-box">
+                    {{form_label(form.firstname,'Votre Prénom',{'label_attr':{'class':'details'}})}} {{form_widget(form.firstname,{'attr':{'class':'place'}})}}
+                </div>
+                <div class="input-box">
+                    {{form_label(form.lastname,'Votre Nom',{'label_attr':{'class':'details'}})}} {{form_widget(form.lastname,{'attr':{'class':'place'}})}}
+                </div>
+                <div class="input-box">
+                    {{form_label(form.company,'Nom de votre entreprise (facultatif)',{'label_attr':{'class':'details'}})}} {{form_widget(form.company,{'attr':{'class':'place'}})}}
+                </div>
+                <div class="input-box">
+                    {{form_label(form.address,'Votre adresse',{'label_attr':{'class':'details'}})}} {{form_widget(form.address,{'attr':{'class':'place'}})}}
+                </div>
+
+                <div class="input-box">
+                    {{form_label(form.postal,'Votre adresse Postal',{'label_attr':{'class':'details'}})}} {{form_widget(form.postal,{'attr':{'class':'place'}})}}
+                </div>
+
+                <div class="input-box">
+                    {{form_label(form.country,'Votre Pays',{'label_attr':{'class':'details'}})}} {{form_widget(form.country,{'attr':{'class':'place'}})}}
+                </div>
+
+                <div class="input-box">
+                    {{form_label(form.city,'Votre ville',{'label_attr':{'class':'details'}})}} {{form_widget(form.city,{'attr':{'class':'place'}})}}
+                </div>
+
+                <div class="input-box">
+                    {{form_label(form.phone,'Votre Numéro de téléphone',{'label_attr':{'class':'details'}})}} {{form_widget(form.phone,{'attr':{'class':'place'}})}}
+                </div>
+                <div class="button">
+                    {{ form_row(form.submit, { 'label': "Ajouter",'attr':{'class':'btn' } }) }} {# {{form_rest(form)}} #}
+                </div>
+                {{form_end(form)}}
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %} {% block footer %}{% endblock footer %}
