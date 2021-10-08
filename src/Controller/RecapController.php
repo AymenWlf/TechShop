@@ -13,14 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AddressController extends AbstractController
+class RecapController extends AbstractController
 {
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
-    #[Route('/address', name: 'address')]
+    #[Route('/recapitulatif', name: 'recap')]
     public function index(): Response
     {
         $user = $this->getUser();         
@@ -53,13 +53,14 @@ class AddressController extends AbstractController
         if (isset($_POST['submitAd'])) {
             dd($_POST);
         }
-        return $this->render('address/index.html.twig',[
+        return $this->render('recapitulatif/index.html.twig',[
             'cart' => $cart,
             'carriers' => $carriers,
             'addresses' => $addresses
         ]);
     }
 
+    // Cree page adresse dans account et ajouter ceci !!!!!!
     #[Route('/nouvel-adresse', name: 'new_address')]
     public function new(Request $request): Response
     {
@@ -73,7 +74,7 @@ class AddressController extends AbstractController
             $this->em->flush();
 
             
-            return $this->redirectToRoute('address');
+            return $this->redirectToRoute('recap');
         }
 
         if ($this->getUser()) {
@@ -84,7 +85,7 @@ class AddressController extends AbstractController
 
         
 
-        return $this->render('address/address-form.html.twig',[
+        return $this->render('recapitulatif/address-form.html.twig',[
             'form' => $form->createView(),
             'cart' => $cart
         ]);

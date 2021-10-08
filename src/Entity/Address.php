@@ -68,6 +68,7 @@ class Address
      */
     private $phone;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -192,4 +193,5 @@ class Address
 
         return $this;
     }
+
 }

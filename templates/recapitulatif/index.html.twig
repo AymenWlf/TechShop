@@ -86,6 +86,17 @@
         font-size: 16px;
     }
     
+    .price-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: end;
+        border: none;
+    }
+    
+    .price-row h5 {
+        color: var(--orange);
+    }
+    
     @media screen and (max-width: 649px) {
         .recap {
             float: none;
@@ -94,7 +105,7 @@
         .content-form {
             width: 100%;
             padding: 3rem;
-            background-color: lavender;
+            background-color: var(--primaryColor);
             margin-bottom: 2rem;
         }
     }
@@ -122,7 +133,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% set totalPriceProduct = 0 %} {% set total = 0 %} {% for product in cart %}
+                                {% set totalPriceProduct = 0 %} {% set total = 0 %} {% set key = 0 %} {% for product in cart %}
                                 <tr>
                                     <td class="product__thumbnail">
                                         <a href="#">
@@ -139,7 +150,27 @@
                                         </div>
                                     </td>
                                 </tr>
-                                {% endfor %}
+                                {% set key = key + 1 %} {% if key == cart|length %}
+                                <tr>
+                                    <td style="border: none;">
+                                        <p class="total-price" style="display: none;"> <strong>Prix total : </strong>
+                                            <h5 style="display: none;">{{total|number_format(2,",",".")}} DH </h5>
+                                        </p>
+                                    </td>
+                                    <td class="price-row">
+                                        <p class="total-price"> <strong> Prix total : </strong>
+                                            <h5>{{total|number_format(2,",",".")}} DH </h5>
+                                        </p>
+                                    </td>
+                                </tr>
+                                {% endif %} {% set total = total + totalPriceProduct %} {% endfor %}
+                                <tr>
+                                    <div class="product-details__btn">
+                                        <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn">
+                                    </div>
+                                </tr>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -147,22 +178,17 @@
                     <div class="content-form">
                         <div class="content-form-header">
                             <h2 class="content-form-title">Vos adresses :</h2>
-                            <p>{{addresses|length}} Adresses</p>
+                            <p>{{addresses|length}} Adresse{% if addresses|length > 1 %}s{% endif %}
+                            </p>
                         </div>
                         <div>
                             <a class="address-link" href="{{path('new_address')}} ">Ajouter une nouvel adresse</a>
                         </div>
                         <table class="table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 {% set key = null %} {% if addresses %} {% for address in addresses %}
                                 <tr>
-                                    <td><input type="radio" name="address" id="address{{key}}"></td>
+                                    <td><input type="radio" value="{{address.id}}" name="address" id="address{{key}}" required></td>
                                     <td>
                                         <label for="address{{key}}"><strong>Nom : </strong> {{address.name}} <br><br> <strong>Adresse :</strong> {{address.address}} <br><br> {{address.city}} , {{address.country}} <br><br><strong>Postal : </strong> {{address.postal}} {% if address.company %} <br><br> <strong>Entreprise : </strong> {{address.company}} {% endif %}
                                         </label></td>
@@ -182,16 +208,10 @@
                             <p>transporteurs :</p>
                         </div>
                         <table class="table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 {% set key = 0 %} {% for carrier in carriers %}
                                 <tr>
-                                    <td><input type="radio" name="carrier" id="carrier{{key}}"></td>
+                                    <td><input type="radio" value="{{carrier.id}}" name="carrier" id="carrier{{key}}" required></td>
                                     <td>
                                         <label for="carrier{{key}}"><strong>Nom : </strong>{{carrier.name}} <br><br> <strong>Description: </strong>{{carrier.description}} <br><br> <strong>Prix :</strong>{{(carrier.price / 100)|number_format(2,",",".")}} </label>
                                     </td>
@@ -199,13 +219,11 @@
                                 {% set key = key + 1 %} {% endfor %}
                             </tbody>
                         </table>
-                    </div><div class="product-details__btn">
-                                    <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn">
-                                </div>
+                    </div>
                 </form>
 
-            
-                                
+
+
             </div>
         </div>
     </div>

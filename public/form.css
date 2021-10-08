@@ -7,7 +7,8 @@
 }
 
 .formulaire-sty {
-    height: 100vh;
+    /* height: 100vh; */
+    /* margin: auto; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,6 +17,7 @@
 }
 
 .formulaire-sty .container {
+    /* margin: auto; */
     max-width: 700px;
     width: 100%;
     background-color: #fff;
@@ -150,7 +152,8 @@ input[type="radio"] {
 
 @media(max-height: 900px) {
     .formulaire-sty .container {
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
+        /* margin: auto; */
         /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); */
     }
 }
