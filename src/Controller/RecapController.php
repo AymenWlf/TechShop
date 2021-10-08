@@ -6,8 +6,13 @@ use App\Class\Cart;
 use App\Entity\Address;
 use App\Entity\Carrier;
 use App\Entity\CartItem;
+use App\Entity\Order;
+use App\Entity\OrderDetails;
+use App\Entity\VariationOption;
 use App\Form\AddressType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use FriendsOfTwig\Twigcs\Ruleset\Official;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +33,7 @@ class RecapController extends AbstractController
        
         $cart = [];
         foreach ($cartItems as $item) {
+            
             $id = $item->getId();
             $product = $item->getProduct();
             $quantity = $item->getQuantity();
@@ -42,7 +48,8 @@ class RecapController extends AbstractController
                 'id' => $id,
                 'product' => $product,
                 'quantity' => $quantity,
-                'variation' => $variationName
+                'variation' => $variationName,
+                'theVariation' => $variation
             ];
         }
 
@@ -51,8 +58,65 @@ class RecapController extends AbstractController
         $addresses = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
 
         if (isset($_POST['submitAd'])) {
-            dd($_POST);
-        }
+            $date = new DateTime();
+            $carrierId = $_POST['carrier'];
+            $carrierPost = $this->em->getRepository(Carrier::class)->findOneBy(['id' => $carrierId]);
+            $carrierName = $carrierPost->getName();
+            $price = $carrierPost->getPrice();
+            $dateChar = $date->format('d/m/Y');
+            $reference = $dateChar.'-'.uniqid();
+            //Remplissage de Order
+            $order = new Order();
+            $order->setUser($user);
+            $order->setCreatedAt($dateChar);
+            $order->setCarrierName($carrierName);
+            $order->setCarrierPrice($price);
+            $order->setState(0);
+            $order->setIsPaid(0);
+            $order->setSessionCheckoutId(1111);
+            $order->setReference($reference);
+            
+            $this->em->persist($order);
+           
+
+            //remplissage des orderDetaails
+
+            foreach ($cart as $item) {
+                $product = $item['product'];
+                $price = $item['product']->getPrice();
+                $quantity = $item['quantity'];
+                $variation = $item['theVariation'];
+                foreach ($variation as $var) {
+                    $VarName = $var->getVariation()->getName();
+                    if ($VarName == 'Couleur') {
+                        $oldStock = $var->getStock();
+                        $newStock = $oldStock - $quantity;
+                        $varId = $var->getId();
+                    }
+                }
+                //Decrementation du stock
+                $variationOption = $this->em->getRepository(VariationOption::class)->findOneBy(['id' => $varId]);
+                $variationOption->setStock($newStock);
+
+                
+                $orderDetails = new OrderDetails();
+                $orderDetails->setMyOrder($order);
+                $orderDetails->setProduct($product);
+                $orderDetails->setQuantity($quantity);
+                $orderDetails->setPrice($price);
+                $orderDetails->setTotal($price * $quantity);
+                // dd($product->getVariationOptions);
+                $this->em->persist($orderDetails);
+
+            }
+
+            
+            $this->em->flush();
+
+            
+
+
+         }
         return $this->render('recapitulatif/index.html.twig',[
             'cart' => $cart,
             'carriers' => $carriers,
