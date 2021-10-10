@@ -51,6 +51,30 @@
         display: none;
     }
     
+    .payment-method li {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        height: 5rem;
+    }
+    
+    .cart__totals input.submit {
+        cursor: pointer;
+        background-color: #fff;
+        font-size: 1.5rem;
+        padding: 1.2rem 3rem;
+        color: var(--black);
+        text-transform: uppercase;
+        border: 1px solid var(--black);
+        transition: all 0.4s ease-in-out;
+    }
+    
+    .cart__totals input.submit:hover {
+        background-color: var(--black);
+        color: var(--white);
+        border: 1px solid var(--black);
+    }
+    
     @media screen and (max-width: 438px) {
         .product__quantity .input-counter {
             display: none;
@@ -69,23 +93,11 @@
                     <div class="header-cart">
                         <div class="line1">
                             <h1>Mon Panier : </h1>
-                            <a class="btn-modif" id="btn-modif">
-                                <span id="btn-modif-span">
-                                                Modifier
-                                </span>
-                            </a>
-                            <a class="btn-conf" id="btn-conf">
-                                <span id="btn-modif-span">
-                                                Confirmer
-                                </span>
-                            </a>
                         </div>
                         <div class="line2">
-                            <p> {{cart|length}} éléments</p>
+                            <p><strong style="color: var(--orange);">{{cart|length}} </strong> élément{% if cart|length > 1 %}s{% endif %}
+                            </p>
                         </div>
-
-
-
                     </div>
 
 
@@ -183,18 +195,37 @@
 
 
             </form>
-            <div class="right" {% if (cart|length)==(0) %} style="display: none;" {% endif %}>
-                <div class="cart__totals">
-                    <h3>Prix du panier <small>(Livraison et taxe non inclue !)</small></h3>
-                    <ul>
-                        <li>
-                            Total
-                            <span class="new__price">{{total|number_format(2, ',', '.')}} DH </span>
-                        </li>
-                    </ul>
-                    <a href="{{path('recap')}}">Choisir mon adresse</a>
+            {% if (cart|length)!=(0) %}
+            <form action="{{path('recap')}}" method="post">
+                <div class="right">
+                    <div class="cart__totals">
+                        <div class="payment-method">
+                            <h3>Votre moyen de paiement : </h3>
+                            <ul>
+                                <li>
+                                    <input type="radio" name="payment" id="creditCard" style="margin-right: 2rem;" value="creditCard" required>
+                                    <label for="creditCard">Carte bancaire</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="payment" id="COD" style="margin-right: 2rem;" value="COD" required>
+                                    <label for="COD">Cash à la livraison</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="totals">
+                            <h3>Prix du panier <small>(Livraison et taxe non inclue !)</small></h3>
+                            <ul>
+                                <li>
+                                    Total
+                                    <span class="new__price">{{total|number_format(2, ',', '.')}} DH </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <input class="submit" type="submit" name="submitPay" id="submitPay" value="Etape suivante">
+                    </div>
                 </div>
-            </div>
+            </form>
+            {% endif %}
             </div>
         </div>
 </section>

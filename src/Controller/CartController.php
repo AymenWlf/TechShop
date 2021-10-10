@@ -31,8 +31,15 @@ class CartController extends AbstractController
                 $VarName = $var->getVariation()->getName();
                 if ($VarName == 'Couleur') {
                     $variationName = $var->getName();
+                    $stock = $var->getStock();
                 }
             }
+
+            if($quantity > $stock){
+                $quantity = $stock;
+            }
+
+
             $cart[] = [
                 'id' => $id,
                 'product' => $product,
@@ -41,6 +48,9 @@ class CartController extends AbstractController
             ];
         }
 
+        // if (isset($_POST['submitPay'])) {
+        //     dd($_POST);
+        // }
         return $this->render('cart/index.html.twig', [
             'cart' => $cart
         ]);
@@ -50,6 +60,7 @@ class CartController extends AbstractController
     public function add($id): Response
     {
         $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['id' => $id]);
+        
 
         $quantity = $cartItem->getQuantity();
         $quantity = $_POST['quantity'];
@@ -63,12 +74,16 @@ class CartController extends AbstractController
     public function plus($id): Response
     {
         $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['id' => $id]);
+        
+        foreach ($cartItem->getVariation()->getValues() as $item) {
+            $stock = $item->getStock();
+        }
 
         $quantity = $cartItem->getQuantity();
-        if ($quantity >= 10) {
-            $quantity = 10;
-            $this->addFlash('notice',"Le maximum de pièce pour ce produit est 10 !");
-        }else if ($quantity >=1 && $quantity < 10) {
+        if ($quantity >= $stock) {
+            $quantity = $stock;
+            $this->addFlash('notice',"Le maximum de pièce pour ce produit est ".$stock." !");
+        }else if ($quantity >=1 && $quantity < $stock) {
             $quantity++;
         }
         $cartItem->setQuantity($quantity);
@@ -81,10 +96,14 @@ class CartController extends AbstractController
     {
         $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['id' => $id]);
 
+        foreach ($cartItem->getVariation()->getValues() as $item) {
+            $stock = $item->getStock();
+        }
+
         $quantity = $cartItem->getQuantity();
         if ($quantity <= 1) {
            $this->delete($id);
-        }else if ($quantity >1 && $quantity <= 10) {
+        }else if ($quantity >1 && $quantity <= $stock) {
             $quantity--;
         }
         $cartItem->setQuantity($quantity);
@@ -97,7 +116,6 @@ class CartController extends AbstractController
     public function delete($id): Response
     {
         $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['id' => $id]);
-
         $this->em->remove($cartItem);
         $this->em->flush();
         

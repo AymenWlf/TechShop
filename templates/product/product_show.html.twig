@@ -99,17 +99,20 @@
                                 <div class="input-counter">
                                     <span>Quantity:</span>
                                     <div>
-                                        <a class="minus-btn" href="#">
+
+                                        <a class="minus-btn" href="#" {% if stock <=(0) %}disabled{% endif %}>
                                             <svg class="minus-svg">
                             <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
                           </svg>
 
-                                        </a> <input type="text" min="1" value="1" max="10" class="counter-btn" id="counter-btn" name="quantity"> {# <span class="counter-btn" id="counter-btn">1</span> #}
-                                        <a class="plus-btn" href="#">
-                                            <svg class="plus-svg">
+                                        </a> <input type="text" min="1" {% if stock <=(0) %}value="0" {% else %} value="1" {% endif %} max="{{stock}}" class="counter-btn" id="counter-btn" name="quantity" {% if stock==0 %}disabled{% endif %}> {#
+                                        <span
+                                            class="counter-btn" id="counter-btn">1</span> #}
+                                            <a class="plus-btn" href="#" {% if stock <=( 0) %}disabled{% endif %}>
+                                                <svg class="plus-svg">
                             <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
                           </svg>
-                                        </a>
+                                            </a>
                                     </div>
                                 </div>
                             </li>
@@ -157,21 +160,22 @@
                             </a>
                         </div>
                         <div class="product-details__btn">
-
-                            <input type="submit" name="submit" value="Ajouter au panier" class="btn"> {#
-                            <a class="add submit-btn" href="#">
-                                <span>
+                            {% if stock
+                            <=(0) %} <input type="submit" name="submit" value="Rupture du stock" class="btn" disabled> {% else %}
+                                <input type="submit" name="submit" value="Ajouter au panier" class="btn"> {% endif %} {#
+                                <a class="add submit-btn" href="#">
+                                    <span>
                           <svg>
                             <use xlink:href="{{asset('images/sprite.svg#icon-cart-plus')}} "></use>
                           </svg>
                         </span>AJOUTER AU PANIER</a> #} {#
-                            <a class="buy" href="#">
-                                <span>
+                                <a class="buy" href="#">
+                                    <span>
                           <svg>
                             <use xlink:href="{{asset('images/sprite.svg#icon-credit-card')}} "></use>
                           </svg>
                         </span> BUY NOW
-                            </a> #}
+                                </a> #}
                         </div>
                     </form>
                 </div>
@@ -252,6 +256,10 @@
         </div>
     </div>
 </section>
+
+<!--AIDE-->
+
+<p id="valueCount">{{stock}}</p>
 
 
 {% endblock content %} {% block footer %}{% endblock footer %}

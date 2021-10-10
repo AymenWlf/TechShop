@@ -216,6 +216,8 @@ document.querySelector('.minus-svg').classList.add("disabled-btn");
 
 //declarer variable count
 var valueCount = 0;
+var MaxValue = document.getElementById("valueCount").innerText;
+console.log(MaxValue);
 var new_price = document.getElementById('new__price').innerText;
 
 function calculPrice() {
@@ -233,7 +235,7 @@ document.querySelector('.plus-btn').addEventListener("click", function() {
         document.querySelector('.minus-btn').removeAttribute("disabled");
         document.querySelector('.minus-svg').classList.remove("disabled-btn");
     }
-    if (valueCount < 10) {
+    if (valueCount < MaxValue) {
         //incrementer
         valueCount++;
 
@@ -259,7 +261,7 @@ document.querySelector('.minus-btn').addEventListener("click", function() {
     //valeur de l input
     valueCount = document.getElementById('counter-btn').value;
 
-    if (valueCount < 10) {
+    if (valueCount < MaxValue) {
         //enlever la valeur par defaut
         document.querySelector('.plus-btn').removeAttribute("disabled");
         document.querySelector('.plus-svg').classList.remove("disabled-btn");
@@ -270,7 +272,7 @@ document.querySelector('.minus-btn').addEventListener("click", function() {
         valueCount--;
 
 
-        if (valueCount < 10) {
+        if (valueCount < MaxValue) {
             //enlever la valeur par defaut
             document.querySelector('.plus-btn').removeAttribute("disabled");
             document.querySelector('.plus-svg').classList.remove("disabled-btn");

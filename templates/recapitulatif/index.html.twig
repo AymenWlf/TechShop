@@ -73,6 +73,10 @@
         width: 50%;
     }
     
+    .product__thumbnail {
+        width: 21rem;
+    }
+    
     .product__thumbnail img {
         width: 6rem;
         height: 8rem;
@@ -95,6 +99,42 @@
     
     .price-row h5 {
         color: var(--orange);
+    }
+    
+    .product__name {
+        margin-left: 8rem;
+    }
+    
+    .product__name .content {
+        margin: inherit;
+    }
+    
+    td.payment-method {
+        display: flex;
+        align-items: baseline;
+        border: none;
+        justify-content: end;
+        height: 1rem;
+    }
+    
+    td.payment-method h5 {
+        color: var(--orange);
+    }
+    
+    @media screen and (max-width: 768px) {
+        td.payment-method,
+        td.price-row {
+            font-size: 1.4rem;
+            height: 1rem;
+        }
+    }
+    
+    @media screen and (max-width: 420px) {
+        td.payment-method,
+        td.price-row {
+            font-size: 1.4rem;
+            height: 1rem;
+        }
     }
     
     @media screen and (max-width: 649px) {
@@ -129,44 +169,47 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% set totalPriceProduct = 0 %} {% set total = 0 %} {% set key = 0 %} {% for product in cart %}
                                 <tr>
-                                    <td class="product__thumbnail">
-                                        <a href="#">
-                                            <img src="uploads/{{product.product.illustration}}" alt=" ">
-                                        </a>
-                                    </td>
                                     <td class="product__name">
-                                        <a href="#">{{product.product.name}} </a>
-                                        <br>
-                                        <small>{{product.variation}}</small>
-                                        <br><br> {% set totalPriceProduct = (product.product.price / 100) * product.quantity %}
+                                        <p>
+                                            <a href="#" style="margin-right: 1rem;">{{product.product.name}} </a><br> =>
+                                            <span class="old__price" style="margin-left: 1rem">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small> x{{product.quantity}} </p>
+                                        <small>{{product.variation}}</small> {% set totalPriceProduct = (product.product.price / 100) * product.quantity %}
                                         <div class="price">
-                                            <p><span class="old__price">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small> x{{product.quantity}} </p>
+
                                         </div>
+
                                     </td>
                                 </tr>
-                                {% set key = key + 1 %} {% if key == cart|length %}
+                                {% set key = key + 1 %} {% set total = total + totalPriceProduct %} {% if key == cart|length %}
+
                                 <tr>
-                                    <td style="border: none;">
-                                        <p class="total-price" style="display: none;"> <strong>Prix total : </strong>
-                                            <h5 style="display: none;">{{total|number_format(2,",",".")}} DH </h5>
+                                    <td class="payment-method">
+                                        <p>
+                                            <strong style="margin-right: 1rem;">methode de payment :</strong>
+                                            <h5> {% if payment == "COD" %}( COD ){% else %}( Carte bancaire ) {% endif %}</h5>
                                         </p>
                                     </td>
+                                </tr>
+                                <tr>
                                     <td class="price-row">
-                                        <p class="total-price"> <strong> Prix total : </strong>
+                                        <p class="total-price" style="margin-right: 1rem;"> <strong> Prix total : </strong>
                                             <h5>{{total|number_format(2,",",".")}} DH </h5>
                                         </p>
                                     </td>
                                 </tr>
-                                {% endif %} {% set total = total + totalPriceProduct %} {% endfor %}
+
+
+                                {% endif %} {% endfor %}
                                 <tr>
                                     <div class="product-details__btn">
-                                        <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn">
+                                        {% if payment == "COD" %}
+                                        <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn"> {% else %}
+                                        <input type="submit" name="submitAd" id="submitAd" value="Payer" class="btn"> {% endif %}
                                     </div>
                                 </tr>
 

@@ -56,7 +56,9 @@ class RecapController extends AbstractController
         $carriers = $this->em->getRepository(Carrier::class)->findAll();
 
         $addresses = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
+        
 
+        
         if (isset($_POST['submitAd'])) {
             $date = new DateTime();
             $carrierId = $_POST['carrier'];
@@ -110,6 +112,12 @@ class RecapController extends AbstractController
 
             }
 
+            // Suppression du panier 
+            $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $user]);
+            foreach ($cartItems as $cartItem) {
+                $this->em->remove($cartItem);
+            }
+
             
             $this->em->flush();
 
@@ -117,10 +125,16 @@ class RecapController extends AbstractController
 
 
          }
+
+         if (isset($_POST['submitPay'])) {
+            $paymentMethod = $_POST['payment'];
+            
+        }
         return $this->render('recapitulatif/index.html.twig',[
             'cart' => $cart,
             'carriers' => $carriers,
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'payment' => $paymentMethod
         ]);
     }
 

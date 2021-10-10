@@ -69,6 +69,7 @@ class ProductController extends AbstractController
         $couleurs = [];
         $review = new Review();
         $user = $this->getUser();
+        $minStock = 1000;
 
         //Recuperation du produit 
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
@@ -116,6 +117,10 @@ class ProductController extends AbstractController
             
             $varition_name = $var->getVariation()->getName();
             if ($varition_name == 'Couleur') {
+                $stock = $var->getStock();
+                if ($minStock >= $stock) {
+                    $minStock = $stock;
+                }
                 $couleurs[] = $var->getName();
                 $illustrations[] = $var->getIllustration();
             }elseif ($varition_name == 'Marque'){
@@ -135,6 +140,8 @@ class ProductController extends AbstractController
 
             if (!$this->getUser()) {
                 return $this->redirectToRoute('app_login');
+            }elseif ($minStock == 0) {
+                return $this->redirectToRoute('cart'); 
             }else{
                 $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $user]);
                 foreach ($cartItems as $item) {
@@ -200,7 +207,8 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
             'allReviews' => $allReviews,
             'formVar' => $formVar->createView(),
-            'cart' => $cart
+            'cart' => $cart,
+            'stock' => $minStock
         ]);
     }
 }
