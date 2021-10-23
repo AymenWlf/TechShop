@@ -100,15 +100,15 @@
                                     <span>Quantity:</span>
                                     <div>
 
-                                        <a class="minus-btn" href="#" {% if stock <=(0) %}disabled{% endif %}>
+                                        <a class="minus-btn" href="#">
                                             <svg class="minus-svg">
                             <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
                           </svg>
 
-                                        </a> <input type="text" min="1" {% if stock <=(0) %}value="0" {% else %} value="1" {% endif %} max="{{stock}}" class="counter-btn" id="counter-btn" name="quantity" {% if stock==0 %}disabled{% endif %}> {#
+                                        </a> <input type="text" min="1" value="1" max="10" class="counter-btn" id="counter-btn" name="quantity" > {#
                                         <span
                                             class="counter-btn" id="counter-btn">1</span> #}
-                                            <a class="plus-btn" href="#" {% if stock <=( 0) %}disabled{% endif %}>
+                                            <a class="plus-btn" href="#">
                                                 <svg class="plus-svg">
                             <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
                           </svg>
@@ -160,9 +160,7 @@
                             </a>
                         </div>
                         <div class="product-details__btn">
-                            {% if stock
-                            <=(0) %} <input type="submit" name="submit" value="Rupture du stock" class="btn" disabled> {% else %}
-                                <input type="submit" name="submit" value="Ajouter au panier" class="btn"> {% endif %} {#
+                                <input type="submit" name="submit" value="Ajouter au panier" class="btn"> {#
                                 <a class="add submit-btn" href="#">
                                     <span>
                           <svg>
@@ -185,81 +183,57 @@
 
     <div class="product-detail__bottom">
         <div class="title__container tabs">
-
             <div class="section__titles category__titles ">
                 <div class="section__title detail-btn active" data-id="description">
                     <span class="dot"></span>
                     <h1 class="primary__title">Description</h1>
                 </div>
             </div>
-
-            <div class="section__titles">
-                <div class="section__title detail-btn" data-id="reviews">
-                    <span class="dot"></span>
-                    <h1 class="primary__title">Avis</h1>
-                </div>
-            </div>
-
-            <div class="section__titles">
-                <div class="section__title detail-btn" data-id="shipping">
-                    <span class="dot"></span>
-                    <h1 class="primary__title">Details de livraison</h1>
-                </div>
-            </div>
         </div>
 
         <div class="detail__content">
-            <div class="content active" id="description">
+            <div class="content active">
                 <p>{{product.description}} </p>
             </div>
-            <div class="content" id="reviews" style="width: 100%;">
-                {#
-                <h1>Customer Reviews</h1>
-                <div class="rating">
-                    <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                </svg>
-                    <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                </svg>
-                    <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                </svg>
-                    <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                </svg>
-                    <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-                </svg>
-                </div> #} {% include "z-helpers/reviewForm.html.twig" %} {% include "z-helpers/reviews.html.twig" %}
+        </div>
+         <div class="title__container tabs">
+            <div class="section__titles category__titles ">
+                <div class="section__title detail-btn active" data-id="description">
+                    <span class="dot"></span>
+                    <h1 class="primary__title">Commentaires</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            {#
+            <h1>Customer Reviews</h1>
+            <div class="rating">
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
+            </svg>
+            </div> #} {% include "z-helpers/reviewForm.html.twig" %} {% include "z-helpers/reviews.html.twig" %}
 
 
-            </div>
-            <div class="content" id="shipping">
-                <h3>Returns Policy</h3>
-                <p>You may return most new, unopened items within 30 days of delivery for a full refund. We'll also pay the return shipping costs if the return is a result of our error (you received an incorrect or defective item, etc.).</p>
-                <p>You should expect to receive your refund within four weeks of giving your package to the return shipper, however, in many cases you will receive a refund more quickly. This time period includes the transit time for us to receive your return
-                    from the shipper (5 to 10 business days), the time it takes us to process your return once we receive it (3 to 5 business days), and the time it takes your bank to process our refund request (5 to 10 business days).
-                </p>
-                <p>If you need to return an item, simply login to your account, view the order using the 'Complete Orders' link under the My Account menu and click the Return Item(s) button. We'll notify you via e-mail of your refund once we've received
-                    and processed the returned item.
-                </p>
-                <h3>Shipping</h3>
-                <p>We can ship to virtually any address in the world. Note that there are restrictions on some products, and some products cannot be shipped to international destinations.</p>
-                <p>When you place an order, we will estimate shipping and delivery dates for you based on the availability of your items and the shipping options you choose. Depending on the shipping provider you choose, shipping date estimates may appear
-                    on the shipping quotes page.
-                </p>
-                <p>Please also note that the shipping rates for many items we sell are weight-based. The weight of any such item can be found on its detail page. To reflect the policies of the shipping companies we use, all weights will be rounded up to
-                    the next full pound.
-                </p>
-            </div>
         </div>
     </div>
 </section>
 
 <!--AIDE-->
 
-<p id="valueCount">{{stock}}</p>
+<p id="valueCount" color="">9</p>
 
 
 {% endblock content %} {% block footer %}{% endblock footer %}

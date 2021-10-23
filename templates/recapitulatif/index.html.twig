@@ -182,7 +182,7 @@
                                         <div class="price">
 
                                         </div>
-
+                                        s
                                     </td>
                                 </tr>
                                 {% set key = key + 1 %} {% set total = total + totalPriceProduct %} {% if key == cart|length %}
@@ -207,13 +207,9 @@
                                 {% endif %} {% endfor %}
                                 <tr>
                                     <div class="product-details__btn">
-                                        {% if payment == "COD" %}
-                                        <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn"> {% else %}
-                                        <input type="submit" name="submitAd" id="submitAd" value="Payer" class="btn"> {% endif %}
+                                        <input type="submit" name="submitAd" id="submitAd" value="Confirmer" class="btn">
                                     </div>
                                 </tr>
-
-
                             </tbody>
                         </table>
                     </div>

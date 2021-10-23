@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %} {% block title %}TechShop - Commander avec succès{% endblock %} {% block content %}
+<style>
+    
+</style>
+<section class="success">
+    <div class="container">
+        <section class="thanks-purchase">
+            <div class="check-img">
+                <img src="{{asset("/images/verify.png")}}">
+            </div>
+            <div class="thanks-text">
+                <h1>Merci <strong>{{order.user.pseudoname}} </strong> pour votre confiance!</h1>
+                </br>
+                <p>- Prenom : <strong>{{order.user.firstname}} </strong></p>
+                </br>
+                {% for item in order.livraison %}
+                <p>- Nom : <strong>{{item.lastname}} </strong></p><br>
+                <p>- Mode de paiement : <strong>Paiement cash à la livraison</strong></p><br>
+                <p>- Adresse :
+                    <ul class="content-form">
+                        <li>Nom de l'adresse : <strong>{{item.name}} </strong></li>
+                        <li>Adresse de livraison : <strong>{{item.address}} {{item.country}} {{item.city}}</strong> </li>
+                        <li>Adresse de postal : <strong>{{item.postal}}</strong></li>
+                        <li>Téléphone : <strong>{{item.phone}}</strong></li>
+                    </ul>
+                </p>
+                {% endfor %}
+
+                <p>Vous aller recevoir un email dans quelque instants, resumant la commande numéro : <strong>{{order.reference}}</strong>.</p>
+            </div>
+            <div class="continue-btn"></div>
+        </section>
+        <section class="resume">
+            <div class="resume-div">
+                <div class="resume-table">
+                    <table class="resumeTable">
+                        <thead>
+                            <tr>
+                                <th class="product-cl">Produit</th>
+                                <th>Quantité</th>
+                                <th>Sous-Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in orderDetails %}
+                            <tr>
+                                <td class="product-cl">{{product.product.name}} </td>
+                                <td class="quantity-cl">x{{product.quantity}} </td>
+                                <td class="sous-total-cl"><strong>{{(product.total / 100)|number_format(2,",",".")}} DH </strong></td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <table class="totalTable">
+                        <tbody>
+                            <tr>
+                                <th>Frais de port</th>
+                                <td> <strong class="price">{{(order.carrierPrice / 100)|number_format(2,",",".")}} DH </strong></td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td><strong class="total_price">{{((order.total + order.carrierPrice) / 100)|number_format(2,",",".")}} DH</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="resume-table-responsive">
+
+                    {% for product in orderDetails %}
+                    <table class="resumeTable">
+                        <tbody>
+                            <tr>
+                                <th>Produit</th>
+                                <td>{{product.product.name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantité</th>
+                                <td>x{{product.quantity}} </td>
+                            </tr>
+                            <tr>
+                                <th>Sous-Total</th>
+                                <td>{{(product.total / 100)|number_format(2,",",".")}} DH</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                    <table class="totalTable">
+                        <tbody>
+                            <tr>
+                                <th>Frais de port</th>
+                                <td> <strong class="price">{{(order.carrierPrice / 100)|number_format(2,",",".")}} DH</strong></td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td><strong class="total_price">{{((order.total + order.carrierPrice) / 100)|number_format(2,",",".")}} DH</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <div class="track-btn-div">
+            <button class="track-btn">Tracker ma commande</button>
+        </div>
+        
+    </div>
+</section>
+{% endblock content %}
+{% block footer %}{% endblock footer %}

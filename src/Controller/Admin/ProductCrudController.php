@@ -33,27 +33,16 @@ class ProductCrudController extends AbstractCrudController
             ->setUploadDir('public/uploads')
             ->setUploadedFileNamePattern('[randomhash].[extension]'),
             TextField::new('name','Nom du Produit'),
-            SlugField::new('slug','Slug')->setTargetFieldName('name')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
+            SlugField::new('slug','Slug')->setTargetFieldName('name'),
             AssociationField::new('category','Categorie'),
-            TextEditorField::new('description','Description')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
+            TextEditorField::new('description','Description'),
             BooleanField::new('isBest'),
-            TextField::new('subtitle','Sous-Titre')->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
+            TextField::new('subtitle','Sous-Titre'),
             MoneyField::new('price')->setCurrency('MAD'),
-            ImageField::new('illustration2')
+            ImageField::new('illustration')
             ->setBasePath('uploads/')
             ->setUploadDir('public/uploads')
-            ->setUploadedFileNamePattern('[randomhash].[extension]')
-            ->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
-            ImageField::new('illustration3')
-            ->setBasePath('uploads/')
-            ->setUploadDir('public/uploads')
-            ->setUploadedFileNamePattern('[randomhash].[extension]')
-            ->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
-            ImageField::new('illustration4')
-            ->setBasePath('uploads/')
-            ->setUploadDir('public/uploads')
-            ->setUploadedFileNamePattern('[randomhash].[extension]')
-            ->onlyOnDetail()->onlyWhenCreating()->onlyWhenUpdating(),
+            ->setUploadedFileNamePattern('[randomhash].[extension]'),
             
         ];
     }

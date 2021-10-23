@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use function PHPSTORM_META\map;
+
 class RecapController extends AbstractController
 {
     private $em;
@@ -28,8 +30,13 @@ class RecapController extends AbstractController
     #[Route('/recapitulatif', name: 'recap')]
     public function index(): Response
     {
-        $user = $this->getUser();         
+        $user = $this->getUser();       
+         
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        $date = new DateTime();
+        $dateChar = $date->format('dmY');
+        $reference = $dateChar.'-'.uniqid();
+        $delivery = [];
        
         $cart = [];
         foreach ($cartItems as $item) {
@@ -56,17 +63,38 @@ class RecapController extends AbstractController
         $carriers = $this->em->getRepository(Carrier::class)->findAll();
 
         $addresses = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
-        
+        if (isset($_POST['submitPay'])) {
+            $paymentMethod = $_POST['payment'];
+         }
 
         
         if (isset($_POST['submitAd'])) {
+            $addressCompany = null;
             $date = new DateTime();
             $carrierId = $_POST['carrier'];
+            $addressId = $_POST['address'];
+            $addressPost = $this->em->getRepository(Address::class)->findOneBy(['id' => $addressId]);
             $carrierPost = $this->em->getRepository(Carrier::class)->findOneBy(['id' => $carrierId]);
+
+            if ($addressPost->getCompany()) {
+                $addressCompany = $addressPost->getCompany();
+            }
+            $delivery[] = [
+                'name' => $addressPost->getName(),
+                'firstname' => $addressPost->getFirstName(),
+                'lastname' => $addressPost->getLastName(),
+                'address' => $addressPost->getAddress(),
+                'postal' => $addressPost->getPostal(),
+                'country' => $addressPost->getCountry(),
+                'city' => $addressPost->getCity(),
+                'phone' => $addressPost->getPhone(),
+                'company' => $addressCompany
+                
+            ];
+
             $carrierName = $carrierPost->getName();
             $price = $carrierPost->getPrice();
-            $dateChar = $date->format('d/m/Y');
-            $reference = $dateChar.'-'.uniqid();
+            $total = $price;
             //Remplissage de Order
             $order = new Order();
             $order->setUser($user);
@@ -75,10 +103,11 @@ class RecapController extends AbstractController
             $order->setCarrierPrice($price);
             $order->setState(0);
             $order->setIsPaid(0);
+            $order->setLivraison($delivery);
             $order->setSessionCheckoutId(1111);
             $order->setReference($reference);
             
-            $this->em->persist($order);
+           
            
 
             //remplissage des orderDetaails
@@ -87,6 +116,7 @@ class RecapController extends AbstractController
                 $product = $item['product'];
                 $price = $item['product']->getPrice();
                 $quantity = $item['quantity'];
+                $total += $price * $quantity;
                 $variation = $item['theVariation'];
                 foreach ($variation as $var) {
                     $VarName = $var->getVariation()->getName();
@@ -117,24 +147,33 @@ class RecapController extends AbstractController
             foreach ($cartItems as $cartItem) {
                 $this->em->remove($cartItem);
             }
+            
+
+            $order->setTotal($total);
+            $this->em->persist($order);
 
             
             $this->em->flush();
+            $paymentMethod = null;
 
-            
-
+            return $this->redirectToRoute('success',[
+                'reference' => $reference
+            ]);
 
          }
 
-         if (isset($_POST['submitPay'])) {
-            $paymentMethod = $_POST['payment'];
+         
             
-        }
+        
+
+        // Appeler reference de order
+
         return $this->render('recapitulatif/index.html.twig',[
             'cart' => $cart,
             'carriers' => $carriers,
             'addresses' => $addresses,
-            'payment' => $paymentMethod
+            'payment' => $paymentMethod,
+            'reference' => $reference
         ]);
     }
 

@@ -5,7 +5,7 @@
             <nav class="nav">
                 <div class="nav__hamburger">
                     <svg>
-              <use xlink:href="{{asset('images/sprite.svg#icon-menu ')}}"></use>
+              <use xlink:href="{{asset('images/sprite.svg#icon-menu')}}"></use>
             </svg>
                 </div>
 
@@ -26,7 +26,7 @@
                     </div>
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="#header" class="nav__link scroll-link">Acceuil</a>
+                            <a href=" {{path('home')}} " class="nav__link">Acceuil</a>
                         </li>
                         <li class="nav__item">
                             <a href=" {{path('product')}} " class="nav__link">Produits</a>
@@ -62,17 +62,28 @@
 
                     <a href="#" class="icon__item">
                         <svg class="icon__search">
-                <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
-              </svg>
+                        <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
+                        </svg>
                     </a>
 
                     <a href="{{path('cart')}} " class="icon__item">
                         <svg class="icon__cart">
-                <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
-              </svg>
+                        <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
+                        </svg>
                         <span id="cart__total">{{cart|length}}</span>
                     </a>
+
                 </div>
+                <div class="link__item">
+                {% if app.user %}
+                    <a href="{{path('app_logout')}} " class="item__link">Deconnexion</a>
+                {% else %}
+                    <a href="{{path('app_login')}} " class="item__link">Connexion</a> |
+                    <a href="{{path('register')}} " class="item__link">S'inscrire</a>
+                {% endif %}
+                
+                </div>
+
             </nav>
         </div>
     </div>

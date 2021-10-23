@@ -1,8 +1,5 @@
 <section id="collection" class="section collection">
         <div class="collection__container" >
-
-
-        
             {% for category in categories %}
                 <div class="collection__box">
                     <div class="img__container">
@@ -10,9 +7,9 @@
                     </div>
                     <div class="collection__content">
                         <div class="collection__data">
-                            <span>Distrubute by TechShop</span>
+                            <span>Exclusivité TechShop</span>
                             <h1 class=" text-uppercase"> {{category.name}} </h1>
-                            <a href="#shop">SHOP NOW</a>
+                            <a href="{{path("product")}}">ACHETER MAINTENANT</a>
                         </div>
                     </div>
             </div>

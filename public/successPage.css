@@ -1,0 +1,146 @@
+section.success .container {
+    padding: 2rem;
+    margin-bottom: 11rem;
+    /* align-items: center; */
+}
+
+section.success .thanks-purchase {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+section.success .thanks-purchase .check-img {
+    padding: 8rem;
+}
+
+section.success .thanks-text h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+section.success .content-form {
+    width: 100%;
+    padding: 3rem;
+    background-color: var(--primaryColor);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+section.success .resume-div {
+    display: flex;
+    justify-content: center;
+}
+
+section.success .total-sec {
+    display: flex;
+    justify-content: end;
+    padding-top: 3rem;
+}
+
+section.success .total-div {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+section.success .resume-table {
+    display: block;
+}
+
+section.success .resume-table-responsive {
+    display: none;
+}
+
+section.success table {
+    border-collapse: collapse;
+}
+
+section.success table th {
+    padding: 1.5rem;
+    border: 1px solid var(--grey2);
+    background-color: var(--grey3);
+    letter-spacing: 2px;
+}
+
+section.success table td {
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px solid var(--grey2);
+}
+
+section.success table .product-cl {
+    width: 42rem;
+}
+
+.price {
+    color: var(--orange);
+}
+
+.total_price {
+    color: var(--green);
+}
+
+.totalTable {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: end;
+}
+
+.track-btn-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+}
+
+.track-btn {
+    cursor: pointer;
+    background-color: var(--orange);
+    font-size: 1.5rem;
+    padding: 1.2rem 3rem;
+    color: #fff;
+    font-weight: bolder;
+    text-transform: uppercase;
+    border: 1px solid var(--black);
+    transition: all 0.4s ease-in-out;
+    letter-spacing: 1px;
+}
+
+.track-btn:hover {
+    background-color: var(--black);
+    color: var(--white);
+    border: 1px solid var(--black);
+}
+
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 606px) {
+    section.success .thanks-text h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    section.success .resume-table-responsive {
+        display: block;
+    }
+    section.success .resume-table {
+        display: none;
+    }
+    section.success table {
+        margin-bottom: 2rem;
+    }
+    section.success table th {
+        width: 14rem;
+    }
+    section.success table td {
+        width: 26rem;
+    }
+    section.success .container {
+        text-align: center;
+    }
+}

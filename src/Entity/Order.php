@@ -66,6 +66,16 @@ class Order
      */
     private $orderDetails;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $Total;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $livraison = [];
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -200,6 +210,30 @@ class Order
                 $orderDetail->setMyOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->Total;
+    }
+
+    public function setTotal(float $Total): self
+    {
+        $this->Total = $Total;
+
+        return $this;
+    }
+
+    public function getLivraison(): ?array
+    {
+        return $this->livraison;
+    }
+
+    public function setLivraison(array $livraison): self
+    {
+        $this->livraison = $livraison;
 
         return $this;
     }

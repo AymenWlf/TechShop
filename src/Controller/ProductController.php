@@ -78,8 +78,6 @@ class ProductController extends AbstractController
         $form = $this->createForm(ReviewType::class,$review);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //Verification user conncter
-            if ($user) {
                 //recuperation reviews user
                 $userReviews = $this->em->getRepository(Review::class)->findBy(['user' => $user]);
 
@@ -102,10 +100,7 @@ class ProductController extends AbstractController
                     $this->em->flush();
                     $this->addFlash('notice','Commentaire ajouté avec succes !');
                 }
-            }else{
-                $this->addFlash('notice','Connecter vous pour ajouter un commentaire !');
-                return $this->redirectToRoute('app_login');
-            }
+            
         }/* Gerer problemes form */ 
 
         //Recuperation variation du produit
@@ -117,10 +112,6 @@ class ProductController extends AbstractController
             
             $varition_name = $var->getVariation()->getName();
             if ($varition_name == 'Couleur') {
-                $stock = $var->getStock();
-                if ($minStock >= $stock) {
-                    $minStock = $stock;
-                }
                 $couleurs[] = $var->getName();
                 $illustrations[] = $var->getIllustration();
             }elseif ($varition_name == 'Marque'){
@@ -207,8 +198,7 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
             'allReviews' => $allReviews,
             'formVar' => $formVar->createView(),
-            'cart' => $cart,
-            'stock' => $minStock
+            'cart' => $cart
         ]);
     }
 }

@@ -71,7 +71,7 @@ Header
 }
 
 .container {
-    max-width: 117rem;
+    max-width: 140rem;
     margin: 0 auto;
     padding: 0 1.6rem;
 }
@@ -131,6 +131,8 @@ Navigation
 
 .nav__menu {
     width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .nav__list {
@@ -633,7 +635,7 @@ Latest Products
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 6rem;
+    margin: 0 auto 1rem;
     padding: 2rem 0;
     background-color: var(--primaryColor);
 }
@@ -2037,13 +2039,10 @@ Product Details
 /* Product Details Bottom */
 
 .detail__content {
-    position: relative;
-    height: 55rem;
     /* overflow-y: scroll; */
 }
 
 .detail__content .content {
-    position: absolute;
     transform: translate(0, 25vh);
     transition: all 0.6s ease-in-out;
     opacity: 0;
@@ -2486,3 +2485,48 @@ Cart Area Media Query
 
 
 /* Personal customize */
+
+
+/*
+======================
+Header
+======================
+*/
+
+.link__item .item__link {
+    color: var(--orange);
+    transition: all 0.5s;
+}
+
+.link__item .item__link:hover {
+    color: var(--black5);
+}
+
+
+/*
+======================
+Login
+======================
+*/
+
+.login__bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_link {
+    cursor: pointer;
+    color: var(--orange);
+    transition: all 0.5s;
+}
+
+.login_rows {
+    margin: 1rem;
+}
+
+.login_link:hover {
+    color: var(--black5);
+    transition: all 0.5s;
+}
