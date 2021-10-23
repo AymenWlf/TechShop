@@ -635,9 +635,13 @@ Latest Products
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
+    margin: 0 auto 6rem;
     padding: 2rem 0;
     background-color: var(--primaryColor);
+}
+
+.product-detail__bottom .title__container {
+    margin: 0 auto 1rem;
 }
 
 .section__titles:not(:last-child) {

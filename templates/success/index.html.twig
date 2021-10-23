@@ -60,7 +60,7 @@
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <td><strong class="total_price">{{((order.total + order.carrierPrice) / 100)|number_format(2,",",".")}} DH</strong></td>
+                                <td><strong class="total_price">{{((order.total) / 100)|number_format(2,",",".")}} DH</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -93,7 +93,7 @@
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <td><strong class="total_price">{{((order.total + order.carrierPrice) / 100)|number_format(2,",",".")}} DH</strong></td>
+                                <td><strong class="total_price">{{((order.total) / 100)|number_format(2,",",".")}} DH</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -101,7 +101,7 @@
             </div>
         </section>
         <div class="track-btn-div">
-            <button class="track-btn">Tracker ma commande</button>
+            <a href="{{path('home')}}" class="track-btn">Tracker ma commande</a>
         </div>
         
     </div>
