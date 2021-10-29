@@ -247,8 +247,9 @@ Navigation Media Query
 ======================
 */
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
     .nav__menu {
+        display: block;
         position: fixed;
         top: 0;
         left: -30rem;
@@ -313,6 +314,9 @@ Navigation Media Query
         opacity: 0.7;
         z-index: 999;
         transition: 0.8s;
+    }
+    .deco {
+        display: none;
     }
 }
 
