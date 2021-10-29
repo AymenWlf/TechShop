@@ -1,0 +1,35 @@
+.account-container {
+    padding: 4rem 18rem;
+}
+
+.account-title {
+    margin-bottom: 1rem;
+}
+
+.account-bjr {
+    margin-bottom: 4rem;
+}
+
+.account-functions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.account-functions a {
+    align-items: center;
+    background-color: var(--grey3);
+    display: flex;
+    justify-content: center;
+    color: var(--black3);
+    font-weight: bolder;
+    max-width: 24rem;
+    width: 21rem;
+    height: 13rem;
+    transition: all 0.5s;
+    box-shadow: rgba(78, 83, 87, 0.2) 0px 8px 24px;
+}
+
+.account-functions a:hover {
+    background-color: var(--grey);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

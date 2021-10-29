@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block title %}Mon compte - TechShop{% endblock title %}
+{% block header %}{% endblock header %}
+{% block content %}
+    <div class="account-container">
+        <div class="account-title"><h1>Mon compte</h1></div>
+        <div class="account-bjr">
+            <h4>Bienvenue <strong>{{app.user.pseudoname}}</strong>, dans la page de gestion de votre compte,</h4>
+        </div>
+        <div class="account-functions">
+            <a href="">Gerer mes adresses</a>
+            <a href="">Gerer mes infos</a>
+            <a href="">Gerer mes commandes</a>
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}{% endblock footer %}
