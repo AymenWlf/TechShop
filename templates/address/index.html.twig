@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes adresses - TechShop{% endblock title %}
+
+{% block content %}
+<style>
+    
+</style>
+<section class="address">
+    <div class="account-container">
+        <div class="account-title">
+            <a href="{{path('new_address')}} " class="add-btn">Ajouter une adresse</a>
+            <h1>Mes Adresses</h1>
+        </div>
+        <div class="account-bjr">
+            <h4>Bienvenue <strong>{{app.user.pseudoname}}</strong>, dans la page de gestion des adresses,</h4>
+        </div>
+        <div class="addresses">
+        {% if addresses == null %}
+            <h2 style="text-align: center;">Vous n'avez aucune adresse , Pour en rajouter veuillez cliquer <a href="{{path('new_address')}}" style="color: var(--orange);">ICI</a></h2>
+        {% else %}
+            {% for address in addresses %}
+            <ul class="content-form">
+                <div class="address-name">
+                    <li><strong>{{address.name}}</strong></li>
+                </div>
+                <br>
+                <div class="address-content">
+                    <li>{{address.address}} {{address.country}} {{address.city}}</li>
+                    <li>{{address.postal}}</li>
+                    {% if address.company %}
+                        <li><strong>{{address.company}}</strong></li>
+                    {% endif %}
+                    <li>0{{address.phone}}</li>
+                    <br>
+                    <br>
+                </div>
+                <div class="btns">
+                    <a class="btn-modif"  href="{{path('modif_address', {'id': address.id})}}">Modifier</a><a class="btn-del" href="{{path('del_address', {'id': address.id})}}">Supprimer</a>
+                </div>
+            </ul>
+            {% endfor %}
+        {% endif %}
+        
+        
+            
+        </div>
+    </div>
+</section>
+{% endblock content %}
+{% block footer %}{% endblock footer %}

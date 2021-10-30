@@ -1,0 +1,110 @@
+.content-form {
+    /* width: 100%; */
+    text-align: center;
+    margin: 1rem;
+    width: 37rem;
+    height: 29rem;
+    padding: 3rem;
+    background-color: var(--primaryColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* margin-bottom: 2rem; */
+    /* margin-top: 2rem; */
+}
+
+.address-name strong {
+    font-size: 2.5rem;
+}
+
+section.address .addresses {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+section.address .address-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+section.address .add-btn {
+    margin-bottom: 2rem;
+    text-align: center;
+    float: right;
+    color: white;
+    padding: 1rem;
+    background: green;
+    border: 1px solid green;
+    margin-right: 1rem;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+section.address .add-btn:hover {
+    color: green;
+    background: white;
+    border: 1px solid green;
+}
+
+section.address .btn-modif {
+    color: orange;
+    padding: 1rem;
+    background: white;
+    border: 1px solid orange;
+    margin-right: 1rem;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+section.address .btn-modif:hover {
+    background-color: orange;
+    color: white;
+}
+
+section.address .btn-del {
+    color: white;
+    padding: 1rem;
+    background: var(--orange);
+    border: 1px solid var(--orange);
+    letter-spacing: 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+section.address .btn-del:hover {
+    background-color: white;
+    color: var(--orange);
+    border: 1px solid var(--orange);
+}
+
+@media screen and (max-width: 1079px) {
+    section.address .account-title {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    section.address .account-title h1 {
+        margin-bottom: 2rem;
+    }
+    section.address .add-btn {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .content-form {
+        width: 27rem;
+    }
+    section.address .address-content {
+        padding: 1rem;
+    }
+}

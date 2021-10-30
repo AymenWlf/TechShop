@@ -15,7 +15,7 @@
     justify-content: space-evenly;
 }
 
-.account-functions a {
+.account-functions .btn-links {
     align-items: center;
     background-color: var(--grey3);
     display: flex;

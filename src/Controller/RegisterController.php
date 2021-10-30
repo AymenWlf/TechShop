@@ -40,7 +40,7 @@ class RegisterController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
         }else{
-            $this->addFlash('notice','Il y a eu probleme lors de votre inscription !');
+            
         }
         
         if ($this->getUser()) {

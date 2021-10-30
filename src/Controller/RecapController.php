@@ -177,34 +177,5 @@ class RecapController extends AbstractController
         ]);
     }
 
-    // Cree page adresse dans account et ajouter ceci !!!!!!
-    #[Route('/nouvel-adresse', name: 'new_address')]
-    public function new(Request $request): Response
-    {
-        $address = new Address();
-        $form = $this->createForm(AddressType::class,$address);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $address->setUser($this->getUser());
-            $this->em->persist($address);
-            $this->em->flush();
-
-            
-            return $this->redirectToRoute('recap');
-        }
-
-        if ($this->getUser()) {
-            $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
-        }else{
-            $cart = null;
-        }
-
-        
-
-        return $this->render('recapitulatif/address-form.html.twig',[
-            'form' => $form->createView(),
-            'cart' => $cart
-        ]);
-    }
+    
 }
