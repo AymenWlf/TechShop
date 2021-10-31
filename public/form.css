@@ -170,9 +170,7 @@ input[type="radio"] {
     .formulaire-sty .category {
         width: 100%;
     }
-    .formulaire-sty .content .user-details {
-        max-height: 300px;
-    }
+    .formulaire-sty .content .user-details {}
     .formulaire-sty .user-details::-webkit-scrollbar {
         width: 5px;
     }

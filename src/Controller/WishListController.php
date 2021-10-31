@@ -30,7 +30,7 @@ class WishListController extends AbstractController
         if ($user) {
             $wishList = $this->em->getRepository(WishList::class)->findByWish($user);
         }else{
-            $this->addFlash('notice','Connecter vous pour accéder à votre WishList !');
+            // $this->addFlash('notice','Connecter vous pour accéder à votre WishList !');
             return $this->redirectToRoute('app_login');
         }
 
@@ -59,7 +59,7 @@ class WishListController extends AbstractController
         $user = $this->getUser();
         // dd($user);
         if (!$user) {
-            $this->addFlash('notice','Connecter vous pour ajouter un produits à votre WishList !');
+            //$this->addFlash('notice','Connecter vous pour ajouter un produits à votre WishList !');
         }
         $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
         if (!$wishList) {
@@ -78,13 +78,13 @@ class WishListController extends AbstractController
             }
         }
         if ($c === 1) {
-            $this->addFlash('notice','Ce produit se trouve dejà dans votre wishList !');
+            // notif produit existant
         }else{
             $wishList->addProduct($product);
             // dd($wishList);
             $this->em->persist($wishList);
             $this->em->flush();
-            $this->addFlash('notice','Produit ajoutée à la wishList avec succes !');
+            // $this->addFlash('notice','Produit ajoutée à la wishList avec succes !');
         }
         
 
@@ -102,7 +102,7 @@ class WishListController extends AbstractController
         $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
         // dd($user);
         if (!$user || !$wishList) {
-            $this->addFlash('notice',"Votre wishList es vide !");
+            // $this->addFlash('notice',"Votre wishList est vide !");
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
@@ -116,9 +116,9 @@ class WishListController extends AbstractController
         if ($c === 1) {
             $wishList->removeProduct($product);
             $this->em->flush();
-            $this->addFlash('notice','Vous avez retiré ce produit de votre wishList avec succes !');
+            // $this->addFlash('notice','Vous avez retiré ce produit de votre wishList avec succes !');
         }else{
-            $this->addFlash('notice','Ce produit ne se trouve pas dans votre wishList !');
+            // $this->addFlash('notice','Ce produit ne se trouve pas dans votre wishList !');
         }
 
        

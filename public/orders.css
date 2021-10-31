@@ -1,0 +1,32 @@
+section.orders .voir-commande {
+    color: var(--orange);
+    font-weight: bolder;
+}
+
+section.orders .no-orders {
+    display: flex;
+    text-align: center;
+    height: 30vh;
+    align-items: center;
+}
+
+@media screen and (max-width:800px) {
+    section.orders .resume-table-responsive {
+        display: block;
+    }
+    section.orders .resume-table {
+        display: none;
+    }
+    section.orders table {
+        margin-bottom: 2rem;
+    }
+    section.orders table th {
+        width: 14rem;
+    }
+    section.orders table td {
+        width: 26rem;
+    }
+    section.orders .container {
+        text-align: center;
+    }
+}

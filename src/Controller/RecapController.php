@@ -34,6 +34,7 @@ class RecapController extends AbstractController
          
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         $date = new DateTime();
+        $datetime = $date->format('d/m/Y');
         $dateChar = $date->format('dmY');
         $reference = $dateChar.'-'.uniqid();
         $delivery = [];
@@ -98,7 +99,7 @@ class RecapController extends AbstractController
             //Remplissage de Order
             $order = new Order();
             $order->setUser($user);
-            $order->setCreatedAt($dateChar);
+            $order->setCreatedAt($datetime);
             $order->setCarrierName($carrierName);
             $order->setCarrierPrice($price);
             $order->setState(0);

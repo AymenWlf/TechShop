@@ -17,13 +17,12 @@
 
   <!-- Custom StyleSheet -->
   {% block stylesheets %}
-  <link rel="stylesheet" href="{{asset("styles.css?t=<?3>")}}" />
-  
-  <link rel="stylesheet" href="{{asset("address.css?t=<?6>")}}" />
-  
+  <link rel="stylesheet" href="{{asset("styles.css?t=<?5>")}}" />
+  <link rel="stylesheet" href="{{asset("address.css?t=<?8>")}}" />
   <link rel="stylesheet" href="{{asset("account.css?t=<?2>")}}" />
-  <link rel="stylesheet" href="{{asset("successPage.css?t=<?2>")}}" 
-  {% endblock %}/>
+  <link rel="stylesheet" href="{{asset("successPage.css?t=<?2>")}}"/>
+  <link rel="stylesheet" href="{{asset("orders.css?t=<?0>")}}" />
+  {% endblock %}
   
   {# <link type="text/css" rel="stylesheet" href="styles.css?t=<? echo time(); ?>" media="all">         #}
 
@@ -92,6 +91,7 @@
 
   <!-- Custom JavaScript -->
  <script src=" {{asset('js/products.js?t= <?8>')}}"></script>
+ <script src=" {{asset('js/header.js?t= <?7>')}}"></script>
   <script src=" {{asset('js/index.js?t= <? echo time(); ?>')}}"></script>
   <script src=" {{asset('js/slider.js?t= <? echo time(); ?>')}}"></script>
   <script src="{{asset('js/script.js?t= <? echo time(); ?>')}}"></script>

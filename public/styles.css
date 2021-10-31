@@ -247,7 +247,7 @@ Navigation Media Query
 ======================
 */
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
     .nav__menu {
         display: block;
         position: fixed;
@@ -2502,12 +2502,31 @@ Header
 */
 
 .link__item .item__link {
+    transition: color 0.3s ease-in-out;
     color: var(--orange);
-    transition: all 0.5s;
+}
+
+.nav__item__link {
+    display: none;
 }
 
 .link__item .item__link:hover {
     color: var(--black5);
+}
+
+@media screen and (max-width: 1000px) {
+    .item__link {
+        display: none;
+    }
+    .nav__item__link {
+        display: inline-block;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        transition: color 0.3s ease-in-out;
+        color: var(--orange);
+        padding: 1.6rem 0;
+        width: 100%;
+    }
 }
 
 

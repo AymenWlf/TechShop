@@ -5,12 +5,12 @@
     <div class="account-container">
         <div class="account-title"><h1>Mon compte</h1></div>
         <div class="account-bjr">
-            <h4>Bienvenue <strong>{{app.user.pseudoname}}</strong>, dans la page de gestion de votre compte,</h4>
+            <h4>Bienvenue <strong>{{app.user.pseudoname}}</strong>, dans la page de gestion de vos commandes,</h4>
         </div>
         <div class="account-functions">
-            <a class="btn-links" href="">Gerer mes adresses</a>
+            <a class="btn-links" href="{{path('address')}} ">Gerer mes adresses</a>
             <a class="btn-links" href="">Gerer mes infos</a>
-            <a class="btn-links" href="">Gerer mes commandes</a>
+            <a class="btn-links" href="{{path('orders')}} ">Gerer mes commandes</a>
         </div>
     </div>
 {% endblock content %}

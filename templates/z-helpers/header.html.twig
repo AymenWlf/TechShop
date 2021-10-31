@@ -40,39 +40,57 @@
                         <li class="nav__item">
                             <a href="#contact" class="nav__link scroll-link">Contact</a>
                         </li>
+                        {% if app.user %}
+                        <li class="nav__item">
+                            <a href="{{path('app_logout')}} " class="nav__item__link deco">Deconnexion</a>
+                        </li>
+                        {% else %}
+                        <li class="nav__item">
+                            <a href="{{path('app_login')}} " class="nav__item__link" style="color: var(--orange);">Connexion</a> 
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{path('register')}} " class="nav__item__link" style="color: var(--orange);">S'inscrire</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
 
                 <div class="nav__icons">
 
                     {% if app.user %}
-                    <a href=" {{path('app_logout')}}" class="icon__item">
+                    <a href=" {{path('account')}}" class="icon__item">
                         <svg class="icon__user">
-                <use xlink:href="{{asset('images/sprite.svg#icon-arrow-right2')}} "></use>
-              </svg>
+                        <use xlink:href="{{asset('images/sprite.svg#icon-user')}} "></use>
+                        </svg>
                     </a>
-                    {% else %}
-                    <a href=" {{path('app_login')}}" class="icon__item">
-                        <svg class="icon__user">
-                <use xlink:href="{{asset('images/sprite.svg#icon-user')}} "></use>
-              </svg>
-                    </a>
-                    {% endif %}
-
-
                     <a href="#" class="icon__item">
                         <svg class="icon__search">
                         <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
                         </svg>
                     </a>
-
+                    
                     <a href="{{path('cart')}} " class="icon__item">
                         <svg class="icon__cart">
                         <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
                         </svg>
                         <span id="cart__total">{{cart|length}}</span>
                     </a>
+                    {% else %}
+                    <a href="#" class="icon__item">
+                        <svg class="icon__search">
+                        <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
+                        </svg>
+                    </a>
+                    <a href="{{path('cart')}} " class="icon__item">
+                        <svg class="icon__cart">
+                        <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
+                        </svg>
+                        <span id="cart__total">{{cart|length}}</span>
+                    </a>
+                    {% endif %}
 
+
+                   
                 </div>
                 <div class="link__item">
                 {% if app.user %}
