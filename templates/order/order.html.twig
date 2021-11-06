@@ -1,16 +1,27 @@
-{% extends 'base.html.twig' %} {% block title %}TechShop - Commander avec succès{% endblock %} {% block content %}
-<style>
-    
-</style>
+{% extends 'base.html.twig' %} {% block title %}TechShop - Ma commande{% endblock %} {% block content %}
 <section class="success">
     <div class="container">
         <section class="thanks-purchase">
-            <div class="check-img">
-                <img src="{{asset("/images/verify.png")}}">
-            </div>
             <div class="thanks-text">
-                <h1>Merci <strong>{{order.user.pseudoname}} </strong> pour votre confiance!</h1>
+                <h1>Commande Num : "{{order.reference}}"</h1>
                 </br>
+                {% if order.state == 1 %}
+                    <p>- Etat : <strong style="color: orange">( En attente )</strong>
+                    {% elseif order.state == 2 %}
+                    <p>- Etat : <strong style="color: orange">( Préparation en cours )</strong>
+                    {% elseif order.state == 3 %}
+                    <p>- Etat : <strong style="color: orange">( Livraison en cours )</strong>
+                    {% elseif order.state == 4 %}
+                    <p>- Etat : <strong style="color: green">( Livrée )</strong>   
+                    {% elseif order.state == 5 or order.state == 6 %}
+                    <p>- Etat : <strong style="color: var(--orange)">( Annulée )</strong> 
+                {% endif %}
+                {% if order.isPaid == 0 %}
+                    <strong style="color: var(--orange)">( Non Payée )</strong><p>
+                    {% elseif order.isPaid == 1 %}
+                    <strong style="color: green">( Payée )</strong><p>
+                {% endif %}
+                <br>
                 <p>- Prenom : <strong>{{order.user.firstname}} </strong></p>
                 </br>
                 {% for item in order.livraison %}
@@ -25,8 +36,6 @@
                     </ul>
                 </p>
                 {% endfor %}
-
-                <p>Vous aller recevoir un email dans quelque instants, resumant la commande numéro : <strong>{{order.reference}}</strong>.</p>
             </div>
             <div class="continue-btn"></div>
         </section>
@@ -101,8 +110,16 @@
             </div>
         </section>
         <div class="track-btn-div">
-            <a href="{{path('order',{'reference': order.reference })}}" class="track-btn">Tracker ma commande</a>
+        {% if (order.state >= 1) and (order.state <= 3) %}
+            <a href="{{path('cancel_order',{'reference':order.reference})}}" class="track-btn">Annulée ma commande</a>
+        {% elseif order.state == 4 %}
+            <a href="#" class="track-btn">Demander un remboursement</a>
+        {% else %}
+            <a href="{{path('account')}}" class="track-btn">Mon compte</a>
+        {% endif %}
+            
         </div>
+        
     </div>
 </section>
 {% endblock content %}

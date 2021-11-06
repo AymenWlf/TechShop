@@ -102,7 +102,7 @@ class RecapController extends AbstractController
             $order->setCreatedAt($datetime);
             $order->setCarrierName($carrierName);
             $order->setCarrierPrice($price);
-            $order->setState(0);
+            $order->setState(1);
             $order->setIsPaid(0);
             $order->setLivraison($delivery);
             $order->setSessionCheckoutId(1111);

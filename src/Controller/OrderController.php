@@ -36,4 +36,38 @@ class OrderController extends AbstractController
             'cart' => $cart
         ]);
     }
+
+    #[Route('/account/mes-commandes/{{reference}} ', name: 'order')]
+    public function order($reference): Response
+    {
+        $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
+        $orderDetails = $order->getOrderDetails()->getValues();
+        // dd($orderDetails);
+        // dd($order);
+        //Extras :
+        if ($this->getUser()) {
+            $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
+        }else{
+            $cart = null;
+        }
+        return $this->render('order/order.html.twig', [
+            'order' => $order,
+            'cart' => $cart,
+            'orderDetails' => $orderDetails
+        ]);
+    }
+
+    #[Route('/account/mes-commandes/cancel/{{reference}} ', name: 'cancel_order')]
+    public function cancel($reference): Response
+    {
+        $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
+        $order->setState(6);
+        $this->em->flush();
+        // dd($orderDetails);
+        // dd($order);
+        return $this->redirectToRoute('order',[
+            'reference' => $order->getReference()
+        ]);
+    }
+    
 }
