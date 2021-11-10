@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %} {% block title %}TechShop - Contact{% endblock title %} {% block content %}
+
+
+<link rel="stylesheet" href=" {{asset('form.css?10')}} ">
+<div class="formulaire-sty">
+    <div class="container">
+        <div class="title">Contact</div>
+        <div class="content">
+            <div class="user-details">
+                {{form_start(form)}} {#
+                <div class="error"> {{form_errors(form,{'label':'Error'})}} </div> #}
+                <div class="input-box">
+                    {{form_label(form.name,'Titre du message',{'label_attr':{'class':'details'}})}} {{form_widget(form.name,{'attr':{'class':'place'}})}}
+                </div>
+                <div class="input-box">
+                    {{form_label(form.text,'Votre message',{'label_attr':{'class':'details'}})}} {{form_widget(form.text,{'attr':{'class':'areaPlace'}})}}
+                </div>
+                <div class="button">
+                    {{ form_row(form.submit, { 'label': "Envoyer",'attr':{'class':'btn' } }) }} {# {{form_rest(form)}} #}
+                </div>
+                {{form_end(form)}}
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %} {% block footer %}{% endblock footer %}

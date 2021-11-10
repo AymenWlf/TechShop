@@ -34,11 +34,11 @@
                         <li class="nav__item">
                             <a href=" {{path('wish_list')}} " class="nav__link">WishList</a>
                         </li>
-                        <li class="nav__item">
+                        {# <li class="nav__item">
                             <a href="#news" class="nav__link scroll-link">Blog</a>
-                        </li>
+                        </li> #}
                         <li class="nav__item">
-                            <a href="#contact" class="nav__link scroll-link">Contact</a>
+                            <a href="{{path('contact')}}" class="nav__link">Contact</a>
                         </li>
                         {% if app.user %}
                         <li class="nav__item">

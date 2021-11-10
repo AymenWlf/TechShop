@@ -30,7 +30,8 @@ class RecapController extends AbstractController
     #[Route('/recapitulatif', name: 'recap')]
     public function index(): Response
     {
-        $user = $this->getUser();       
+        $user = $this->getUser();      
+        $paymentMethod = null; 
          
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         $date = new DateTime();
@@ -155,7 +156,7 @@ class RecapController extends AbstractController
 
             
             $this->em->flush();
-            $paymentMethod = null;
+
 
             return $this->redirectToRoute('success',[
                 'reference' => $reference

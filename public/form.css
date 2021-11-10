@@ -150,6 +150,13 @@ input[type="radio"] {
     border: 1px solid #fff;
 }
 
+.formulaire-sty .areaPlace {
+    height: 22rem;
+    width: 100%;
+    padding: 1rem;
+    font-size: 16px;
+}
+
 @media(max-height: 900px) {
     .formulaire-sty .container {
         /* overflow-y: scroll; */

@@ -2,21 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\CartItem;
 use App\Entity\Order;
+use App\Entity\CartItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class SuccessController extends AbstractController
+class CancelController extends AbstractController
 {
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
-    #[Route('/commande/success/{reference}', name: 'success')]
+    #[Route('/commande/cancel/{reference}', name: 'cancel')]
     public function index($reference): Response
     {
         if ($this->getUser()) {
@@ -29,12 +29,10 @@ class SuccessController extends AbstractController
         $orderDetails = $order->getOrderDetails()->getValues();
         
 
-        return $this->render('success/index.html.twig',[
+        return $this->render('cancel/index.html.twig',[
             'cart' => $cart,
             'order' => $order,
             'orderDetails' => $orderDetails
         ]);
     }
-
-    
 }

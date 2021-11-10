@@ -17,10 +17,10 @@
 
   <!-- Custom StyleSheet -->
   {% block stylesheets %}
-  <link rel="stylesheet" href="{{asset("styles.css?t=<?5>")}}" />
+  <link rel="stylesheet" href="{{asset("styles.css?t=<?1>")}}" />
   <link rel="stylesheet" href="{{asset("address.css?t=<?8>")}}" />
   <link rel="stylesheet" href="{{asset("account.css?t=<?2>")}}" />
-  <link rel="stylesheet" href="{{asset("successPage.css?t=<?2>")}}"/>
+  <link rel="stylesheet" href="{{asset("successPage.css?t=<?3>")}}"/>
   <link rel="stylesheet" href="{{asset("orders.css?t=<?0>")}}" />
   <link rel="stylesheet" href="{{asset("credentials.css?t=<?3>")}}" />
   {% endblock %}
@@ -91,6 +91,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <!-- Custom JavaScript -->
+  {% block script %}{% endblock script %}
  <script src=" {{asset('js/products.js?t= <?8>')}}"></script>
  <script src=" {{asset('js/header.js?t= <?7>')}}"></script>
   <script src=" {{asset('js/index.js?t= <? echo time(); ?>')}}"></script>

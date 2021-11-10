@@ -9,6 +9,7 @@ use App\Entity\Review;
 use App\Entity\Carrier;
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Entity\Contact;
 use App\Entity\Variation;
 use App\Entity\Temoignage;
 use App\Entity\VariationOption;
@@ -50,6 +51,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Extras');
         yield MenuItem::linkToCrud('Temoignages', 'fa fa-user-tie',Temoignage::class);
         yield MenuItem::linkToCrud('Headers', 'fa fa-tv',Header::class);
+        yield MenuItem::linkToCrud('Contacts', 'fa fa-envelope-open',Contact::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

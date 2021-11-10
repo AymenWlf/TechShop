@@ -2551,6 +2551,7 @@ Login
 
 .login_rows {
     margin: 1rem;
+    text-align: center;
 }
 
 .login_link:hover {
