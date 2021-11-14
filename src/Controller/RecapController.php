@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Class\Cart;
+use App\Class\MailJet;
 use App\Entity\Address;
 use App\Entity\Carrier;
 use App\Entity\CartItem;
@@ -22,27 +23,34 @@ use function PHPSTORM_META\map;
 
 class RecapController extends AbstractController
 {
+    //Entity Manager
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
+
     #[Route('/recapitulatif', name: 'recap')]
     public function index(): Response
     {
-        $user = $this->getUser();      
+        //Declarations 
+        $user = $this->getUser(); 
+        $userEmail = $user->getEmail();
+        $userPseudoName = $user->getPseudoName();     
         $paymentMethod = null; 
-         
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         $date = new DateTime();
         $datetime = $date->format('d/m/Y');
         $dateChar = $date->format('dmY');
+        $time = $date->format('H:i');
         $reference = $dateChar.'-'.uniqid();
         $delivery = [];
-       
         $cart = [];
+
+        //Programme : 
+
+        //Remplissage tableay Cart[] Par les infos a afficher
         foreach ($cartItems as $item) {
-            
             $id = $item->getId();
             $product = $item->getProduct();
             $quantity = $item->getQuantity();
@@ -63,13 +71,14 @@ class RecapController extends AbstractController
         }
 
         $carriers = $this->em->getRepository(Carrier::class)->findAll();
-
         $addresses = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
+
+        //Mode de paiement
         if (isset($_POST['submitPay'])) {
             $paymentMethod = $_POST['payment'];
          }
 
-        
+        //Confirmation
         if (isset($_POST['submitAd'])) {
             $addressCompany = null;
             $date = new DateTime();
@@ -108,12 +117,8 @@ class RecapController extends AbstractController
             $order->setLivraison($delivery);
             $order->setSessionCheckoutId(1111);
             $order->setReference($reference);
-            
-           
-           
 
-            //remplissage des orderDetaails
-
+            //Remplissage des OrderDetails
             foreach ($cart as $item) {
                 $product = $item['product'];
                 $price = $item['product']->getPrice();
@@ -128,6 +133,7 @@ class RecapController extends AbstractController
                         $varId = $var->getId();
                     }
                 }
+
                 //Decrementation du stock
                 $variationOption = $this->em->getRepository(VariationOption::class)->findOneBy(['id' => $varId]);
                 $variationOption->setStock($newStock);
@@ -150,25 +156,21 @@ class RecapController extends AbstractController
                 $this->em->remove($cartItem);
             }
             
-
+            //Ajout du total
             $order->setTotal($total);
             $this->em->persist($order);
-
-            
             $this->em->flush();
 
+            //Confirmation par mail
+            $mail = new MailJet();
+            $mail->ConfirmationOrder($userEmail,$userPseudoName,$reference,$datetime,$time);
 
+            //Redirection
             return $this->redirectToRoute('success',[
                 'reference' => $reference
             ]);
 
          }
-
-         
-            
-        
-
-        // Appeler reference de order
 
         return $this->render('recapitulatif/index.html.twig',[
             'cart' => $cart,

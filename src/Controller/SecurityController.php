@@ -26,6 +26,8 @@ class SecurityController extends AbstractController
         
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
+        
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         }else{

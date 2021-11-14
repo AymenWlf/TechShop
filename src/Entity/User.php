@@ -77,6 +77,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $contacts;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Confirmation::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $confirmation;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -368,6 +373,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $contact->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getConfirmation(): ?Confirmation
+    {
+        return $this->confirmation;
+    }
+
+    public function setConfirmation(Confirmation $confirmation): self
+    {
+        // set the owning side of the relation if necessary
+        if ($confirmation->getUser() !== $this) {
+            $confirmation->setUser($this);
+        }
+
+        $this->confirmation = $confirmation;
 
         return $this;
     }

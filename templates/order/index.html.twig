@@ -58,34 +58,51 @@
                 </div>
                 <div class="resume-table-responsive">
                 {% if orders %}
-                    <table class="resumeTable">
+                    {% for order in orders %}
+                        <table class="resumeTable">
                         <tbody>
                             <tr>
                                 <th>Reference</th>
-                                <td><strong>290329-7T31368123</strong> </td>
+                                <td><strong>{{order.reference}} </strong> </td>
                             </tr>
                             <tr>
                                 <th>Statut</th>
-                                <td>En cours de livraison</td>
+                                <td>
+                                    <strong>
+                                        {% if order.state == 1 %}En attente
+                                            {% elseif order.state == 2 %}Preparation en cours
+                                            {% elseif order.state == 3 %}Livraison en cours
+                                            {% elseif order.state == 4 %}Livrée
+                                            {% elseif order.state == 5 %}Annulée par l'administrateur
+                                            {% elseif order.state == 6 %}Annulée
+                                            {% endif %}
+                                    </strong>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Passée le</th>
-                                <td>24/10/2021</td>
+                                <td>{{order.createdAt}} </td>
                             </tr>
                             <tr>
                                 <th>Payée</th>
-                                <td><strong>Non</strong></td>
+                                <td>
+                                    <strong>
+                                    {% if order.isPaid == true %}OUI{% else %}NON{% endif %}
+                                    </strong>
+                                </td>
                             </tr>
                             <tr>
-                                <th>Passée le</th>
-                                <td>2049 DH</td>
+                                <th>Total</th>
+                                <td>{{(order.total / 100)|number_format(2,',','.')}} DH</td>
                             </tr>
                             <tr>
                                 <th></th>
-                                <td><a class="voir-commande" href="">Voir ma commande</a></td>
+                                <td><a class="voir-commande" href="{{path('order',{'reference' : order.reference})}} ">Voir ma commande</a></td>
                             </tr>
                         </tbody>
                     </table>
+                    {% endfor %}
+                    
                 {% else %}
                     <h2 class="no-orders">Vous n'avez aucune commande pour le moment!</h2>        
                 {% endif %}

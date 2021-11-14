@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Class\MailJet;
 use App\Entity\Order;
 use App\Entity\CartItem;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class OrderController extends AbstractController
 {
+    //Entity Manager
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
@@ -20,9 +22,8 @@ class OrderController extends AbstractController
     #[Route('/account/mes-commandes', name: 'orders')]
     public function index(): Response
     {
+        // Init
         $orders = $this->em->getRepository(Order::class)->findBy(['user' => $this->getUser()]);
-
-        // dd($orders);
 
         //Extras :
         
@@ -40,10 +41,10 @@ class OrderController extends AbstractController
     #[Route('/account/mes-commandes/{{reference}} ', name: 'order')]
     public function order($reference): Response
     {
+        //Init
         $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         $orderDetails = $order->getOrderDetails()->getValues();
-        // dd($orderDetails);
-        // dd($order);
+
         //Extras :
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
@@ -60,11 +61,17 @@ class OrderController extends AbstractController
     #[Route('/account/mes-commandes/cancel/{{reference}} ', name: 'cancel_order')]
     public function cancel($reference): Response
     {
+        //Init
+        $user = $this->getUser();
+        $userEmail = $user->getEmail();
+        $userName = $user->getPseudoName();
         $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         $order->setState(6);
         $this->em->flush();
-        // dd($orderDetails);
-        // dd($order);
+
+        //mail
+        $mail = new MailJet();
+        $mail->CancelOrder($userEmail,$userName,$reference);
         return $this->redirectToRoute('order',[
             'reference' => $order->getReference()
         ]);

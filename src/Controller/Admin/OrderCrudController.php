@@ -3,34 +3,42 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
+use App\Class\MailJet;
 use App\Entity\OrderDetails;
 use Doctrine\ORM\EntityManagerInterface;
+use function PHPUnit\Framework\returnSelf;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
-use function PHPUnit\Framework\returnSelf;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class OrderCrudController extends AbstractCrudController
 {
     private $em;
     private $aug;
+    private $mail;
+
     public function __construct(EntityManagerInterface $em,AdminUrlGenerator $aug)
     {
+        //Initialisation du mail
+        $this->mail = new MailJet();
+        //Entity Manager
         $this->em = $em;
         $this->aug = $aug;
+        
+
     }
     public static function getEntityFqcn(): string
     {
@@ -39,6 +47,7 @@ class OrderCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        //Initialisation des actions
         $delete = Action::new('Delete',"Supprimer","fas fa-trash")->linkToCrudAction('Delete');
         $cancel = Action::new('Cancel',"Annulée","fas fa-minus-circle")->linkToCrudAction('Cancel');
         $updatePreparation = Action::new('updatePreparation',"Préparation en cours" , 'fas fa-box')->linkToCrudAction('updatePreparation');
@@ -59,6 +68,7 @@ class OrderCrudController extends AbstractCrudController
         ->setPermission(Action::DELETE,'ROLE_ADMIN');
     }
 
+    //fonction de suppression
     public function Delete(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
@@ -83,9 +93,14 @@ class OrderCrudController extends AbstractCrudController
         return $this->redirect($url);
     }
 
+    //Fonction d'annulation de order
     public function Cancel(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
+        $user = $order->getUser();
+        $userEmail = $user->getEmail();
+        $userName = $user->getPseudoName();
+        $reference = $order->getReference();
 
         if ($order->getState() == 5 || $order->getState() == 6) 
         {
@@ -95,7 +110,8 @@ class OrderCrudController extends AbstractCrudController
             $this->em->flush();
         }
 
-        // Envoyer mail
+        //Mail
+        $this->mail->OrderState($userEmail,$userName,$reference,5);
 
         $url = $this->aug->setController(OrderCrudController::class)
         ->setAction('index')
@@ -104,10 +120,14 @@ class OrderCrudController extends AbstractCrudController
         return $this->redirect($url);
     }
 
+    //Fonction Preparation en cours
     public function updatePreparation(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
-
+        $user = $order->getUser();
+        $userEmail = $user->getEmail();
+        $userName = $user->getPseudoName();
+        $reference = $order->getReference();
         if ($order->getState() == 2 ) 
         {
             // Notification deja annulée
@@ -116,7 +136,8 @@ class OrderCrudController extends AbstractCrudController
             $this->em->flush();
         }
 
-        // Envoyer mail
+        //Mail
+        $this->mail->OrderState($userEmail,$userName,$reference,2);
 
         $url = $this->aug->setController(OrderCrudController::class)
         ->setAction('index')
@@ -128,6 +149,11 @@ class OrderCrudController extends AbstractCrudController
     public function updateDelivery(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
+        $user = $order->getUser();
+        $userEmail = $user->getEmail();
+        $userName = $user->getPseudoName();
+        $reference = $order->getReference();
+        $order = $context->getEntity()->getInstance();
 
         if ($order->getState() == 3 ) 
         {
@@ -136,8 +162,8 @@ class OrderCrudController extends AbstractCrudController
             $order->setState(3);
             $this->em->flush();
         }
-
         // Envoyer mail
+        $this->mail->OrderState($userEmail,$userName,$reference,3);
 
         $url = $this->aug->setController(OrderCrudController::class)
         ->setAction('index')
@@ -149,6 +175,11 @@ class OrderCrudController extends AbstractCrudController
     public function Delivried(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
+        $user = $order->getUser();
+        $userEmail = $user->getEmail();
+        $userName = $user->getPseudoName();
+        $reference = $order->getReference();
+        $order = $context->getEntity()->getInstance();
 
         if ($order->getState() == 4 ) 
         {
@@ -159,6 +190,7 @@ class OrderCrudController extends AbstractCrudController
         }
 
         // Envoyer mail
+        $this->mail->OrderState($userEmail,$userName,$reference,4);
 
         $url = $this->aug->setController(OrderCrudController::class)
         ->setAction('index')
@@ -169,7 +201,11 @@ class OrderCrudController extends AbstractCrudController
     public function Paid(AdminContext $context)
     {
         $order = $context->getEntity()->getInstance();
-
+        $user = $order->getUser();
+        $userEmail = $user->getEmail();
+        $userName = $user->getPseudoName();
+        $reference = $order->getReference();
+        $order = $context->getEntity()->getInstance();
         if ($order->getIsPaid() == 1 ) 
         {
             // Notification deja annulée
@@ -178,7 +214,6 @@ class OrderCrudController extends AbstractCrudController
             $this->em->flush();
         }
 
-        // Envoyer mail
 
         $url = $this->aug->setController(OrderCrudController::class)
         ->setAction('index')
