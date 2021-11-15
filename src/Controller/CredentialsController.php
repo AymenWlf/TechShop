@@ -40,6 +40,7 @@ class CredentialsController extends AbstractController
         $userName = $user->getPseudoName();
 
         if (isset($_POST['modify'])) {
+
             //Envoyer mail de confirmation
             $token = uniqid("0000");
             $date = new DateTime();
@@ -77,7 +78,7 @@ class CredentialsController extends AbstractController
         $date = new DateTime();
         //Temps ecouler ou non
         $confUser = $this->em->getRepository(Confirmation::class)->findOneBy(['user' => $user]);
-        if ($confUser->getCredTime()->modify("+ 30 minutes") > $date ) {
+        if ($confUser->getCredTime()->modify("+ 30 minutes") < $date ) {
 
             //Notification temps ecoule
 
@@ -97,17 +98,20 @@ class CredentialsController extends AbstractController
         //mail dirige vers ce lien
         $user = $this->getUser();
         $form = $this->createForm(ModifInfosType::class,$user);
+
         //Annulee toute modification par la suite
         $date = new DateTime();
         $conf = $user->getConfirmation();
         $conf->setCredConf(0);
-        $conf->setCredTime($date->modify("+ 30 minutes"));
+        $conf->setCredTime($date->modify("- 60 minutes"));
+        $this->em->flush();
 
         //Envoie du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Recuperation de la data
             $user = $form->getData();
+
             //Cryptage password
             $password = $encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($password);
@@ -135,6 +139,7 @@ class CredentialsController extends AbstractController
         //Initialisation
         $user = $this->getUser();
         $form = $this->createForm(ResetPassType::class,$user);
+
         //Envoie du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -142,18 +147,20 @@ class CredentialsController extends AbstractController
             $data = $form->getData();
             $email = $data->getEmail();
             $user_reset = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
+            
+
             //Verification du user
             if (!$user_reset) {
 
                 //notif
 
                 return $this->redirectToRoute('pass_reset');
-            }else{
-                //Email de confirmation
-
+            }else{                
+                
                 //notif 
 
                 //Mail avec lien
+                $userResetName = $user_reset->getPseudoName();
                 $date = new DateTime();
                 $dateTime = $date->format("d/m/Y");
                 $token = uniqid();
@@ -165,17 +172,23 @@ class CredentialsController extends AbstractController
                 $this->em->persist($resetPass);
                 $this->em->flush();
 
-                //URL
+                //Email de confirmation
                 $url = $this->generateUrl("pass_update",[
                     'token' => $token
                 ]);
-
-                //A changer !!!!!!!!!!!
-                return $this->redirectToRoute("pass_update",[
-                    'token' => $token
-                ]);
                 
-                return $this->redirectToRoute("home");
+                $content = "<a href='http://localhost:8000/credentials/pass_update/".$token."'>mettre à jour mon mot de passe</a>";
+                $mail = new MailJet();
+                $mail->ResetPasswordConfirmation($email,$userResetName,$content);
+
+                
+
+                // //A changer !!!!!!!!!!!
+                // return $this->redirectToRoute("pass_update",[
+                //     'token' => $token
+                // ]);
+                
+                return $this->redirectToRoute("pass_reset");
 
 
             }
@@ -193,14 +206,22 @@ class CredentialsController extends AbstractController
         ]);
     }  
 
-    //Update du password
+    // //A CHANGER !! par une redirection direct par email!!!!!!!!!
+    // #[Route('/credentials/pass_update', name: 'passUpdateLink')]
+    // public function passUpdateLink(Request $request,$token,UserPasswordEncoderInterface $encoder): Response
+    // {
+    //     $this->;
+    // }  
+
+
+    //Update du password // Ahouter
     #[Route('/credentials/pass_update/{token} ', name: 'pass_update')]
     public function update(Request $request,$token,UserPasswordEncoderInterface $encoder): Response
     {
         $resetPass = $this->em->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
 
         if (!$resetPass) {
-            $this->redirectToRoute('pass_reset');
+            return $this->redirectToRoute('pass_reset');
         }
 
         $now = new DateTime();
@@ -210,8 +231,13 @@ class CredentialsController extends AbstractController
 
             //notif
 
-            $this->redirectToRoute('pass_reset');
+            return $this->redirectToRoute('pass_reset');
         }
+
+        //Changer dateTime de resetPass pour annulée l'access la deuxieme fois
+        $newTime = $now->modify('- 60 minutes');
+        $resetPass->setDateTime($newTime);
+        $this->em->flush();
 
         //Changement de mot de passe
         $user = $resetPass->getUser();

@@ -188,4 +188,33 @@ class MailJet
             $response = $mj->post(Resources::$Email, ['body' => $body]);
             $response->success();
     }
+    public function ResetPasswordConfirmation($toEmail,$toName,$content)
+    {
+        $mj = new Client($this->P_Key,$this->S_Key,true,['version' => 'v3.1']);
+            $body = [
+                'Messages' => [
+                    [
+                        'From' => [
+                            'Email' => "rajawiaymen404@gmail.com",
+                            'Name' => "TechShop"
+                        ],
+                        'To' => [
+                            [
+                                'Email' => $toEmail,
+                                'Name' => $toName
+                            ]
+                        ],
+                        'TemplateID' => 3342658,
+                        'TemplateLanguage' => true,
+                        'Subject' => "Confirmation de votre demande de modification",
+                        'Variables' => [
+                            'name' => $toName,
+                            'content' => $content
+                        ]
+                    ]
+                ]
+            ];
+            $response = $mj->post(Resources::$Email, ['body' => $body]);
+            $response->success();
+    }
 }
