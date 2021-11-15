@@ -44,4 +44,11 @@ class HomeController extends AbstractController
             'cart' => $cart
         ]);
     }
+    #[Route('/test_alert', name: 'test_alert')]
+    public function alert(): Response
+    {
+
+         $this->addFlash("notice","Ceci est un message d'alert simple");
+        return $this->redirectToRoute('account');
+    }
 }
