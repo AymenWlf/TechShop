@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<link rel="stylesheet" href="{{asset("alert.css?t=<?1>")}}" />
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<div class="alert-body">
+      <div class="alert erreur hide">
+         <span class="fas fa-minus-circle"></span>
+         <span class="msg">{{message}}</span>
+         <div class="close-btn">
+            <span class="fas fa-times"></span>
+         </div>
+      </div>
+</div>
+
+<script>
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },5000);
+    $('.close-btn').click(function(){
+    $('.alert').removeClass("show");
+    $('.alert').addClass("hide");
+    });
+</script>

@@ -1,19 +1,18 @@
-<style>.alert-body {
+/* ALERT */
+
+.alert-body {
     display: grid;
     place-items: center;
     overflow: hidden;
 }
 
 .alert {
-    background: #ffdb9b;
     padding: 20px 40px;
-    /* min-width: 420px; */
     max-width: 73rem;
     position: absolute;
     right: 0;
     top: 10px;
     border-radius: 4px;
-    border-left: 8px solid #ffa502;
     overflow: hidden;
     opacity: 0;
     pointer-events: none;
@@ -56,19 +55,17 @@
     }
 }
 
-.alert .fa-exclamation-circle {
+.alert .fas {
     position: absolute;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #ce8500;
     font-size: 30px;
 }
 
 .alert .msg {
     padding: 0 20px;
     font-size: 18px;
-    color: #ce8500;
 }
 
 .alert .close-btn {
@@ -76,17 +73,13 @@
     right: 0px;
     top: 50%;
     transform: translateY(-50%);
-    background: #ffd080;
     padding: 20px 18px;
     cursor: pointer;
-}
-
-.alert .close-btn:hover {
-    background: #ffc766;
+    height: 100%;
+    width: 5rem;
 }
 
 .alert .close-btn .fas {
-    color: #ce8500;
     font-size: 22px;
     line-height: 40px;
 }
@@ -115,4 +108,114 @@
     }
 }
 
-</style>
+
+/* WARNING */
+
+.warning {
+    background: #ffdb9b;
+    border-left: 8px solid #ffa502;
+}
+
+.alert .fa-exclamation-circle {
+    color: #ce8500;
+}
+
+.warning .msg {
+    color: #ce8500;
+}
+
+.warning .close-btn {
+    background: #ffd080;
+}
+
+.warning .close-btn:hover {
+    background: #ffc766;
+}
+
+.warning .close-btn .fas {
+    color: #ce8500;
+}
+
+
+/* ERREUR */
+
+.erreur {
+    background: #ffdbdb;
+    border-left: 8px solid #ff4040;
+}
+
+.alert .fa-minus-circle {
+    color: #ff4040;
+}
+
+.erreur .msg {
+    color: #ff6060;
+}
+
+.erreur .close-btn {
+    background: #ffb7b7;
+}
+
+.erreur .close-btn:hover {
+    background: #fd9696;
+}
+
+.erreur .close-btn .fas {
+    color: #ff4040;
+}
+
+
+/* INFO */
+
+.info {
+    background: #ceebff;
+    border-left: 8px solid #40afff;
+}
+
+.alert .fa-info-circle {
+    color: #40afff;
+}
+
+.info .msg {
+    color: #4cb4ff;
+}
+
+.info .close-btn {
+    background: #b0deff;
+}
+
+.info .close-btn:hover {
+    background: #84cbff;
+}
+
+.info .close-btn .fas {
+    color: #40afff;
+}
+
+
+/* SUCCESS */
+
+.success {
+    background: #c3e9c3;
+    border-left: 8px solid #27bc24;
+}
+
+.alert .fa-check-circle {
+    color: #27bc24;
+}
+
+.success .msg {
+    color: #2faf2c;
+}
+
+.success .close-btn {
+    background: #87e785;
+}
+
+.success .close-btn:hover {
+    background: #89d788;
+}
+
+.success .close-btn .fas {
+    color: #27bc24;
+}

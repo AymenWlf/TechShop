@@ -48,7 +48,7 @@ class HomeController extends AbstractController
     public function alert(): Response
     {
 
-         $this->addFlash("notice","Ceci est un message d'alert simple");
+         $this->addFlash("erreur","Ceci est un message de warning simple");
         return $this->redirectToRoute('account');
     }
 }

@@ -29,8 +29,17 @@
 
   <title> {% block title %}{% endblock title %} </title>
 </head>
-    {% for message in app.flashes('notice') %}
-        {% include "z-helpers/alert.html.twig" %}
+    {% for message in app.flashes('warning') %}
+        {% include "z-helpers/alerts/warning.html.twig" %}
+    {% endfor %}
+    {% for message in app.flashes('erreur') %}
+        {% include "z-helpers/alerts/erreur.html.twig" %}
+    {% endfor %}
+    {% for message in app.flashes('info') %}
+        {% include "z-helpers/alerts/info.html.twig" %}
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        {% include "z-helpers/alerts/success.html.twig" %}
     {% endfor %}
 <body>
 
