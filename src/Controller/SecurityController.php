@@ -15,6 +15,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
+            $this->addFlash('warning',"Vous etes dejà connecter !");
             return $this->redirectToRoute('home');
         }
 
@@ -22,11 +23,11 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
             // add notif
+            $this->addFlash('erreur',"Verifiez vos informations !");
         }
         
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
@@ -42,5 +43,6 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        // $this->addFlash('warning',"Vous vous etes deconnecter !");
     }
 }

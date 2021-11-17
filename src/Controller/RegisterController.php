@@ -7,6 +7,8 @@ use App\Entity\Confirmation;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
+use Prophecy\Promise\ThrowPromise;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,6 +29,7 @@ class RegisterController extends AbstractController
     {
         //S'il est connecter
         if ($this->getUser()) {
+            $this->addFlash('warning',"Vous etes deja connecter !");
             return $this->redirectToRoute('home');
         }
         //Initialisation;
@@ -53,6 +56,9 @@ class RegisterController extends AbstractController
 
                 //Envoie mail de confirmation
                 $mail->Register($email,$userName);
+
+                //Notification success
+                $this->addFlash('success','Inscription reussis !!');
                 return $this->redirectToRoute('app_login');
             }
         }else{

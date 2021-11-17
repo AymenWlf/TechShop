@@ -38,6 +38,11 @@ class ResetPassword
      */
     private $dateTime;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $try;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class ResetPassword
     public function setDateTime(\DateTimeInterface $dateTime): self
     {
         $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
+    public function getTry(): ?int
+    {
+        return $this->try;
+    }
+
+    public function setTry(?int $try): self
+    {
+        $this->try = $try;
 
         return $this;
     }

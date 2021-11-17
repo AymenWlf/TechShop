@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -23,6 +24,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Length(
+     *          min = 10,
+     *          max = 40,
+     *          minMessage = "L'email doit etre plus grand que {{ limit }}",
+     *          maxMessage = "L'email doit etre plus petit que {{ limit }}"
+     * )
      */
     private $email;
 
@@ -34,16 +41,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 20,
+     *          minMessage = "Le mot de passe doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Le mot de passe doit etre plus petit que {{ limit }}"
+     * )
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)*
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 20,
+     *          minMessage = "Le prénom doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Le prénom doit etre plus petit que {{ limit }}"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 20,
+     *          minMessage = "Le pseudoname doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Le pseudoname doit etre plus petit que {{ limit }}"
+     * )
      */
     private $pseudoname;
 

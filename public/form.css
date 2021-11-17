@@ -188,3 +188,13 @@ input[type="radio"] {
         flex-direction: column;
     }
 }
+
+
+/* FORM ERRORS */
+
+.form-errors li {
+    font-size: 1.4rem;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    color: var(--orange);
+}

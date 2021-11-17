@@ -147,17 +147,18 @@ class CredentialsController extends AbstractController
             $data = $form->getData();
             $email = $data->getEmail();
             $user_reset = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
-            
 
             //Verification du user
             if (!$user_reset) {
 
                 //notif
+                $this->addFlash('erreur',"Il n y'a aucun utilisateur enregistrer avec cet email !");
 
                 return $this->redirectToRoute('pass_reset');
             }else{                
                 
                 //notif 
+                $this->addFlash('success',"Verifier votre boite email, et suivez les etapes indiquer");
 
                 //Mail avec lien
                 $userResetName = $user_reset->getPseudoName();
@@ -169,6 +170,7 @@ class CredentialsController extends AbstractController
                 $resetPass->setToken($token);
                 $resetPass->setCreatedAt($dateTime);
                 $resetPass->setDateTime($date);
+                $resetPass->setTry(0);
                 $this->em->persist($resetPass);
                 $this->em->flush();
 
@@ -219,25 +221,35 @@ class CredentialsController extends AbstractController
     public function update(Request $request,$token,UserPasswordEncoderInterface $encoder): Response
     {
         $resetPass = $this->em->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
+        
 
         if (!$resetPass) {
+            $this->addFlash('warning',"Veuillez redemander une récupération du mot de passe");
             return $this->redirectToRoute('pass_reset');
         }
-
+        $try = $resetPass->getTry(); 
         $now = new DateTime();
         $reset_time = $resetPass->getDateTime()->modify('+ 30 minutes');
 
         if ($now > $reset_time) {
 
             //notif
+            $this->addFlash('warning',"Temps ecouler, veuillez redemander une récupération du mot de passe");
 
             return $this->redirectToRoute('pass_reset');
         }
 
         //Changer dateTime de resetPass pour annulée l'access la deuxieme fois
-        $newTime = $now->modify('- 60 minutes');
-        $resetPass->setDateTime($newTime);
-        $this->em->flush();
+        if ($try < 3) {
+            $try++;
+            $resetPass->setTry($try);
+            $this->em->flush();
+        }else{
+            $newTime = $now->modify('- 60 minutes');
+            $resetPass->setDateTime($newTime);
+            $this->em->flush();
+        }
+        
 
         //Changement de mot de passe
         $user = $resetPass->getUser();
@@ -250,9 +262,13 @@ class CredentialsController extends AbstractController
             $user->setPassword($password);
             $this->em->flush();
 
+            //Notif
+            $this->addFlash('success',"Votre mot de passe est changer avec success !");
             return $this->redirectToRoute('app_login');
 
         }
+
+        // Extras
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         }else{

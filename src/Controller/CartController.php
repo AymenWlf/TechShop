@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Class\Cart;
 use App\Entity\CartItem;
+use App\Form\PaiementMethodType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,17 +12,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
+    //ENTITY MANAGER
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
+
+    //Programme
     #[Route('/check/cart', name: 'cart')]
     public function index(Cart $cart): Response
     {
+        //Initialisatio,
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
-       
         $cart = [];
+
+        //Remplissage de cart par les parametre a recupere sur TWIG
         foreach ($cartItems as $item) {
             $id = $item->getId();
             $product = $item->getProduct();
@@ -43,11 +49,13 @@ class CartController extends AbstractController
             ];
         }
 
+
+
         // if (isset($_POST['submitPay'])) {
         //     dd($_POST);
         // }
         return $this->render('cart/index.html.twig', [
-            'cart' => $cart
+            'cart' => $cart,
         ]);
     }
 

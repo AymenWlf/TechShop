@@ -14,27 +14,29 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    //ENTITY MANAGER 
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
+
+    //Vers HomePage
     #[Route('/', name: 'home')]
     public function index(): Response
     {
+        //Initialisation
         $headers = $this->em->getRepository(Header::class)->findAll();
         $categories = $this->em->getRepository(Category::class)->findAll();
         $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
         $temoignages = $this->em->getRepository(Temoignage::class)->findAll();
+
+        //Extras
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         }else{
             $cart = null;
         }
-        
-
-        // dd($best_products);
-        // dd($categories);
         
         return $this->render('home/index.html.twig',[
             'headers' => $headers,
@@ -44,6 +46,8 @@ class HomeController extends AbstractController
             'cart' => $cart
         ]);
     }
+
+    //TEST DE ALERT "A supprimer" !!!!
     #[Route('/test_alert', name: 'test_alert')]
     public function alert(): Response
     {

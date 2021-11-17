@@ -1,5 +1,6 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    validation: {enable_annotations: true}
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false
