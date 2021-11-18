@@ -1031,6 +1031,11 @@ Category Center
     }
 }
 
+.products-container .noProducts {
+    display: flex;
+    justify-content: center;
+}
+
 
 /*
 ======================
@@ -1946,12 +1951,23 @@ Product Details
     width: 18rem;
     border: none;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--primaryColor);
+    border: 1px solid var(--black);
+    padding: 0.6rem;
+    /* border-radius: 1rem; */
+    margin-left: 2rem;
+    /* border-bottom: 1px solid var(--primaryColor); */
 }
 
 .select .select-box:focus {
     outline: none;
 }
+
+
+/* select.select-box option {
+    padding: 1rem;
+    border: 1px solid var(--black4);
+    border-radius: 1rem;
+} */
 
 .select__option .label {
     font-size: 1.4rem;
@@ -1967,6 +1983,11 @@ Product Details
 
 .input-counter div {
     display: flex;
+    margin-left: 2rem;
+}
+
+.input-counter span {
+    font-size: 1.4rem;
 }
 
 .input-counter li a {

@@ -136,8 +136,20 @@ class CredentialsController extends AbstractController
     #[Route('/credentials/pass_reset', name: 'pass_reset')]
     public function reset(Request $request): Response
     {
+        
         //Initialisation
         $user = $this->getUser();
+
+        //Verification si l'utilisateur et econnecter
+        if ($user) {
+
+            //Notification
+            $this->addFlash('warning',"Vous etes dejà connecter !!");
+
+            //Redirection a HomePage
+            return $this->redirectToRoute('home');
+        
+        }
         $form = $this->createForm(ResetPassType::class,$user);
 
         //Envoie du formulaire
@@ -217,9 +229,20 @@ class CredentialsController extends AbstractController
 
 
     //Update du password // Ahouter
-    #[Route('/credentials/pass_update/{token} ', name: 'pass_update')]
+    #[Route('/credentials/pass_update/{token}', name: 'pass_update')]
     public function update(Request $request,$token,UserPasswordEncoderInterface $encoder): Response
     {
+        //Verification si l'utilisateur et econnecter
+        $user = $this->getUser();
+        if ($user) {
+
+            //Notification
+            $this->addFlash('warning',"Vous etes dejà connecter !!");
+
+            //Redirection a HomePage
+            return $this->redirectToRoute('home');
+        
+        }
         $resetPass = $this->em->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
         
 

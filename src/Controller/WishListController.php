@@ -18,111 +18,131 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WishListController extends AbstractController
 {
+    //ENTITY MANAGER
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
-    #[Route('/account/wishlist', name: 'wish_list')]
+
+    //Programme de wishList
+    #[Route('/wishlist', name: 'wish_list')]
     public function index(): Response
     {
+        //Verification si l'utilisateur et connecter et recuperations des produits de la wishList
         $user = $this->getUser();
         if ($user) {
             $wishList = $this->em->getRepository(WishList::class)->findByWish($user);
         }else{
-            // $this->addFlash('notice','Connecter vous pour accéder à votre WishList !');
+            $this->addFlash('info',"Connecter vous pour accéder à votre WishList !");
             return $this->redirectToRoute('app_login');
         }
 
-        // variable extra :
-        
+        //EXTRAS
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         }else{
             $cart = null;
         }
-        // $wishProducts = $wishList->getProducts();
-        // dd($wishProducts);
-        // dd($wishProducts);
-        // dd($wishList);
         return $this->render('wish_list/index.html.twig',[
             'wishList' => $wishList,
             'cart' => $cart
         ]);
     }
 
-    #[Route('/account/wishlist/add/{slug}', name: 'wish_list_add')]
+    //Programme d'ajout a la wishList
+    #[Route('/wishlist/add/{slug}', name: 'wish_list_add')]
     public function add($slug,Session $session): Response
     {
+        //Recuperation d produit
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
-        // dd($product);
+
+        //Verificationn si l'utilisateur est connecter
         $user = $this->getUser();
-        // dd($user);
         if (!$user) {
-            //$this->addFlash('notice','Connecter vous pour ajouter un produits à votre WishList !');
+            $this->addFlash('info','Connecter vous pour ajouter un produits à votre WishList !');
+            return $this->redirectToRoute('app_login');
         }
+
+        //Recuperation de la wishList
         $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
+
+        //Creation d'une wishList
         if (!$wishList) {
-            // dd($user);
             $wishList = new WishList();
             $wishList->setUser($user);
-            // dd($wishList);
-
         }
 
+        //Recuperation des produits de la wishList et verification si le prosuit en question se trouve dejà dans la WishList
         $products = $this->getUser()->getWishList()->getProducts()->getValues();
-        $c = null;
+        $c = 0;
         foreach ($products as $wish_product) {
             if ($product === $wish_product) {
-                $c = 1;
+                $c += 1;
             }
         }
-        if ($c === 1) {
-            // notif produit existant
+        if ($c >= 1) {
+            // notif
+            $ProductName = $product->getName();
+            $this->addFlash('info',$ProductName." se trouve dejà dans votre wishList !");
         }else{
+            //Ajout du produit dans la wishList
             $wishList->addProduct($product);
-            // dd($wishList);
             $this->em->persist($wishList);
             $this->em->flush();
-            // $this->addFlash('notice','Produit ajoutée à la wishList avec succes !');
+
+            //Notif
+            $this->addFlash('success','Produit ajoutée à la wishList avec succes !');
         }
         
-
+        // Redirection vers la page precedente
         return $this->redirect($_SERVER['HTTP_REFERER']);
        
 
     }
 
-    #[Route('/account/wishlist/remove/{slug}', name: 'wish_list_remove')]
+    //Programme de suppression des produits de la wishList
+    #[Route('/wishlist/remove/{slug}', name: 'wish_list_remove')]
     public function remove($slug): Response
     {
+        //Recuperation du produit en question
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
-        // dd($product);
+        
         $user = $this->getUser();
+
+        //Recuperation de la wishList
         $wishList = $this->em->getRepository(WishList::class)->findOneBy(['user' => $user]);
-        // dd($user);
-        if (!$user || !$wishList) {
-            // $this->addFlash('notice',"Votre wishList est vide !");
+
+        //Gestion des cas d'exception
+        if (!$user) {
+            //Pas connecter
+            $this->addFlash('info',"Connecter vous pour accceder à votre wishList !");
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }else if (!$wishList) {
+            //Pas de wishList
+            $this->addFlash('warning',"Vous n'avez aucune wishList !");
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
+        //Recuperation de tous les produits
         $products = $this->getUser()->getWishList()->getProducts()->getValues();
-        $c = null;
+        //Verifier si le produit en quesyion se trouve dans la wishList
+        $c = 0;
         foreach ($products as $wish_product) {
             if ($product === $wish_product) {
-                $c = 1;
+                $c += 1;
             }
         }
-        if ($c === 1) {
+        if ($c >= 1) {
             $wishList->removeProduct($product);
             $this->em->flush();
-            // $this->addFlash('notice','Vous avez retiré ce produit de votre wishList avec succes !');
+            $this->addFlash('success','Vous avez retiré ce produit de votre wishList avec succes !');
         }else{
-            // $this->addFlash('notice','Ce produit ne se trouve pas dans votre wishList !');
+            $this->addFlash('warning','Ce produit ne se trouve pas dans votre wishList !');
         }
 
        
-
+        // Redirection vers la page précedente
         return $this->redirect($_SERVER['HTTP_REFERER']);
        
 

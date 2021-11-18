@@ -21,16 +21,19 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProductController extends AbstractController
 {
+    //Entity Manager
     private $em;
 
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
+
+    //Programme de la ProductsPage
     #[Route('/products', name: 'product')]
     public function index(Request $request): Response
     {
-        //Cree form Search
+        // Cree le formulaire du filtre
         $search = new Search();
         $form = $this->createForm(SearchType::class,$search);
         $form->handleRequest($request);
@@ -43,9 +46,7 @@ class ProductController extends AbstractController
         }
         
 
-        //Variable extra 
-
-        
+        //EXTRAS
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         }else{
@@ -58,12 +59,12 @@ class ProductController extends AbstractController
             'cart' => $cart
         ]);
     }
-
+    
+    //Programme de la ProductShowPage
     #[Route('/product-show/{slug}', name: 'product_show')]
     public function show($slug,Request $request): Response
     {   
-
-        //Declaration
+        //Initialisation
         $c = 0;
         $illustrations = [];
         $couleurs = [];
@@ -71,14 +72,14 @@ class ProductController extends AbstractController
         $user = $this->getUser();
         $minStock = 1000;
 
-        //Recuperation du produit 
+        //Recuperation du produit en question
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
 
-        //Creation du formulaire
+        //Creation du formulaire concernant Reviews
         $form = $this->createForm(ReviewType::class,$review);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-                //recuperation reviews user
+                //Recuperation des avis du User
                 $userReviews = $this->em->getRepository(Review::class)->findBy(['user' => $user]);
 
                 //comptage de reviews
@@ -88,9 +89,10 @@ class ProductController extends AbstractController
                     }
                 }
                 if ($c >= 3) {
-                    $this->addFlash('notice','Vous avez ajouté trop de commentaire pour ce produit !');
+                    //Notif
+                    $this->addFlash('warning',"Votre avis n'est pas valide car vous avez ajouté trop de commentaire pour ce produit !");
                 }else{
-                    //Remplissage de review et flush()
+                    //Remplissage de Review et flush()
                     $date = new DateTime();
                     $review = $form->getData();
                     $review->setUser($user);
@@ -98,10 +100,13 @@ class ProductController extends AbstractController
                     $review->setCreatedAt($date->format('d/m/Y'));
                     $this->em->persist($review);
                     $this->em->flush();
-                    $this->addFlash('notice','Commentaire ajouté avec succes !');
+
+                    //Notif
+                    $this->addFlash('success','Commentaire ajouté avec succes !');
                 }
             
-        }/* Gerer problemes form */ 
+        }
+        /* Gerer problemes form */ 
 
         //Recuperation variation du produit
         $productID = $product->getId();
@@ -109,7 +114,7 @@ class ProductController extends AbstractController
         
         //Remplir marque et couleur et illustrations
         foreach ($variations as $var) {
-            
+            // Recuperation des couleurs et des illustrations et la marque 
             $varition_name = $var->getVariation()->getName();
             if ($varition_name == 'Couleur') {
                 $couleurs[] = $var->getName();
@@ -119,24 +124,37 @@ class ProductController extends AbstractController
             }
         }
 
+        //Envoyer le couleurs vers le formulaire dans CartType
         $formVar = $this->createForm(CartType::class,null,[
             'couleurs' => $couleurs
         ]);
 
-        
+        //Soumission du formulaire
        if (isset($_POST['submit'])) {
-            // $url = $this->generateUrl('add_cart',['id' => $productId]);
+           //Recuperation de la couleur et quantity
             $color = $_POST['colors'];
             $quantity = $_POST['quantity'];
 
+            //Verification si l'utilisateur est connecter
             if (!$this->getUser()) {
+                //Notif
+                $this->addFlash('info',"Connecter vous pour ajouter un produit a votre panier !");
+
+                //Redirection vers la loginPage
                 return $this->redirectToRoute('app_login');
-            }elseif ($minStock == 0) {
-                return $this->redirectToRoute('cart'); 
+            }elseif ($minStock == 0) 
+            {
+                //A GERER 
+                //GESTION DU STROCK 
+                //NOTIFICATION
+                $this->addFlash('erreur',"Stock non gere pour le moment !");
+                // return $this->redirectToRoute('cart'); 
             }else{
+                //Tout va bien , On stock les donner dans CartItem
+                //Recuperer les cartItems de User
                 $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $user]);
+                //Gerer les Items
                 foreach ($cartItems as $item) {
-                    if ($item->getProduct() == $product) {
                         $variation = $item->getVariation()->getValues();
                         foreach ($variation as $var) {
                             $VarName = $var->getVariation()->getName();
@@ -145,33 +163,91 @@ class ProductController extends AbstractController
                             }
                         }
                         if ($variationName == $color) {
+                            // Cas ou ils ont la meme couleur
+                            //Incrementer la quantiter
                             $itemQuantity = $item->getQuantity();
                             $totalQuantity = $quantity + $itemQuantity;
                             if ($totalQuantity >= 10) {
+                                //Cas ou la quantite est sup a 10 
+                                //On arrete l'incrementation
                                 $item->setQuantity(10);
                                 $this->em->flush();
-                                $this->addFlash('notice',"le maximum de piece pour ce produit est de 10 piece,pour en commandez plus veuillez nous contacter en privé !");
+                                $this->addFlash('warning',"le maximum de piece pour ce produit est de 10 piece,pour en commandez plus veuillez nous contacter en privé dans la page CONTACT !");
+                                
+                                //Redirection vers cart
                                 return $this->redirectToRoute('cart');
                             }else{
+                                //Sinon on incremente
                                 $item->setQuantity($totalQuantity);
                                 $this->em->flush();
+                                $this->addFlash('success',"Vous avez : ".$totalQuantity." x ".$item->getProduct()->getName()." de couleur ".$color." dans votre panier");
+
+                                //Redirection vers cart
                                 return $this->redirectToRoute('cart');
                             }
-                        }else{
-                            $cartItem = new CartItem();
-                            $cartItem->setUser($this->getUser());
-                            $cartItem->setProduct($product);
-                            $cartItem->setQuantity($quantity);
-                            $cartItemColor = $this->em->getRepository(VariationOption::class)->findOneBy(['name' => $color]);
-                            $cartItem->addVariation($cartItemColor);
-                            $this->em->persist($cartItem);
-                            $this->em->flush();
-                            return $this->redirectToRoute('cart');
-                        }
-                    }
+                        }                      
+                    
+                    // if ($item->getProduct() == $product) {
+                    //     //Cas ou le produit se trouve dejà dans cartItems
+                    //     //Verifier s'ils sont de la meme couleur
+                    //     $variation = $item->getVariation()->getValues();
+                    //     foreach ($variation as $var) {
+                    //         $VarName = $var->getVariation()->getName();
+                    //         if ($VarName == 'Couleur') {
+                    //             $variationName = $var->getName();
+                    //         }
+                    //     }
+                    //     if ($variationName == $color) {
+                    //         // Cas ou ils ont la meme couleur
+                    //         //Incrementer la quantiter
+                    //         $itemQuantity = $item->getQuantity();
+                    //         $totalQuantity = $quantity + $itemQuantity;
+                    //         if ($totalQuantity >= 10) {
+                    //             //Cas ou la quantite est sup a 10 
+                    //             //On arrete l'incrementation
+                    //             $item->setQuantity(10);
+                    //             $this->em->flush();
+                    //             $this->addFlash('warning',"le maximum de piece pour ce produit est de 10 piece,pour en commandez plus veuillez nous contacter en privé dans la page CONTACT !");
+                                
+                    //             //Redirection vers cart
+                    //             return $this->redirectToRoute('cart');
+                    //         }else{
+                    //             //Sinon on incremente
+                    //             $item->setQuantity($totalQuantity);
+                    //             $this->em->flush();
+                    //             $this->addFlash('success',"Vous avez : ".$totalQuantity." x ".$item->getProduct()->getName()." de couleur ".$color." dans votre panier");
+
+                    //             //Redirection vers cart
+                    //             return $this->redirectToRoute('cart');
+                    //         }
+                    //     }else{
+                    //         //Cas de panier vide 
+                    //         //Creation d'une nouvelle CartItem
+                    //         $cartItem = new CartItem();
+
+                    //         //Remplissage de CartItem
+                    //         $cartItem->setUser($this->getUser());
+                    //         $cartItem->setProduct($product);
+                    //         $cartItem->setQuantity($quantity);
+                    //         $cartItemColor = $this->em->getRepository(VariationOption::class)->findOneBy(['name' => $color]);
+                    //         $cartItem->addVariation($cartItemColor);
+                    //         $this->em->persist($cartItem);
+                    //         $this->em->flush();
+                            
+                    //         //Notif 
+                    //         $this->addFlash('success',$quantity." x ".$product->getName()." ajouté au panier");
+                            
+                    //         return $this->redirectToRoute('cart');
+                    //     }
+                    // }
                 }
+
                 
+                //Cas de panier vide 
+                //Creation d'une nouvelle CartItem
                 $cartItem = new CartItem();
+
+                //Remplissage de CartItem
                 $cartItem->setUser($this->getUser());
                 $cartItem->setProduct($product);
                 $cartItem->setQuantity($quantity);
@@ -179,9 +255,17 @@ class ProductController extends AbstractController
                 $cartItem->addVariation($cartItemColor);
                 $this->em->persist($cartItem);
                 $this->em->flush();
+                
+                //Notif 
+                $this->addFlash('success',$quantity." x ".$product->getName()." ajouté au panier");
+                
                 return $this->redirectToRoute('cart');
+
+
+                
                 
             }
+            $this->addFlash('erreur',"Erreur Inconnue !");
             return $this->redirectToRoute('cart');
        }
 
