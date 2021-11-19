@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\TextEditorType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AddressType extends AbstractType
 {
@@ -46,7 +47,7 @@ class AddressType extends AbstractType
             ->add('city',TextType::class,[
                 'required' => true
             ])
-            ->add('phone',TelType::class,[
+            ->add('phone',IntegerType::class,[
                 'required' => true
             ])
             ->add('submit',SubmitType::class)

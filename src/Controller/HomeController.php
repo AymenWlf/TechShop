@@ -47,12 +47,4 @@ class HomeController extends AbstractController
         ]);
     }
 
-    //TEST DE ALERT "A supprimer" !!!!
-    #[Route('/test_alert', name: 'test_alert')]
-    public function alert(): Response
-    {
-
-         $this->addFlash("erreur","Ceci est un message de warning simple");
-        return $this->redirectToRoute('account');
-    }
 }

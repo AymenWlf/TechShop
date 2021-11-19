@@ -9,6 +9,7 @@ use App\Entity\Carrier;
 use App\Entity\CartItem;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
+use App\Entity\PaiementMethod;
 use App\Entity\VariationOption;
 use App\Form\AddressType;
 use DateTime;
@@ -30,6 +31,7 @@ class RecapController extends AbstractController
         $this->em = $em;
     }
 
+    //Programme RecapPage
     #[Route('/recapitulatif', name: 'recap')]
     public function index(): Response
     {
@@ -37,7 +39,9 @@ class RecapController extends AbstractController
         $user = $this->getUser(); 
         $userEmail = $user->getEmail();
         $userPseudoName = $user->getPseudoName();     
-        $paymentMethod = null; 
+        $paymentMethod = null;
+        $paymentValue = null; 
+        $paymentName = null;
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         $date = new DateTime();
         $datetime = $date->format('d/m/Y');
@@ -49,7 +53,7 @@ class RecapController extends AbstractController
 
         //Programme : 
 
-        //Remplissage tableay Cart[] Par les infos a afficher
+        //Remplissage tableau Cart[] Par les infos a afficher
         foreach ($cartItems as $item) {
             $id = $item->getId();
             $product = $item->getProduct();
@@ -75,8 +79,13 @@ class RecapController extends AbstractController
 
         //Mode de paiement
         if (isset($_POST['submitPay'])) {
-            $paymentMethod = $_POST['payment'];
-         }
+            $paymentValue = $_POST['payment'];
+            $paymentMethod = $this->em->getRepository(PaiementMethod::class)->findOneBy(['value' => $paymentValue]);
+            $paymentName = $paymentMethod->getName();
+        }
+        
+        
+        
 
         //Confirmation
         if (isset($_POST['submitAd'])) {
@@ -103,6 +112,9 @@ class RecapController extends AbstractController
                 
             ];
 
+            $strDelivery = "Addresse : ".$addressPost->getAddress()." ".$addressPost->getCountry()." ".$addressPost->getCity()." Num : 0".$addressPost->getPhone()."//".$addressCompany;
+
+
             $carrierName = $carrierPost->getName();
             $price = $carrierPost->getPrice();
             $total = $price;
@@ -115,8 +127,10 @@ class RecapController extends AbstractController
             $order->setState(1);
             $order->setIsPaid(0);
             $order->setLivraison($delivery);
+            $order->setStrDelivery($strDelivery);
             $order->setSessionCheckoutId(1111);
             $order->setReference($reference);
+            $order->setPaiementMethod($paymentMethod);
 
             //Remplissage des OrderDetails
             foreach ($cart as $item) {
@@ -176,7 +190,7 @@ class RecapController extends AbstractController
             'cart' => $cart,
             'carriers' => $carriers,
             'addresses' => $addresses,
-            'payment' => $paymentMethod,
+            'payment' => $paymentName,
             'reference' => $reference
         ]);
     }

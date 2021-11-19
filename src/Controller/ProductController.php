@@ -185,64 +185,8 @@ class ProductController extends AbstractController
                                 //Redirection vers cart
                                 return $this->redirectToRoute('cart');
                             }
-                        }                      
-                    
-                    // if ($item->getProduct() == $product) {
-                    //     //Cas ou le produit se trouve dejà dans cartItems
-                    //     //Verifier s'ils sont de la meme couleur
-                    //     $variation = $item->getVariation()->getValues();
-                    //     foreach ($variation as $var) {
-                    //         $VarName = $var->getVariation()->getName();
-                    //         if ($VarName == 'Couleur') {
-                    //             $variationName = $var->getName();
-                    //         }
-                    //     }
-                    //     if ($variationName == $color) {
-                    //         // Cas ou ils ont la meme couleur
-                    //         //Incrementer la quantiter
-                    //         $itemQuantity = $item->getQuantity();
-                    //         $totalQuantity = $quantity + $itemQuantity;
-                    //         if ($totalQuantity >= 10) {
-                    //             //Cas ou la quantite est sup a 10 
-                    //             //On arrete l'incrementation
-                    //             $item->setQuantity(10);
-                    //             $this->em->flush();
-                    //             $this->addFlash('warning',"le maximum de piece pour ce produit est de 10 piece,pour en commandez plus veuillez nous contacter en privé dans la page CONTACT !");
-                                
-                    //             //Redirection vers cart
-                    //             return $this->redirectToRoute('cart');
-                    //         }else{
-                    //             //Sinon on incremente
-                    //             $item->setQuantity($totalQuantity);
-                    //             $this->em->flush();
-                    //             $this->addFlash('success',"Vous avez : ".$totalQuantity." x ".$item->getProduct()->getName()." de couleur ".$color." dans votre panier");
-
-                    //             //Redirection vers cart
-                    //             return $this->redirectToRoute('cart');
-                    //         }
-                    //     }else{
-                    //         //Cas de panier vide 
-                    //         //Creation d'une nouvelle CartItem
-                    //         $cartItem = new CartItem();
-
-                    //         //Remplissage de CartItem
-                    //         $cartItem->setUser($this->getUser());
-                    //         $cartItem->setProduct($product);
-                    //         $cartItem->setQuantity($quantity);
-                    //         $cartItemColor = $this->em->getRepository(VariationOption::class)->findOneBy(['name' => $color]);
-                    //         $cartItem->addVariation($cartItemColor);
-                    //         $this->em->persist($cartItem);
-                    //         $this->em->flush();
-                            
-                    //         //Notif 
-                    //         $this->addFlash('success',$quantity." x ".$product->getName()." ajouté au panier");
-                            
-                    //         return $this->redirectToRoute('cart');
-                    //     }
-                    // }
+                        }
                 }
-
-                
                 //Cas de panier vide 
                 //Creation d'une nouvelle CartItem
                 $cartItem = new CartItem();
@@ -260,9 +204,6 @@ class ProductController extends AbstractController
                 $this->addFlash('success',$quantity." x ".$product->getName()." ajouté au panier");
                 
                 return $this->redirectToRoute('cart');
-
-
-                
                 
             }
             $this->addFlash('erreur',"Erreur Inconnue !");

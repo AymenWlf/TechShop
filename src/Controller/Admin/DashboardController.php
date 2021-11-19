@@ -10,6 +10,7 @@ use App\Entity\Carrier;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Contact;
+use App\Entity\PaiementMethod;
 use App\Entity\Variation;
 use App\Entity\Temoignage;
 use App\Entity\VariationOption;
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Variations', 'fa fa-palette',Variation::class);
         yield MenuItem::linkToCrud('Variations-options', 'fa fa-swatchbook',VariationOption::class);
         yield MenuItem::linkToCrud('Carriers', 'fa fa-truck',Carrier::class);
+        yield MenuItem::linkToCrud('Paiement Method', 'fa fa-credit-card',PaiementMethod::class);
         yield MenuItem::section('Extras');
         yield MenuItem::linkToCrud('Temoignages', 'fa fa-user-tie',Temoignage::class);
         yield MenuItem::linkToCrud('Headers', 'fa fa-tv',Header::class);

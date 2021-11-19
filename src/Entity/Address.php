@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
@@ -19,6 +20,12 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 40,
+     *          minMessage = "Le nom de votre adresse doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Le nom de votre adresse doit etre plus petit que {{ limit }}"
+     * )
      */
     private $name;
 
@@ -30,26 +37,56 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 40,
+     *          minMessage = "Votre prénom doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Votre prénom doit etre plus petit que {{ limit }}"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 40,
+     *          minMessage = "Votre nom de votre adresse doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Votre nom de votre adresse doit etre plus petit que {{ limit }}"
+     * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 60,
+     *          minMessage = "Le nom de votre entreprise doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Le nom de votre entreprise doit etre plus petit que {{ limit }}"
+     * )
      */
     private $company;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *          min = 10,
+     *          max = 60,
+     *          minMessage = "Votre adresse doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Votre adresse doit etre plus petit que {{ limit }}"
+     * )
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *          min = 3,
+     *          max = 15,
+     *          minMessage = "Votre Code Postal doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Votre Code Postal doit etre plus petit que {{ limit }}"
+     * )
      */
     private $postal;
 
@@ -60,11 +97,21 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *          min = 2,
+     *          max = 20,
+     *          minMessage = "Le nom de votre ville doit etre plus grand que {{ limit }}",
+     *          maxMessage = "Le nom de votre ville doit etre plus petit que {{ limit }}"
+     * )
      */
     private $city;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(
+     *          min = 8,
+     *          minMessage = "Votre Numero doit etre plus grand que {{ limit }}"
+     * )
      */
     private $phone;
 

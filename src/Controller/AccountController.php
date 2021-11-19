@@ -10,15 +10,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AccountController extends AbstractController
 {
+    //ENTITY MANAGER
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
+    //Programme de la page account
     #[Route('/account', name: 'account')]
     public function index(): Response
     {
+
+        //EXTRAS
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         }else{

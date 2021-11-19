@@ -244,7 +244,8 @@ class OrderCrudController extends AbstractCrudController
             ]),
             BooleanField::new('isPaid','Payée ?'),
             MoneyField::new('total','Totals')->setCurrency('MAD'),
-            ArrayField::new('orderDetails','Produit Achetée')->onlyOnDetail()
+            ArrayField::new('orderDetails','Produit Achetée')->onlyOnDetail(),
+            TextField::new('strDelivery','Adresse de livraison')->onlyOnDetail(),
         ];
     }
     

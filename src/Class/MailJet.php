@@ -217,4 +217,34 @@ class MailJet
             $response = $mj->post(Resources::$Email, ['body' => $body]);
             $response->success();
     }
+    public function Contact($toEmail,$toName,$strDate,$strHeure)
+    {
+        $mj = new Client($this->P_Key,$this->S_Key,true,['version' => 'v3.1']);
+            $body = [
+                'Messages' => [
+                    [
+                        'From' => [
+                            'Email' => "rajawiaymen404@gmail.com",
+                            'Name' => "TechShop"
+                        ],
+                        'To' => [
+                            [
+                                'Email' => $toEmail,
+                                'Name' => $toName
+                            ]
+                        ],
+                        'TemplateID' => 3355624,
+                        'TemplateLanguage' => true,
+                        'Subject' => "Réclamation reçu avec success",
+                        'Variables' => [
+                            'name' => $toName,
+                            'Date' => $strDate,
+                            'Heure' => $strHeure
+                        ]
+                    ]
+                ]
+            ];
+            $response = $mj->post(Resources::$Email, ['body' => $body]);
+            $response->success() ;
+    }
 }

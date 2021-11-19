@@ -191,7 +191,7 @@
                                     <td class="payment-method">
                                         <p>
                                             <strong style="margin-right: 1rem;">methode de payment :</strong>
-                                            <h5> {% if payment == "COD" %}( COD ){% else %}( Carte bancaire ) {% endif %}</h5>
+                                            <h5>{% if payment %}{{payment}}{% else %}COD{% endif %}</h5>
                                         </p>
                                     </td>
                                 </tr>
@@ -216,8 +216,8 @@
 
                     <div class="content-form">
                         <div class="content-form-header">
-                            <h2 class="content-form-title">Vos adresses :</h2>
-                            <p>{{addresses|length}} Adresse{% if addresses|length > 1 %}s{% endif %}
+                            <h2 class="content-form-title">Adresses :</h2>
+                            <p><strong style="color: var(--orange);">{{addresses|length}}</strong> Adresse{% if addresses|length > 1 %}s{% endif %}
                             </p>
                         </div>
                         <div>
@@ -244,7 +244,7 @@
                     <div class="content-form">
                         <div class="content-form-header">
                             <h2 class="content-form-title">Choisisser le transporteur qui vous convient :</h2>
-                            <p>transporteurs :</p>
+                            <p>Transporteurs :</p>
                         </div>
                         <table class="table" width="100%">
                             <tbody>

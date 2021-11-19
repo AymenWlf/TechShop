@@ -76,6 +76,17 @@ class Order
      */
     private $livraison = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity=PaiementMethod::class, inversedBy="myOrder")
+     */
+    private $paiementMethod;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $strDelivery;
+
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -237,4 +248,30 @@ class Order
 
         return $this;
     }
+
+    public function getPaiementMethod(): ?PaiementMethod
+    {
+        return $this->paiementMethod;
+    }
+
+    public function setPaiementMethod(?PaiementMethod $paiementMethod): self
+    {
+        $this->paiementMethod = $paiementMethod;
+
+        return $this;
+    }
+
+    public function getStrDelivery(): ?string
+    {
+        return $this->strDelivery;
+    }
+
+    public function setStrDelivery(string $strDelivery): self
+    {
+        $this->strDelivery = $strDelivery;
+
+        return $this;
+    }
+
+    
 }
