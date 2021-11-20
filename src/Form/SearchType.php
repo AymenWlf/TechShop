@@ -16,6 +16,13 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('categories',EntityType::class,[
+                'label' => false,
+                'required' => false,
+                'class' => Category::class,
+                'multiple' => true,
+                'expanded' => true
+            ])
             ->add('string',TextType::class,[
                 'label' => false,
                 'required' => false,
@@ -24,13 +31,7 @@ class SearchType extends AbstractType
                     'class' => 'filter_search'
                 ]
                 ])
-            ->add('categories',EntityType::class,[
-                'label' => false,
-                'required' => false,
-                'class' => Category::class,
-                'multiple' => true,
-                'expanded' => true
-            ])
+            
             ->add('submit',SubmitType::class,[
                 'label' => 'Filtrer',
                 'attr' => [

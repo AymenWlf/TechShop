@@ -55,6 +55,7 @@ class CredentialsController extends AbstractController
             $mail->CredentialsModifyConfirmation($userEmail,$userName);
 
             //Notification
+            $this->addFlash('success',"Un email de confirmation vient vous etre envoyer !");
         }
 
         //Extras
@@ -80,12 +81,14 @@ class CredentialsController extends AbstractController
         $confUser = $this->em->getRepository(Confirmation::class)->findOneBy(['user' => $user]);
         if ($confUser->getCredTime()->modify("+ 30 minutes") < $date ) {
 
-            //Notification temps ecoule
+            //notif
+            $this->addFlash('warning',"Temps ecouler, veuillez redemander une récupération du mot de passe");
 
             return $this->redirectToRoute("credentials");
         }
         $confUser->setCredConf(1);
         $this->em->flush();
+
 
         return $this->redirectToRoute("credentials_modif");
     }
@@ -116,6 +119,10 @@ class CredentialsController extends AbstractController
             $password = $encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($password);
             $this->em->flush();
+
+            //Notif
+            $this->addFlash('success',"Vos modifiations ont confirmer et valider avec success");
+
             return $this->redirectToRoute('credentials');
         }
 
@@ -287,6 +294,7 @@ class CredentialsController extends AbstractController
 
             //Notif
             $this->addFlash('success',"Votre mot de passe est changer avec success !");
+
             return $this->redirectToRoute('app_login');
 
         }

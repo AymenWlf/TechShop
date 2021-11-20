@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use FriendsOfTwig\Twigcs\Ruleset\Official;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,7 +31,10 @@ class ModifInfosType extends AbstractType
         ])
         ->add('email',EmailType::class,[
             'label' => 'Votre Email :',
-            'required' => true,
+            'required' => false,
+            'attr' => [
+                'value' => '@'
+            ]
         ])
         ->add('password', RepeatedType::class,[
             'type' => PasswordType::class,
@@ -39,7 +43,8 @@ class ModifInfosType extends AbstractType
             'first_name' => 'pass',
             'second_name' => 'confirm',
             'first_options' => ['label' => 'Votre mot de passe :'],
-            'second_options' => ['label' => 'Confirmez votre mot de passe :']
+            'second_options' => ['label' => 'Confirmez votre mot de passe :'],
+            
 
         ])
         ->add('submit',SubmitType::class,[

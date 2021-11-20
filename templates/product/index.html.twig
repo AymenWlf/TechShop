@@ -122,19 +122,100 @@ button.btn:hover {
     border: 1px solid #fff;
 }
 
+.section_title_resp{
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .filter_search{
+        width: 17rem;
+        padding: 1.6rem 0rem;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .place{
+        height: 45px;
+        width: 100%;
+        outline: none;
+        font-size: 16px;
+        border-radius: 5px;
+        padding-left: 15px;
+        border: 1px solid #ccc;
+        border-bottom-width: 2px;
+        transition: all 0.3s ease;
+    }
+    .categorie_choice{
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+    }
+}
+@media screen and (max-width: 425px) {
+    .section_title_resp{
+        display: block;
+    }
+    .section_title{
+        display: none;
+    }
+    
+    #categories label {
+        margin: 0 8px 0 0;
+    }
+
 }
 </style>
 <div class="products-container">
     <section class="category__section section" id="category"> 
                  <div class="title__container">
                     <div class="section_title">
+                    {{form(form)}}
                         {# <span class="dot"></span> #}
-                        {{form(form)}}
+                        {# {{form_start(form)}}
+                        <div class="input-box-filter">
+                            <div class="form-errors">
+                                {{form_errors(form.categories)}}
+                            </div> 
+                            {{form_widget(form.categories,{'attr':{'class':'place'}})}}
+                        </div>
+                        <div class="input-box-filter">
+                            <div class="form-errors">
+                                {{form_errors(form.string)}}
+                            </div> 
+                            {{form_widget(form.string,{'attr':{'class':'place'}})}}
+                        </div>
+                        <div class="button">
+                            {{ form_row(form.submit, { 'label': "Filtrer",'attr':{'class':'btn' } }) }} {# {{form_rest(form)}} 
+                        </div>
+                        {{form_end(form)}} #}
                         {# <h1 class="primary__title">Meilleurs Ventes</h1> #}
+                    </div>
+                    <div class="section_title_resp">
+                    {# {{form(form)}} #}
+                        {# <span class="dot"></span> #}
+                         {{form_start(form2)}}
+                        <div class="input-box-filter">
+                            <div class="form-errors">
+                                {{form_errors(form2.categories)}}
+                            </div> 
+                            {{form_widget(form2.categories,{'attr':{'class':'categorie_choice'}})}}
+                        </div>
+                        <div class="input-box-filter">
+                            <div class="form-errors">
+                                {{form_errors(form2.string)}}
+                            </div> 
+                            {{form_widget(form2.string,{'attr':{'class':'place'}})}}
+                        </div>
+                        <div class="button">
+                            {{ form_row(form2.submit, { 'label': "Filtrer",'attr':{'class':'btn' } }) }} {{form_rest(form2)}} 
+                        </div>
+                        {{form_end(form2)}} 
                     </div>
                 </div>
                
                 <div class="category__container" data-aos="fade-up" data-aos-duration="1200">
+                    {% if products == null %}
+                        <h2 style="text-align: center;">Aucun produit ne correspond avec votre recherche !</h2>
+                    {% endif %}
                     <div class="category_center">
                          {% for product in products %}
                         <div class="product">

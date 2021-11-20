@@ -45,6 +45,16 @@ class ProductController extends AbstractController
             $products = $this->em->getRepository(Product::class)->findAll();
         }
         
+        //Responsive Filter Form
+        $form2 = $this->createForm(SearchType::class,$search);
+        $form2->handleRequest($request);
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            //filtrer produits selon Search 
+            $products = $this->em->getRepository(Product::class)->FindWithSearch($search);
+        }else{
+            //Tous recuperer
+            $products = $this->em->getRepository(Product::class)->findAll();
+        }
 
         //EXTRAS
         if ($this->getUser()) {
@@ -56,6 +66,7 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig',[
             'products' => $products,
             'form' => $form->createView(),
+            'form2' => $form2->createView(),
             'cart' => $cart
         ]);
     }

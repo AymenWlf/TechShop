@@ -2129,39 +2129,28 @@ Product Details
 
 @media only screen and (max-width: 1200px) {
     .detail__content {
-        height: 65rem;
         /* overflow-y: scroll; */
     }
 }
 
 @media only screen and (max-width: 998px) {
-    .detail__content {
-        height: 70rem;
-    }
+    .detail__content {}
 }
 
 @media only screen and (max-width: 768px) {
-    .detail__content {
-        height: 85rem;
-    }
+    .detail__content {}
 }
 
 @media only screen and (max-width: 568px) {
-    .detail__content {
-        height: 110rem;
-    }
+    .detail__content {}
 }
 
 @media only screen and (max-width: 450px) {
-    .detail__content {
-        height: 130rem;
-    }
+    .detail__content {}
 }
 
 @media only screen and (max-width: 340px) {
-    .detail__content {
-        height: 160rem;
-    }
+    .detail__content {}
 }
 
 
@@ -2535,7 +2524,7 @@ Header
     color: var(--black5);
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
     .item__link {
         display: none;
     }
@@ -2578,4 +2567,11 @@ Login
 .login_link:hover {
     color: var(--black5);
     transition: all 0.5s;
+}
+
+
+/* GLIDE */
+
+.glide__arrow {
+    top: 16%;
 }

@@ -72,6 +72,9 @@ class OrderController extends AbstractController
         //mail
         $mail = new MailJet();
         $mail->CancelOrder($userEmail,$userName,$reference);
+
+        //Notif
+        $this->addFlash('success',"Votre commande est annulée avec success");
         return $this->redirectToRoute('order',[
             'reference' => $order->getReference()
         ]);

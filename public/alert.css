@@ -195,7 +195,7 @@
 
 /* SUCCESS */
 
-.success {
+.success-alert {
     background: #c3e9c3;
     border-left: 8px solid #27bc24;
 }
@@ -204,18 +204,18 @@
     color: #27bc24;
 }
 
-.success .msg {
+.success-alert .msg {
     color: #2faf2c;
 }
 
-.success .close-btn {
+.success-alert .close-btn {
     background: #87e785;
 }
 
-.success .close-btn:hover {
+.success-alert .close-btn:hover {
     background: #89d788;
 }
 
-.success .close-btn .fas {
+.success-alert .close-btn .fas {
     color: #27bc24;
 }
