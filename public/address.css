@@ -108,3 +108,9 @@ section.address .btn-del:hover {
         padding: 1rem;
     }
 }
+
+@media screen and (max-width: 375px) {
+    section.address .content-form {
+        width: 29rem;
+    }
+}

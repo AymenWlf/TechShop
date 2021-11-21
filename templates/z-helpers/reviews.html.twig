@@ -1,93 +1,101 @@
 <style>
-h1{
-  text-align : center;
-}
-.reviews .product{
+  section.reviews {
+        /* font-size: 2rem; */
+    /* font-weight: 500; */
+    /* color: var(--grey2); */
+    /* border-bottom: 1px solid var(--primaryColor); */
     display: flex;
+    flex-wrap: wrap;
+  }
+.review-container {
+  display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    background-color: var(--primaryColor);
+    padding: 3rem;
+    width: 47%;
     text-align: center;
-    width: 25rem;
-    border: 1px solid rgba(25,25,25,0.5);
-    border-radius: 10px;
-    padding: 2rem;
-    overflow: hidden;
+    /* padding: 15px; */
+    border-top: 1px solid #f0f0f0;
+    /* margin-right: 2rem; */
+    margin: 1rem;
 }
 
-.reviews .product__header h4{
-        font-weight: bold;
-        color: black;
-
+.name-rating {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
 }
-
-.reviews .review-desc p{
-    margin-top: 1rem;
-    font-weight: normal;
+.name{
+  font-size: 2rem;
     color: black;
-    font-size: initial;
+    margin-bottom: 1rem;
 }
 
-.reviews .product__footer{
-        font-size: large;
+.review-desc-div {
+  font-size: 2rem;
+    color: black;
+}
+
+.title {
+  text-align: center;
+    margin: 5rem 0rem 2rem 0rem;
+}
+
+@media screen and (max-width: 425px) {
+  .review-container{
+    width: 100%;
+  }
 }
 </style>
 
-{% if allReviews|length > 0 %}
-<section class="section reviews latest__products" id="reviews">
-    <div class="container" data-aos="fade-up" data-aos-duration="1200">
-       
-        <div class="glide" id="glide_5">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides latest-center">
-                    {% for review in allReviews %}
-                        <li class="glide__slide">
-                        <div class="product">
-                            <div class="product__header">
-                                <h4>{{review.title}} </h4>
-                                <div class="rating">
-                                    <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                                    <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                                    <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                                    <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                                    <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-                        </svg>
-                                </div>
-                                <div class="review-desc">
-                                    <p>{{review.description}}</p>
-                                </div>
-                                
-                            </div>
-                            <div class="product__footer">
-                               <p>Par {{review.user.firstname}} , le {{review.createdAt}}</p>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                    
-                </ul>
-            <div class="glide__arrows" data-glide-el="controls">
-                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-                <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-arrow-left2')}} "></use>
-                </svg>
-              </button>
-                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-                <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-arrow-right2')}} "></use>
-                </svg>
-              </button>
-            </div>
+<div class="title__container tabs">
+    <div class="section__titles category__titles ">
+        <div class="section__title detail-btn active" data-id="description">
+            <span class="dot"></span>
+            <h1 class="primary__title">AVIS</h1>
         </div>
     </div>
+</div>
+{% if allReviews|length > 0 %}
+
+<section class="reviews">
+{% for review in allReviews %}
+<div class="review-container">
+  <div class="name-rating">
+     <div class="div-name">
+       <h1 class="name">{{review.user.firstname}} </h1>
+       <div class="div-rating">
+           <div class="rating">
+               <svg>
+             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+           </svg>
+               <svg>
+             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+           </svg>
+               <svg>
+             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+           </svg>
+               <svg>
+             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+           </svg>
+               <svg>
+             <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
+           </svg>
+           </div>
+       </div>
+     </div>
+ </div>
+  <div class="reviw-desc-div">
+     <p class="desc">{{review.description}} </p>
+  </div>
+</div>
+{% endfor %}
 </section>
+
 {% else %}
-    <h1>Aucun avis ! </h1>
+    <h1 style="text-align: center;padding: 4rem;">Aucun avis</h1>
 {% endif %}

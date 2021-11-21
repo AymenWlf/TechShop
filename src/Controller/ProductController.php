@@ -89,7 +89,11 @@ class ProductController extends AbstractController
         //Creation du formulaire concernant Reviews
         $form = $this->createForm(ReviewType::class,$review);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                if (!$user) {
+                    $this->addFlash('info',"Conectez vous d'abord !");
+                    return $this->redirectToRoute('app_login');
+                }
                 //Recuperation des avis du User
                 $userReviews = $this->em->getRepository(Review::class)->findBy(['user' => $user]);
 
@@ -116,7 +120,8 @@ class ProductController extends AbstractController
                     $this->addFlash('success','Commentaire ajouté avec succes !');
                 }
             
-        }
+            }
+        
         /* Gerer problemes form */ 
 
         //Recuperation variation du produit

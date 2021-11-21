@@ -76,6 +76,7 @@
                 >
 
                 <div class="button">
+                    <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}"/>
                     <input class="btn" type="submit" value="Se connecter">
                 </div>
 

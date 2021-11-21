@@ -1,6 +1,9 @@
 {% extends "base.html.twig" %} {% block title %}TechShop - {{product.name}} {% endblock title %} {% block header %}{% endblock header %} {% block content %}
 <style>
-
+    .select__option {
+        display: flex;
+    align-items: baseline;
+    }
 </style>
 <!-- Products Details -->
 <section class="section product-details__section">
@@ -100,7 +103,7 @@
                                     <span>Quantity:</span>
                                     <div>
 
-                                        <a class="minus-btn" href="#">
+                                        <a class="minus-btn">
                                             <svg class="minus-svg">
                             <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
                           </svg>
@@ -108,7 +111,7 @@
                                         </a> <input type="text" min="1" value="1" max="10" class="counter-btn" id="counter-btn" name="quantity" > {#
                                         <span
                                             class="counter-btn" id="counter-btn">1</span> #}
-                                            <a class="plus-btn" href="#">
+                                            <a class="plus-btn">
                                                 <svg class="plus-svg">
                             <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
                           </svg>
@@ -151,13 +154,13 @@
                       </svg>
                     </span>&nbsp; LIVRAISON
                             </a> #}
-                            <a href="#">
+                            {# <a href="#">
                                 <span>
                       <svg>
                         <use xlink:href="{{asset('images/sprite.svg#icon-envelope-o')}} "></use>
                       </svg>&nbsp;
                     </span> EN SAVOIR PLUS
-                            </a>
+                            </a> #}
                         </div>
                         <div class="product-details__btn">
                                 <input type="submit" name="submit" value="Ajouter au panier" class="btn"> {#
@@ -182,28 +185,20 @@
     </div>
 
     <div class="product-detail__bottom">
-        <div class="title__container tabs">
+        {# <div class="title__container tabs">
             <div class="section__titles category__titles ">
                 <div class="section__title detail-btn active" data-id="description">
                     <span class="dot"></span>
                     <h1 class="primary__title">Description</h1>
                 </div>
             </div>
-        </div>
-
+        </div> #}
+{# 
         <div class="detail__content">
             <div class="content active">
                 <p>{{product.description}} </p>
             </div>
-        </div>
-         <div class="title__container tabs">
-            <div class="section__titles category__titles ">
-                <div class="section__title detail-btn active" data-id="description">
-                    <span class="dot"></span>
-                    <h1 class="primary__title">Commentaires</h1>
-                </div>
-            </div>
-        </div>
+        </div> #}
         
         <div>
             {#

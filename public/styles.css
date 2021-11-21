@@ -110,7 +110,7 @@ Navigation
 .nav__logo a {
     font-size: 2.5rem;
     color: var(--black);
-    padding: 1.6rem;
+    padding: 0;
     font-weight: 700;
     position: relative;
 }
@@ -1702,6 +1702,7 @@ Footer
     background-color: var(--black3);
     padding: 6rem 1rem;
     line-height: 3rem;
+    text-align: center;
 }
 
 .footer-top__box span svg {
@@ -2215,8 +2216,8 @@ Product Details Media Query
         width: 15rem;
     }
     .input-counter {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items: baseline;
+        /* flex-direction: column; */
     }
     .input-counter div {
         margin-top: 1rem;
