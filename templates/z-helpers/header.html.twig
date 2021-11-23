@@ -42,8 +42,16 @@
                         </li>
                         {% if app.user %}
                         <li class="nav__item">
+                            <a href="{{path('account')}} " class="nav__item__link deco">Mon compte</a>
+                        </li>
+                        <li class="nav__item">
                             <a href="{{path('app_logout')}} " class="nav__item__link deco">Deconnexion</a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav__item">
+                            <a href="{{path('admin')}} " class="nav__item__link" style="color: var(--orange);">ADMINISTRATION</a> 
+                        </li>
+                        {% endif %}
                         {% else %}
                         <li class="nav__item">
                             <a href="{{path('app_login')}} " class="nav__item__link" style="color: var(--orange);">Connexion</a> 
@@ -58,11 +66,14 @@
                 <div class="nav__icons">
 
                     {% if app.user %}
-                    <a href=" {{path('account')}}" class="icon__item">
-                        <svg class="icon__user">
-                        <use xlink:href="{{asset('images/sprite.svg#icon-user')}} "></use>
-                        </svg>
-                    </a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href=" {{path('admin')}}" class="icon__item">
+                            <svg class="icon__user">
+                                <use xlink:href="{{asset('images/sprite.svg#icon-user')}} "></use>
+                            </svg>
+                        </a>
+                    {% endif %}
+                    
                     <a href="#" class="icon__item">
                         <svg class="icon__search">
                         <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
@@ -94,9 +105,10 @@
                 </div>
                 <div class="link__item">
                 {% if app.user %}
+                    <a href="{{path('account')}} " class="item__link deco">Mon compte <strong style="color: black;">|</strong></a>
                     <a href="{{path('app_logout')}} " class="item__link deco">Deconnexion</a>
                 {% else %}
-                    <a href="{{path('app_login')}} " class="item__link">Connexion</a> |
+                    <a href="{{path('app_login')}} " class="item__link">Connexion <strong style="color: black;">|</strong></a> 
                     <a href="{{path('register')}} " class="item__link">S'inscrire</a>
                 {% endif %}
                 

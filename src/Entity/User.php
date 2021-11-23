@@ -9,9 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *              fields = "email",
+ *              message = "Cet email est dejà utilisée"
+ * 
+ * )
+ * 
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -107,6 +114,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $confirmation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ModifPassword::class, mappedBy="user")
+     */
+    private $modifPasswords;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -114,6 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->modifPasswords = new ArrayCollection();
     }
 
     public function __toString()
@@ -415,6 +428,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->confirmation = $confirmation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ModifPassword[]
+     */
+    public function getModifPasswords(): Collection
+    {
+        return $this->modifPasswords;
+    }
+
+    public function addModifPassword(ModifPassword $modifPassword): self
+    {
+        if (!$this->modifPasswords->contains($modifPassword)) {
+            $this->modifPasswords[] = $modifPassword;
+            $modifPassword->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModifPassword(ModifPassword $modifPassword): self
+    {
+        if ($this->modifPasswords->removeElement($modifPassword)) {
+            // set the owning side to null (unless already changed)
+            if ($modifPassword->getUser() === $this) {
+                $modifPassword->setUser(null);
+            }
+        }
 
         return $this;
     }

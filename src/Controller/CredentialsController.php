@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Class\MailJet;
 use App\Entity\CartItem;
 use App\Entity\Confirmation;
+use App\Entity\ModifPassword;
 use App\Entity\ResetPassword;
 use App\Entity\User;
 use App\Form\ModifInfosType;
@@ -40,19 +41,25 @@ class CredentialsController extends AbstractController
         $userName = $user->getPseudoName();
 
         if (isset($_POST['modify'])) {
-
-            //Envoyer mail de confirmation
-            $token = uniqid("0000");
+            //Remplissage du ModifPass
+            $token = uniqid();
             $date = new DateTime();
-            $conf = $user->getConfirmation();
-            $conf->setCredConf(0);
-            $conf->setCredTime($date);
-            $conf->setUser($user);
-            $this->em->persist($conf);
+            $strDate = $date->format("d/m/Y");
+            $modifPass = new ModifPassword();
+            $modifPass->setUser($user);
+            $modifPass->setToken($token);
+            $modifPass->setCreatedAt($strDate);
+            $modifPass->setDateTime($date);
+            $modifPass->setTry(0);
+            
+            //FLUSH
+            $this->em->persist($modifPass);
             $this->em->flush();
 
+            //Envoie de mail de confirmation
             $mail = new MailJet();
-            $mail->CredentialsModifyConfirmation($userEmail,$userName);
+            $content = "<a href='http://localhost:8000/account/credentials/modif/".$token."' style ='color: #fff;text-decoration: none;'>Confirmer ma demande</a>";
+            $mail->CredentialsModifyConfirmation($userEmail,$userName,$content);
 
             //Notification
             $this->addFlash('success',"Un email de confirmation vient vous etre envoyer !");
@@ -70,60 +77,85 @@ class CredentialsController extends AbstractController
         ]);
     }
 
-    //Page Des infos personnel
-    #[Route('/account/credentials-conf', name: 'credentials_conf')]
-    public function CredConf(): Response
+    //Modifier les informations
+    #[Route('/account/credentials/modif/{token}', name: 'credentials_modif')]
+    public function modif(Request $request, UserPasswordEncoderInterface $encoder,$token): Response
     {
         //Initialisation
         $user = $this->getUser();
-        $date = new DateTime();
-        //Temps ecouler ou non
-        $confUser = $this->em->getRepository(Confirmation::class)->findOneBy(['user' => $user]);
-        if ($confUser->getCredTime()->modify("+ 30 minutes") < $date ) {
+
+        // dd($user);
+        //Recuperation du modifPass
+        $modifPass = $this->em->getRepository(ModifPassword::class)->findOneBy(['token' => $token]);
+        
+        //Verification de s'il y a un modifPass
+        if (!$modifPass) {
+            $this->addFlash('erreur',"Veuillez refaire une demande de modification de vos informations personnel");
+            return $this->redirectToRoute('credentials');
+        }
+
+        //Essais
+        $try = $modifPass->getTry(); 
+
+        //Time Now
+        $now = new DateTime();
+
+        //On ajoute 30 min aux temps de demande de recuperation
+        $reset_time = $modifPass->getDateTime()->modify('+ 30 minutes');
+        
+        // dd($user);
+        //Verification si le temps est ecoulée
+        if ($now > $reset_time) {
 
             //notif
-            $this->addFlash('warning',"Temps ecouler, veuillez redemander une récupération du mot de passe");
+            $this->addFlash('warning',"Temps ecouler, veuillez refaire une demande de modifications de vos informations personnel");
 
-            return $this->redirectToRoute("credentials");
+            return $this->redirectToRoute('credentials');
         }
-        $confUser->setCredConf(1);
-        $this->em->flush();
 
+        //Changer dateTime de modifPass pour annulée l'access la quatrieme fois
+        if ($try < 3) {
+            $try++;
+            $modifPass->setTry($try);
+            $this->em->flush();
 
-        return $this->redirectToRoute("credentials_modif");
-    }
+        }else{
+            $newTime = $now->modify('- 60 minutes');
+            $modifPass->setDateTime($newTime);
+            $this->em->flush();
 
-    //Modifier les informations
-    #[Route('/account/credentials/modif', name: 'credentials_modif')]
-    public function modif(Request $request, UserPasswordEncoderInterface $encoder): Response
-    {
-        //Ajouter notif tel que confirmer votre adresse email pour modifier...
-        //mail dirige vers ce lien
-        $user = $this->getUser();
+            //notif
+            $this->addFlash('warning',"Temps ecouler, veuillez refaire une demande de modifications de vos informations personnel");
+
+            return $this->redirectToRoute('credentials');
+        }
+        //Creation du formulaire
         $form = $this->createForm(ModifInfosType::class,$user);
-
-        //Annulee toute modification par la suite
-        $date = new DateTime();
-        $conf = $user->getConfirmation();
-        $conf->setCredConf(0);
-        $conf->setCredTime($date->modify("- 60 minutes"));
-        $this->em->flush();
 
         //Envoie du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Recuperation de la data
-            $user = $form->getData();
+            $data = $form->getData();
 
-            //Cryptage password
-            $password = $encoder->encodePassword($user,$user->getPassword());
-            $user->setPassword($password);
-            $this->em->flush();
+            //Verification si l'email existe dejà
+            $searchUser = $this->em->getRepository(User::class)->findOneBy(['email' => $data->getEmail()]);
 
-            //Notif
-            $this->addFlash('success',"Vos modifiations ont confirmer et valider avec success");
+            if ($searchUser && $searchUser->getEmail() != $this->getUser()->getEmail()) {
+                //Notif
+                $this->addFlash('erreur',"Cet email n'est pas disponible");
 
-            return $this->redirectToRoute('credentials');
+            }else if (!$searchUser || $searchUser->getEmail() == $this->getUser()->getEmail()) {
+                //Cryptage password
+                $password = $encoder->encodePassword($user,$user->getPassword());
+                $user->setPassword($password);
+                $this->em->flush();
+
+                //Notif
+                $this->addFlash('success',"Vos modifiations ont confirmer et valider avec success");
+
+                return $this->redirectToRoute('credentials');
+            }
         }
 
         //Extras
@@ -147,7 +179,7 @@ class CredentialsController extends AbstractController
         //Initialisation
         $user = $this->getUser();
 
-        //Verification si l'utilisateur et econnecter
+        //Verification si l'utilisateur est connecter
         if ($user) {
 
             //Notification
@@ -250,17 +282,22 @@ class CredentialsController extends AbstractController
             return $this->redirectToRoute('home');
         
         }
+        //Recuperation du resetPass
         $resetPass = $this->em->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
         
-
+        //Verification de s'il y a une resetPass
         if (!$resetPass) {
-            $this->addFlash('warning',"Veuillez redemander une récupération du mot de passe");
+            $this->addFlash('erreur',"Veuillez redemander une récupération du mot de passe");
             return $this->redirectToRoute('pass_reset');
         }
+        //Essais
         $try = $resetPass->getTry(); 
+        //Time Now
         $now = new DateTime();
+        //On ajoute 30 min aux temps de demande de recuperation
         $reset_time = $resetPass->getDateTime()->modify('+ 30 minutes');
 
+        //Verification si le temps est ecoulée
         if ($now > $reset_time) {
 
             //notif
@@ -278,6 +315,11 @@ class CredentialsController extends AbstractController
             $newTime = $now->modify('- 60 minutes');
             $resetPass->setDateTime($newTime);
             $this->em->flush();
+
+            //notif
+            $this->addFlash('erreur',"Temps ecouler, veuillez redemander une récupération du mot de passe");
+
+            return $this->redirectToRoute('pass_reset');
         }
         
 

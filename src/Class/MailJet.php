@@ -160,7 +160,7 @@ class MailJet
             $response->success() ;
     }
 
-    public function CredentialsModifyConfirmation($toEmail,$toName)
+    public function CredentialsModifyConfirmation($toEmail,$toName,$content)
     {
         $mj = new Client($this->P_Key,$this->S_Key,true,['version' => 'v3.1']);
             $body = [
@@ -181,6 +181,7 @@ class MailJet
                         'Subject' => "Confirmation de votre demande de modification",
                         'Variables' => [
                             'name' => $toName,
+                            'content' => $content
                         ]
                     ]
                 ]
@@ -206,7 +207,7 @@ class MailJet
                         ],
                         'TemplateID' => 3342658,
                         'TemplateLanguage' => true,
-                        'Subject' => "Confirmation de votre demande de modification",
+                        'Subject' => "Récuperation du mot de passe",
                         'Variables' => [
                             'name' => $toName,
                             'content' => $content

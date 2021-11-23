@@ -60,9 +60,9 @@ class RegisterController extends AbstractController
                 //Notification success
                 $this->addFlash('success','Inscription reussis !!');
                 return $this->redirectToRoute('app_login');
+            }else{
+                $this->addFlash('erreur',"Adresse email dejà utiliser !");
             }
-        }else{
-            //Notifictaion erreur
         }
         
         //Extras

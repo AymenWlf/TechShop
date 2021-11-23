@@ -77,7 +77,11 @@
 
 .formulaire-sty .user-details .input-box input:focus,
 .formulaire-sty .user-details .input-box input:valid {
-    border-color: #EB0028;
+    /* border-color: var(--green); */
+}
+
+.formulaire-sty .user-details .input-box input:invalid {
+    border-color: var(--orange);
 }
 
 .formulaire-sty .gender-details .gender-title {
