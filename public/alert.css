@@ -10,6 +10,7 @@
     padding: 20px 40px;
     max-width: 73rem;
     position: absolute;
+    position: fixed;
     right: 0;
     top: 10px;
     border-radius: 4px;
@@ -27,6 +28,7 @@
 
 .alert.show {
     animation: show_slide 1s ease forwards;
+    position: fixed;
 }
 
 @keyframes show_slide {

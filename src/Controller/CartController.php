@@ -54,6 +54,12 @@ class CartController extends AbstractController
         //Recuperation des methodes de paiement
         $paiementMethod = $this->em->getRepository(PaiementMethod::class)->findAll();
 
+        if (isset($_POST['submitPay'])) {
+            return $this->redirectToRoute('recap',[
+                'paymentValue' => $_POST['payment']
+            ]);
+        }
+
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
             'payMet' => $paiementMethod

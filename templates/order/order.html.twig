@@ -6,20 +6,20 @@
                 <h1>Commande Num : "{{order.reference}}"</h1>
                 </br>
                 {% if order.state == 1 %}
-                    <p>- Etat : <strong style="color: orange">( En attente )</strong>
+                    <p>- Etat : <strong style="color: orange">(En attente)</strong>
                     {% elseif order.state == 2 %}
-                    <p>- Etat : <strong style="color: orange">( Préparation en cours )</strong>
+                    <p>- Etat : <strong style="color: orange">(Préparation en cours)</strong>
                     {% elseif order.state == 3 %}
-                    <p>- Etat : <strong style="color: orange">( Livraison en cours )</strong>
+                    <p>- Etat : <strong style="color: orange"> Livraison en cours)</strong>
                     {% elseif order.state == 4 %}
-                    <p>- Etat : <strong style="color: green">( Livrée )</strong>   
+                    <p>- Etat : <strong style="color: green">(Livrée)</strong>   
                     {% elseif order.state == 5 or order.state == 6 %}
-                    <p>- Etat : <strong style="color: var(--orange)">( Annulée )</strong> 
+                    <p>- Etat : <strong style="color: var(--orange)">(Annulée)</strong> 
                 {% endif %}
                 {% if order.isPaid == 0 %}
-                    <strong style="color: var(--orange)">( Non Payée )</strong><p>
+                    <strong style="color: var(--orange)">(Non Payée)</strong><p>
                     {% elseif order.isPaid == 1 %}
-                    <strong style="color: green">( Payée )</strong><p>
+                    <strong style="color: green">(Payée)</strong><p>
                 {% endif %}
                 <br>
                 <p>- Prenom : <strong>{{order.user.firstname}} </strong></p>

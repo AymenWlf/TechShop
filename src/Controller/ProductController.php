@@ -82,6 +82,7 @@ class ProductController extends AbstractController
         $review = new Review();
         $user = $this->getUser();
         $minStock = 1000;
+        $msgRep = 0;
 
         //Recuperation du produit en question
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
@@ -107,17 +108,28 @@ class ProductController extends AbstractController
                     //Notif
                     $this->addFlash('warning',"Votre avis n'est pas valide car vous avez ajouté trop de commentaire pour ce produit !");
                 }else{
-                    //Remplissage de Review et flush()
-                    $date = new DateTime();
-                    $review = $form->getData();
-                    $review->setUser($user);
-                    $review->setProduct($product);
-                    $review->setCreatedAt($date->format('d/m/Y'));
-                    $this->em->persist($review);
-                    $this->em->flush();
+                    //Verifier si le commentaire est dejà envoyer 
+                    foreach ($userReviews as $review) {
+                        if ($review->getDescription() == $form->getData()->getDescription()) {
+                            $msgRep = 1;
+                        }
+                    }
 
-                    //Notif
-                    $this->addFlash('success','Commentaire ajouté avec succes !');
+                    if ($msgRep == 1) {
+                        $this->addFlash('warning',"Vous avez dejà envoyer le meme avis !");
+                    }else{
+                        //Remplissage de Review et flush()
+                        $date = new DateTime();
+                        $review = $form->getData();
+                        $review->setUser($user);
+                        $review->setProduct($product);
+                        $review->setCreatedAt($date->format('d/m/Y'));
+                        $this->em->persist($review);
+                        $this->em->flush();
+
+                        //Notif
+                        $this->addFlash('success','Commentaire ajouté avec succes !');
+                    }
                 }
             
             }

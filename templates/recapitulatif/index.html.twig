@@ -1,155 +1,4 @@
 {% extends 'base.html.twig' %} {% block title %}TechShop - Choix d'adresse de livraison{% endblock title %} {% block content %}
-
-<style>
-    .address-title {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    
-    .address-desc {
-        text-align: center;
-    }
-    
-    .address-header {
-        margin-bottom: 2rem;
-    }
-    
-    .content-form-header {
-        margin-bottom: 3rem;
-    }
-    
-    .content-form-title {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .content-form {
-        width: 50%;
-        padding: 3rem;
-        background-color: var(--primaryColor);
-        margin-bottom: 2rem;
-        margin-top: 2rem;
-    }
-    
-    th {}
-    
-    td {
-        vertical-align: middle;
-        padding: 1.8rem 0;
-        white-space: nowrap;
-        border-bottom: 1px solid gray;
-    }
-    
-    form.content-radio {}
-    
-    input {
-        margin-right: 2rem;
-    }
-    
-    label {
-        white-space: pre-line;
-    }
-    
-    .recap {
-        float: right;
-        margin-right: -3rem;
-    }
-    
-    .address-link {
-        color: cornflowerblue;
-        text-decoration-line: underline;
-    }
-    
-    .address-link:hover {
-        color: var(--orange);
-    }
-    
-    .product-details__btn {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .product-details__btn .btn {
-        width: 50%;
-    }
-    
-    .product__thumbnail {
-        width: 21rem;
-    }
-    
-    .product__thumbnail img {
-        width: 6rem;
-        height: 8rem;
-    }
-    
-    .content-area {
-        padding-bottom: 5rem;
-    }
-    
-    a.address-link {
-        font-size: 16px;
-    }
-    
-    .price-row {
-        display: flex;
-        align-items: baseline;
-        justify-content: end;
-        border: none;
-    }
-    
-    .price-row h5 {
-        color: var(--orange);
-    }
-    
-    .product__name {
-        margin-left: 8rem;
-    }
-    
-    .product__name .content {
-        margin: inherit;
-    }
-    
-    td.payment-method {
-        display: flex;
-        align-items: baseline;
-        border: none;
-        justify-content: end;
-        height: 1rem;
-    }
-    
-    td.payment-method h5 {
-        color: var(--orange);
-    }
-    
-    @media screen and (max-width: 768px) {
-        td.payment-method,
-        td.price-row {
-            font-size: 1.4rem;
-            height: 1rem;
-        }
-    }
-    
-    @media screen and (max-width: 420px) {
-        td.payment-method,
-        td.price-row {
-            font-size: 1.4rem;
-            height: 1rem;
-        }
-    }
-    
-    @media screen and (max-width: 649px) {
-        .recap {
-            float: none;
-            margin-right: 0;
-        }
-        .content-form {
-            width: 100%;
-            padding: 3rem;
-            background-color: var(--primaryColor);
-            margin-bottom: 2rem;
-        }
-    }
-</style>
 <section class="section content__area">
     <div class="container">
         <div class="responsive__cart-area">
@@ -160,10 +9,10 @@
             <hr>
             <div class="cart__form">
                 <form class="form-radio" method="post">
-                    <div class="content-form recap">
+                    <div class="content-form-recap recap">
                         <div class="content-form-header">
                             <h2 class="content-form-title">Récapitulatif</h2>
-                            <p>Voici le récapitulatif de votre commande :</p>
+                            <p>Voici le récapitulatif de votre commande:</p>
                         </div>
                         <table class="table" width="100%">
                             <thead>
@@ -190,14 +39,14 @@
                                 <tr>
                                     <td class="payment-method">
                                         <p>
-                                            <strong style="margin-right: 1rem;">methode de payment :</strong>
-                                            <h5>{% if payment %}{{payment}}{% else %}COD{% endif %}</h5>
+                                            <strong style="margin-right: 1rem;">methode de payment:</strong>
+                                            <h5>{% if payment %}{{payment}}{% else %}{{payment}}{% endif %}</h5>
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="price-row">
-                                        <p class="total-price" style="margin-right: 1rem;"> <strong> Prix total : </strong>
+                                        <p class="total-price" style="margin-right: 1rem;"> <strong> Prix total: </strong>
                                             <h5>{{total|number_format(2,",",".")}} DH </h5>
                                         </p>
                                     </td>
@@ -206,15 +55,15 @@
 
                                 {% endif %} {% endfor %}
                                 <tr>
-                                    <div class="product-details__btn">
-                                        <input type="submit" name="submitAd"  id="submitAd" value="Confirmer" class="btn">
+                                    <div class="recap-btn-div">
+                                        <input type="submit" name="submitAd"  id="submitAd" value="Confirmer" class="btn btn-conf-recap">
                                     </div>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="content-form">
+                    <div class="content-form-recap">
                         <div class="content-form-header">
                             <h2 class="content-form-title">Adresses :</h2>
                             <p><strong style="color: var(--orange);">{{addresses|length}}</strong> Adresse{% if addresses|length > 1 %}s{% endif %}
@@ -227,7 +76,7 @@
                             <tbody>
                                 {% set key = null %} {% if addresses %} {% for address in addresses %}
                                 <tr>
-                                    <td><input type="radio" value="{{address.id}}" name="address" id="address{{key}}" required></td>
+                                    <td><input type="radio" value="{{address.id}}" name="address" id="address{{key}}" required style="margin-right: 1rem"></td>
                                     <td>
                                         <label for="address{{key}}"><strong>Nom : </strong> {{address.name}} <br><br> <strong>Adresse :</strong> {{address.address}} <br><br> {{address.city}} , {{address.country}} <br><br><strong>Postal : </strong> {{address.postal}} {% if address.company %} <br><br> <strong>Entreprise : </strong> {{address.company}} {% endif %}
                                         </label></td>
@@ -241,21 +90,74 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="content-form">
+                    <div class="content-form-recap">
                         <div class="content-form-header">
-                            <h2 class="content-form-title">Choisisser le transporteur qui vous convient :</h2>
-                            <p>Transporteurs :</p>
+                            <h2 class="content-form-title">Choisisser le transporteur qui vous convient:</h2>
+                            <p>Transporteurs:</p>
                         </div>
                         <table class="table" width="100%">
                             <tbody>
                                 {% set key = 0 %} {% for carrier in carriers %}
                                 <tr>
-                                    <td><input type="radio" value="{{carrier.id}}" name="carrier" id="carrier{{key}}" required></td>
+                                    <td><input type="radio" value="{{carrier.id}}" name="carrier" id="carrier{{key}}" required style="margin-right: 1rem"></td>
                                     <td>
                                         <label for="carrier{{key}}"><strong>Nom : </strong>{{carrier.name}} <br><br> <strong>Description: </strong>{{carrier.description}} <br><br> <strong>Prix :</strong>{{(carrier.price / 100)|number_format(2,",",".")}} </label>
                                     </td>
                                 </tr>
                                 {% set key = key + 1 %} {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="content-form-recap recap-resp">
+                        <div class="content-form-header">
+                            <h2 class="content-form-title">Récapitulatif</h2>
+                            <p>Voici le récapitulatif de votre commande:</p>
+                        </div>
+                        <table class="table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set totalPriceProduct = 0 %} {% set total = 0 %} {% set key = 0 %} {% for product in cart %}
+                                <tr>
+                                    <td class="product__name">
+                                        <p>
+                                            <a href="#" style="margin-right: 1rem;">{{product.product.name}} </a><br> =>
+                                            <span class="old__price" style="margin-left: 1rem">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small> x{{product.quantity}} </p>
+                                        <small>{{product.variation}}</small> {% set totalPriceProduct = (product.product.price / 100) * product.quantity %}
+                                        <div class="price">
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                {% set key = key + 1 %} {% set total = total + totalPriceProduct %} {% if key == cart|length %}
+
+                                <tr>
+                                    <td class="payment-method">
+                                        <p>
+                                            <strong style="margin-right: 1rem;">methode de payment:</strong>
+                                            <h5>{% if payment %}{{payment}}{% else %}ERROR{% endif %}</h5>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="price-row">
+                                        <p class="total-price" style="margin-right: 1rem;"> <strong> Prix total: </strong>
+                                            <h5>{{total|number_format(2,",",".")}} DH </h5>
+                                        </p>
+                                    </td>
+                                </tr>
+
+
+                                {% endif %} {% endfor %}
+                                <tr>
+                                    <div class="recap-btn-div">
+                                        <input type="submit" name="submitAd"  id="submitAd" value="Confirmer" class="btn btn-conf-recap">
+                                    </div>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

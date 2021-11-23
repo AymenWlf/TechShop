@@ -7,6 +7,7 @@ use App\Class\MailJet;
 use App\Entity\Address;
 use App\Entity\Carrier;
 use App\Entity\CartItem;
+use App\Entity\Confirmation;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Entity\PaiementMethod;
@@ -32,15 +33,14 @@ class RecapController extends AbstractController
     }
 
     //Programme RecapPage
-    #[Route('/recapitulatif', name: 'recap')]
-    public function index(): Response
+    #[Route('/recapitulatif/{paymentValue}', name: 'recap')]
+    public function index($paymentValue): Response
     {
         //Declarations 
         $user = $this->getUser(); 
         $userEmail = $user->getEmail();
         $userPseudoName = $user->getPseudoName();     
         $paymentMethod = null;
-        $paymentValue = null; 
         $paymentName = null;
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
         $date = new DateTime();
@@ -78,10 +78,11 @@ class RecapController extends AbstractController
         $addresses = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
 
         //Mode de paiement
-        if (isset($_POST['submitPay'])) {
-            $paymentValue = $_POST['payment'];
-            $paymentMethod = $this->em->getRepository(PaiementMethod::class)->findOneBy(['value' => $paymentValue]);
-            $paymentName = $paymentMethod->getName();
+        $paymentMethod = $this->em->getRepository(PaiementMethod::class)->findOneBy(['value' => $paymentValue]);
+        $paymentName = $paymentMethod->getName();
+
+        if (!$cartItems) {
+            return $this->redirectToRoute('cart');
         }
         
         
