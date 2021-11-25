@@ -954,9 +954,7 @@ Latest Products Media Query
         background-color: var(--black);
         color: var(--primaryColor);
     }
-    .product__header img {
-        width: 50%;
-    }
+    .product__header img {}
     .product__footer h3 {
         font-size: 1.4rem;
     }
@@ -1837,7 +1835,7 @@ Product Details
 }
 
 .product-details__btn .btn {
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     border-radius: 5px;
     border: none;
@@ -1859,9 +1857,11 @@ Product Details
 }
 
 .product-details__btn a {
-    flex: 0 0 47%;
+    /* flex: 0 0 47%; */
     display: inline-block;
-    padding: 1.6rem 3rem;
+    padding: 1rem;
+    margin-left: 1rem;
+    border-radius: 5px;
     text-align: center;
     color: var(--black);
     border: 1px solid var(--black);
