@@ -1,9 +1,27 @@
 <!-- Hero -->
+
     <div class="hero">
         <div class="glide" id="glide_1">
          <div class="glide__track" data-glide-el="track">
           <ul ul class="glide__slides">
-          {% set key = 0 %}
+          {% if headers == null %}
+            <li class="glide__slide">
+              <div class="hero__center">
+                  <div class="hero__left">
+                      <span class="">Lorem, ipsum dolor </span>
+                      <h1 class="">Lorem ipsum dolor sit </h1>
+                      <p>Lorem, ipsum dolor</p>
+                      <a href="{{path('product')}}"><button class="hero__btn">to products page </button></a>
+                  </div>
+                  <div class="hero__right">
+                      <div class="hero__img-container">
+                          <img class="banner_01" src="" alt="banner2" />
+                      </div>
+                  </div>
+              </div>
+          </li>
+          {% else %}
+            {% set key = 0 %}
             {% for header in headers %}
                 <li class="glide__slide">
                     <div class="hero__center">
@@ -22,6 +40,7 @@
                 </li>
                 {% set key = key + 1 %}
             {% endfor %}
+          {% endif %}
           </ul>
         </div>
         <div class="glide__bullets" data-glide-el="controls[nav]">

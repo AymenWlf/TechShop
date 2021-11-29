@@ -4,8 +4,22 @@
         <div class="glide" id="glide_4">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
+                {% if temoignages == null %}
+                    <li class="glide__slide">
+                        <div class="testimonial__box">
+                            <div class="client__image">
+                                <img src=" " alt="profile">
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, est! </p>
+                            <div class="client__info">
+                                <h3>Lorem, ipsum</h3>
+                                <span>Lorem, ipsum dolor</span>
+                            </div>
+                        </div>
+                    </li>
+                {% else %}
                     {% for temoignage in temoignages %}
-                        <li class="glide__slide">
+                    <li class="glide__slide">
                         <div class="testimonial__box">
                             <div class="client__image">
                                 <img src="/uploads/{{temoignage.illustration}} " alt="profile">
@@ -18,6 +32,8 @@
                         </div>
                     </li>
                     {% endfor %}
+                {% endif %}
+                    
                 </ul>
             </div>
             <div class="glide__bullets" data-glide-el="controls[nav]">
