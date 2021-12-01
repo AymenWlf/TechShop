@@ -134,60 +134,63 @@ button.btn:hover {
         </div>
         <div class="category__container" data-aos="fade-up" data-aos-duration="1200">
             <div class="category_center"> 
-                {% for product in wishList.products %}
-                    <div class="product">
-                        <div class="product__header">
-                            <img src="/uploads/{{product.illustration}}" alt="product">
-                        </div>
-                        <div class="product__footer">
-                            <h3>{{product.name}} </h3>
-                            <div class="rating">
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-                                </svg>
-                            </div>
-                            <div class="product__price">
-                                <h4>{{(product.price / 100)|number_format(2,',','.')}} DH </h4>
-                            </div>
-                                <a href="{{path('product_show' ,{'slug': product.slug} )}}"><button type="submit" class="product__btn">VOIR LE PRODUIT</button></a>
-                            </div>
-                            <ul>
-                                <li>
-                                    <a data-tip="Quick View" data-place="left" href="{{path('product_show' ,{'slug': product.slug} )}}">
+                {% if wishList %}
+                        {% for product in wishList.products %}
+                            <div class="product">
+                                <div class="product__header">
+                                    <img src="/uploads/{{product.illustration}}" alt="product">
+                                </div>
+                                <div class="product__footer">
+                                    <h3>{{product.name}} </h3>
+                                    {# <div class="rating">
                                         <svg>
-                                            <use xlink:href="{{asset('images/sprite.svg#icon-eye')}} "></use>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
                                         </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-tip="Add To Compare" data-place="left" href="{{path('wish_list_remove',{'slug': product.slug})}}">
                                         <svg>
-                                            <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
                                         </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                {% endfor %} 
+                                        <svg>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+                                        </svg>
+                                        <svg>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+                                        </svg>
+                                        <svg>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
+                                        </svg>
+                                    </div> #}
+                                    <div class="product__price">
+                                        <h4>{{(product.price / 100)|number_format(2,',','.')}} DH </h4>
+                                    </div>
+                                        <a href="{{path('product_show' ,{'slug': product.slug} )}}"><button type="submit" class="product__btn">VOIR LE PRODUIT</button></a>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <a data-tip="Quick View" data-place="left" href="{{path('product_show' ,{'slug': product.slug} )}}">
+                                                <svg>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-eye')}} "></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-tip="Add To Compare" data-place="left" href="{{path('wish_list_remove',{'slug': product.slug})}}">
+                                                <svg>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    {% endfor %} 
+                {% else %}
+                    <h1 style="text-align: center;">Vous n'avez aucune wishList !</h1>
+                {% endif %}
             </div>
             {% if wishList.products.values == null %}
                 <div class="noProducts">
                     <h1>Vous n'avez aucun produit dans votre wishList,cliquez <a href="{{path('product')}}">ici</a> pour visiter notre catalogue</h1>
                 </div>
-                
             {% endif %}
         </div>
     </section>

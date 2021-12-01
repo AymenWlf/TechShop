@@ -33,6 +33,13 @@ class WishListController extends AbstractController
         $user = $this->getUser();
         if ($user) {
             $wishList = $this->em->getRepository(WishList::class)->findByWish($user);
+            if (!$wishList) {
+                $wishList = new WishList();
+                $wishList->setUser($user);
+
+                $this->em->persist($wishList);
+                $this->em->flush();
+            }
         }else{
             $this->addFlash('info',"Connecter vous pour accéder à votre WishList !");
             return $this->redirectToRoute('app_login');
