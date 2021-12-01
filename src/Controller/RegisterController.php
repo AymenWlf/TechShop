@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
-use App\Class\MailJet;
-use App\Entity\Confirmation;
 use App\Entity\User;
+use App\Class\MailJet;
+use App\Entity\CartItem;
+use App\Entity\WishList;
 use App\Form\RegisterType;
+use App\Entity\Confirmation;
+use Prophecy\Promise\ThrowPromise;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
-use Prophecy\Promise\ThrowPromise;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,6 +38,7 @@ class RegisterController extends AbstractController
         $mail = new MailJet();
         $user = new User();
         $conf = new Confirmation();
+        $wishList = new WishList();
         $form = $this->createForm(RegisterType::class,$user);
 
         //Envoie du formulaire
@@ -51,6 +54,7 @@ class RegisterController extends AbstractController
                 $password = $encoder->encodePassword($user,$user->getPassword());
                 $user->setPassword($password);
                 $user->setConfirmation($conf);
+                $user->setWishList($wishList);
                 $this->em->persist($user);
                 $this->em->flush();
 
