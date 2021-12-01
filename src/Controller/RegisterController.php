@@ -34,7 +34,7 @@ class RegisterController extends AbstractController
             $this->addFlash('warning',"Vous etes deja connecter !");
             return $this->redirectToRoute('home');
         }
-        //Initialisation;
+        //Initialisation
         $mail = new MailJet();
         $user = new User();
         $conf = new Confirmation();
@@ -55,6 +55,7 @@ class RegisterController extends AbstractController
                 $user->setPassword($password);
                 $user->setConfirmation($conf);
                 $user->setWishList($wishList);
+
                 $this->em->persist($user);
                 $this->em->flush();
 
