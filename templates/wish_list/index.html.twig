@@ -1,16 +1,11 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}TechShop - Ma wishList{% endblock title %}
-
-{% block header %}{% endblock header %}
-{% block content %}
+{% extends 'base.html.twig' %} {% block title %}TechShop - Ma wishList{% endblock title %} {% block header %}{% endblock header %} {% block content %}
 <style>
 /*
 ======================
 Category Center
 ======================
 */
-/* .products-container{
+    /* .products-container{
     max-width: 167rem;
     margin: 0 auto;
     padding: 0 1.6rem;
@@ -21,111 +16,109 @@ Category Center
     padding: 3rem 0;
     grid-column: 5;
 } */
-
-
-.category_center {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 3rem 2rem;
-}
-
-@media only screen and (max-width: 999px) {
+    
     .category_center {
-        grid-template-columns: 1fr 1fr 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 3rem 2rem;
     }
-}
-
-@media only screen and (max-width: 568px) {
-    .category_center {
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem 1rem;
+    
+    @media only screen and (max-width: 999px) {
+        .category_center {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
     }
-    .category__products .product__header {
-        height: 10rem;
+    
+    @media only screen and (max-width: 568px) {
+        .category_center {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem 1rem;
+        }
+        .category__products .product__header {
+            height: 10rem;
+        }
+        .category__products .product__header img {
+            object-fit: contain;
+        }
     }
-    .category__products .product__header img {
-        object-fit: contain;
+    
+    #categories label {
+        font-size: 1.9rem;
+        font-weight: inherit;
+        opacity: 0.6;
+        padding-left: 0.5rem;
+        transition: opacity 0.3s ease-in-out;
+        margin: 0 50px 0 0
     }
-}
-
-#categories label {
-    font-size: 1.9rem;
-    font-weight: inherit;
-    opacity: 0.6;
-    padding-left: 0.5rem;
-    transition: opacity 0.3s ease-in-out;
-    margin: 0 50px 0 0
-}
-
-#categories {
-
-}
-#categories label:hover{
-    opacity: 1;
-} 
-
-#categories input {
-    opacity: 1;
-}
-
-#categories input:checked + label{
-    opacity: 1;
-}
-
-.filter_search {
-    font-size: 1.4rem;
-    display: inline-block;
-    width: 37rem;
-    padding: 1.6rem;
-    background-color: #fff;
-    border: none;
-    text-indent: 1rem;
-}
-.section_title form div{
-    display:flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.section_title{
-    width: 100%;
-}
-.title__container{
-    width: 100%
-}
-
-
-button.btn {
-    /* display: flex;
+    
+    #categories {}
+    
+    #categories label:hover {
+        opacity: 1;
+    }
+    
+    #categories input {
+        opacity: 1;
+    }
+    
+    #categories input:checked+label {
+        opacity: 1;
+    }
+    
+    .filter_search {
+        font-size: 1.4rem;
+        display: inline-block;
+        width: 37rem;
+        padding: 1.6rem;
+        background-color: #fff;
+        border: none;
+        text-indent: 1rem;
+    }
+    
+    .section_title form div {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .section_title {
+        width: 100%;
+    }
+    
+    .title__container {
+        width: 100%
+    }
+    
+    button.btn {
+        /* display: flex;
     justify-content: center; */
-    height: 4rem;
-    width: 100%;
-    margin: 25px 0;
-    width: 100%;
-    border-radius: 5px;
-    border: none;
-    color: black;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #fff;
-    padding: 1rem;
-    border: 1px solid black;
-}
-
-
-button.btn:hover {
-    /* transform: scale(0.99); */
-    background-color: #EB0028;
-    color: #fff;
-    border: 1px solid #fff;
-}
-
+        height: 4rem;
+        width: 100%;
+        margin: 25px 0;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        color: black;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: #fff;
+        padding: 1rem;
+        border: 1px solid black;
+    }
+    
+    button.btn:hover {
+        /* transform: scale(0.99); */
+        background-color: #EB0028;
+        color: #fff;
+        border: 1px solid #fff;
+    }
 }
 </style>
 <div class="products-container">
-    <section class="category__section section" id="category"> 
+    <section class="category__section section" id="category">
         <div class="title__container">
             <div class="section__title active">
                 <span class="dot"></span>
@@ -133,69 +126,65 @@ button.btn:hover {
             </div>
         </div>
         <div class="category__container" data-aos="fade-up" data-aos-duration="1200">
-            <div class="category_center"> 
-                {% if wishList %}
-                        {% for product in wishList.products %}
-                            <div class="product">
-                                <div class="product__header">
-                                    <img src="/uploads/{{product.illustration}}" alt="product">
-                                </div>
-                                <div class="product__footer">
-                                    <h3>{{product.name}} </h3>
-                                    {# <div class="rating">
-                                        <svg>
+            <div class="category_center">
+                {% for product in wishList.products %}
+                <div class="product">
+                    <div class="product__header">
+                        <img src="/uploads/{{product.illustration}}" alt="product">
+                    </div>
+                    <div class="product__footer">
+                        <h3>{{product.name}} </h3>
+                        {#
+                        <div class="rating">
+                            <svg>
                                             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
                                         </svg>
-                                        <svg>
+                            <svg>
                                             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
                                         </svg>
-                                        <svg>
+                            <svg>
                                             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
                                         </svg>
-                                        <svg>
+                            <svg>
                                             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
                                         </svg>
-                                        <svg>
+                            <svg>
                                             <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
                                         </svg>
-                                    </div> #}
-                                    <div class="product__price">
-                                        <h4>{{(product.price / 100)|number_format(2,',','.')}} DH </h4>
-                                    </div>
-                                        <a href="{{path('product_show' ,{'slug': product.slug} )}}"><button type="submit" class="product__btn">VOIR LE PRODUIT</button></a>
-                                    </div>
-                                    <ul>
-                                        <li>
-                                            <a data-tip="Quick View" data-place="left" href="{{path('product_show' ,{'slug': product.slug} )}}">
-                                                <svg>
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-eye')}} "></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a data-tip="Add To Compare" data-place="left" href="{{path('wish_list_remove',{'slug': product.slug})}}">
-                                                <svg>
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                    {% endfor %} 
-                {% else %}
-                    <h1 style="text-align: center;">Vous n'avez aucune wishList !</h1>
-                {% endif %}
-            </div>
-            {% if wishList.products.values == null %}
-                <div class="noProducts">
-                    <h1>Vous n'avez aucun produit dans votre wishList,cliquez <a href="{{path('product')}}">ici</a> pour visiter notre catalogue</h1>
+                        </div> #}
+                        <div class="product__price">
+                            <h4>{{(product.price / 100)|number_format(2,',','.')}} DH </h4>
+                        </div>
+                        <a href="{{path('product_show' ,{'slug': product.slug} )}}"><button type="submit" class="product__btn">VOIR LE PRODUIT</button></a>
+                    </div>
+                    <ul>
+                        <li>
+                            <a data-tip="Quick View" data-place="left" href="{{path('product_show' ,{'slug': product.slug} )}}">
+                                <svg>
+                                    <use xlink:href="{{asset('images/sprite.svg#icon-eye')}} "></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-tip="Add To Compare" data-place="left" href="{{path('wish_list_remove',{'slug': product.slug})}}">
+                                <svg>
+                                    <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            {% endif %}
+                {% endfor %}
+            </div>
+           
         </div>
-    </section>
+        {% if wishList.products.values == null %}
+        <div class="noProducts">
+            <h1>Vous n'avez aucun produit dans votre wishList,cliquez <a href="{{path('product')}}">ici</a> pour visiter notre catalogue</h1>
+        </div>
+        {% endif %}
+</div>
+</section>
 </div>
 
-{% endblock content %}
-{% block footer %}{% endblock footer %}
-
+{% endblock content %} {% block footer %}{% endblock footer %}
