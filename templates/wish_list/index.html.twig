@@ -140,25 +140,8 @@ button.btn:hover {
                             <img src="/uploads/{{product.illustration}}" alt="product">
                         </div>
                         <div class="product__footer">
-                            <h3>{{product.name}} </h3>
-                            <div class="rating">
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                                </svg>
-                                <svg>
-                                    <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-                                </svg>
-                            </div>
-                            <div class="product__price">
+                            <h3>{{product.name}} </h3>                        
+                           <div class="product__price">
                                 <h4>{{(product.price / 100)|number_format(2,',','.')}} DH </h4>
                             </div>
                                 <a href="{{path('product_show' ,{'slug': product.slug} )}}"><button type="submit" class="product__btn">VOIR LE PRODUIT</button></a>
@@ -180,8 +163,8 @@ button.btn:hover {
                                 </li>
                             </ul>
                         </div>
+			{% endfor %}
                     </div>
-                {% endfor %} 
             </div>
             {% if wishList.products.values == null %}
                 <div class="noProducts">
@@ -195,4 +178,3 @@ button.btn:hover {
 
 {% endblock content %}
 {% block footer %}{% endblock footer %}
-
