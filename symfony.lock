@@ -97,6 +97,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsoftwig/twigcs": {
+        "version": "v5.1.0"
+    },
     "guzzlehttp/guzzle": {
         "version": "7.4.0"
     },

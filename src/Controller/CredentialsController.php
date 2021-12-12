@@ -58,7 +58,7 @@ class CredentialsController extends AbstractController
 
             //Envoie de mail de confirmation
             $mail = new MailJet();
-            $content = "<a href='http://localhost:8000/account/credentials/modif/".$token."' style ='color: #fff;text-decoration: none;'>Confirmer ma demande</a>";
+            $content = "<a href='https://aymenwlf.me/account/credentials/modif/".$token."' style ='color: #fff;text-decoration: none;'>Confirmer ma demande</a>";
             $mail->CredentialsModifyConfirmation($userEmail,$userName,$content);
 
             //Notification
@@ -230,7 +230,7 @@ class CredentialsController extends AbstractController
                     'token' => $token
                 ]);
                 
-                $content = "<a href='http://localhost:8000/credentials/pass_update/".$token."'>mettre à jour mon mot de passe</a>";
+                $content = "<a href='https://aymenwlf.me/credentials/pass_update/".$token."'>mettre à jour mon mot de passe</a>";
                 $mail = new MailJet();
                 $mail->ResetPasswordConfirmation($email,$userResetName,$content);
 
