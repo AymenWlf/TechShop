@@ -36,6 +36,7 @@ class RecapController extends AbstractController
     #[Route('/recapitulatif/{paymentValue}', name: 'recap')]
     public function index($paymentValue): Response
     {
+        
         //Declarations 
         $user = $this->getUser(); 
         $userEmail = $user->getEmail();
@@ -50,8 +51,16 @@ class RecapController extends AbstractController
         $reference = $dateChar.'-'.uniqid();
         $delivery = [];
         $cart = [];
-
+        $addresses = $user->getAddresses()->getValues();
         //Programme : 
+        //Cas des adresses 
+        if (!$addresses) {
+            //Notif
+            $this->addFlash('warning',"Veuiller ajouter une adresses !");
+
+            return $this->redirectToRoute('new_address');
+        }
+        
 
         //Remplissage tableau Cart[] Par les infos a afficher
         foreach ($cartItems as $item) {
