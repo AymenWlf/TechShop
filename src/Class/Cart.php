@@ -10,6 +10,7 @@ class Cart {
 
     private $session;
     private $em;
+    private $test;
 
     public function __construct(SessionInterface $session, EntityManagerInterface $em)
     {
