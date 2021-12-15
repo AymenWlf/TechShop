@@ -101,10 +101,10 @@ class WishListController extends AbstractController
             //Notif
             $this->addFlash('success','Produit ajoutée à la wishList avec succes !');
         }
-        
+
         // Redirection vers la page precedente
         return $this->redirect($_SERVER['HTTP_REFERER']);
-       
+
 
     }
 
@@ -114,7 +114,7 @@ class WishListController extends AbstractController
     {
         //Recuperation du produit en question
         $product = $this->em->getRepository(Product::class)->findOneBy(['slug' => $slug]);
-        
+
         $user = $this->getUser();
 
         //Recuperation de la wishList
@@ -148,10 +148,10 @@ class WishListController extends AbstractController
             $this->addFlash('warning','Ce produit ne se trouve pas dans votre wishList !');
         }
 
-       
+
         // Redirection vers la page précedente
         return $this->redirect($_SERVER['HTTP_REFERER']);
-       
+
 
     }
 }
