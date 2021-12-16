@@ -47,7 +47,7 @@
                                         </strong>
                                     </td>
                                     <td>{{(order.total / 100)|number_format(2,',','.')}} DH</td>
-                                    <td><a class="voir-commande" href="{{path('order',{'reference' : order.reference})}} ">Voir ma commande</a></td>
+                                    <td><a class="voir-commande" href="{{path('order',{'reference' : order.reference})}}">Voir ma commande</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -97,7 +97,7 @@
                             </tr>
                             <tr>
                                 <th></th>
-                                <td><a class="voir-commande" href="{{path('order',{'reference' : order.reference})}} ">Voir ma commande</a></td>
+                                <td><a class="voir-commande" href="{{path('order',{'reference' : order.reference})}}">Voir ma commande</a></td>
                             </tr>
                         </tbody>
                     </table>

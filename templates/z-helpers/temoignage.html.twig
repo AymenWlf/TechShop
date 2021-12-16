@@ -22,7 +22,7 @@
                     <li class="glide__slide">
                         <div class="testimonial__box">
                             <div class="client__image">
-                                <img src="/uploads/{{temoignage.illustration}} " alt="profile">
+                                <img src="/uploads/{{temoignage.illustration}}" alt="profile">
                             </div>
                             <p>{{temoignage.temoignage}} </p>
                             <div class="client__info">
@@ -39,7 +39,7 @@
             <div class="glide__bullets" data-glide-el="controls[nav]">
             {% set key = 0 %}
             {% for temoignage in temoignages %}
-                <button class="glide__bullet" data-glide-dir="={{key}} "></button>
+                <button class="glide__bullet" data-glide-dir="={{key}}"></button>
                 {% set key = key + 1 %}
             {% endfor %}
                 

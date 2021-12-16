@@ -20,19 +20,19 @@
                         <span class="nav__category">TechShop</span>
                         <a href="" class="close__toggle">
                             <svg>
-                  <use xlink:href="{{asset('images/sprite.svg#icon-cross')}} "></use>
+                  <use xlink:href="{{asset('images/sprite.svg#icon-cross')}}"></use>
                 </svg>
                         </a>
                     </div>
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href=" {{path('home')}} " class="nav__link">Acceuil</a>
+                            <a href="{{path('home')}}" class="nav__link">Acceuil</a>
                         </li>
                         <li class="nav__item">
-                            <a href=" {{path('product')}} " class="nav__link">Produits</a>
+                            <a href="{{path('product')}}" class="nav__link">Produits</a>
                         </li>
                         <li class="nav__item">
-                            <a href=" {{path('wish_list')}} " class="nav__link">WishList</a>
+                            <a href="{{path('wish_list')}}" class="nav__link">WishList</a>
                         </li>
                         {# <li class="nav__item">
                             <a href="#news" class="nav__link scroll-link">Blog</a>
@@ -42,22 +42,22 @@
                         </li>
                         {% if app.user %}
                         <li class="nav__item">
-                            <a href="{{path('account')}} " class="nav__item__link deco">Mon compte</a>
+                            <a href="{{path('account')}}" class="nav__item__link deco">Mon compte</a>
                         </li>
                         <li class="nav__item">
-                            <a href="{{path('app_logout')}} " class="nav__item__link deco">Deconnexion</a>
+                            <a href="{{path('app_logout')}}" class="nav__item__link deco">Deconnexion</a>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav__item">
-                            <a href="{{path('admin')}} " class="nav__item__link" style="color: var(--orange);">ADMINISTRATION</a> 
+                            <a href="{{path('admin')}}" class="nav__item__link" style="color: var(--orange);">ADMINISTRATION</a> 
                         </li>
                         {% endif %}
                         {% else %}
                         <li class="nav__item">
-                            <a href="{{path('app_login')}} " class="nav__item__link" style="color: var(--orange);">Connexion</a> 
+                            <a href="{{path('app_login')}}" class="nav__item__link" style="color: var(--orange);">Connexion</a> 
                         </li>
                         <li class="nav__item">
-                            <a href="{{path('register')}} " class="nav__item__link" style="color: var(--orange);">S'inscrire</a>
+                            <a href="{{path('register')}}" class="nav__item__link" style="color: var(--orange);">S'inscrire</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -69,7 +69,7 @@
                     {% if is_granted('ROLE_USER') %}
                         <a href=" {{path('admin')}}" class="icon__item">
                             <svg class="icon__user">
-                                <use xlink:href="{{asset('images/sprite.svg#icon-user')}} "></use>
+                                <use xlink:href="{{asset('images/sprite.svg#icon-user')}}"></use>
                             </svg>
                         </a>
                     {% endif %}
@@ -82,19 +82,19 @@
                     
                     <a href="{{path('cart')}} " class="icon__item">
                         <svg class="icon__cart">
-                        <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
+                        <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}}"></use>
                         </svg>
                         <span id="cart__total">{{cart|length}}</span>
                     </a>
                     {% else %}
                     <a href="#" class="icon__item">
                         <svg class="icon__search">
-                        <use xlink:href="{{asset('images/sprite.svg#icon-search')}} "></use>
+                        <use xlink:href="{{asset('images/sprite.svg#icon-search')}}"></use>
                         </svg>
                     </a>
                     <a href="{{path('cart')}} " class="icon__item">
                         <svg class="icon__cart">
-                        <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}} "></use>
+                        <use xlink:href="{{asset('images/sprite.svg#icon-shopping-basket')}}"></use>
                         </svg>
                         <span id="cart__total">{{cart|length}}</span>
                     </a>
@@ -105,11 +105,11 @@
                 </div>
                 <div class="link__item">
                 {% if app.user %}
-                    <a href="{{path('account')}} " class="item__link deco">Mon compte <strong style="color: black;">|</strong></a>
-                    <a href="{{path('app_logout')}} " class="item__link deco">Deconnexion</a>
+                    <a href="{{path('account')}}" class="item__link deco">Mon compte <strong style="color: black;">|</strong></a>
+                    <a href="{{path('app_logout')}}" class="item__link deco">Deconnexion</a>
                 {% else %}
-                    <a href="{{path('app_login')}} " class="item__link">Connexion <strong style="color: black;">|</strong></a> 
-                    <a href="{{path('register')}} " class="item__link">S'inscrire</a>
+                    <a href="{{path('app_login')}}" class="item__link">Connexion <strong style="color: black;">|</strong></a> 
+                    <a href="{{path('register')}}" class="item__link">S'inscrire</a>
                 {% endif %}
                 
                 </div>
