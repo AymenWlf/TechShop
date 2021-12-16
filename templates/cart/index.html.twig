@@ -135,17 +135,17 @@
                                     <div class="input-counter responsive-counter">
                                         <div>
 
-                                            <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}} ">
+                                            <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}}">
                                                 <svg class="minus-cart-svg">
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-minus')}}"></use>
                                                 </svg>
                                             </a>
 
                                             <input type="number" min="1" value="{{product.quantity}}" max="10" class="counter-btn" id="counter-btn" name="quantity" disabled> {# <span class="counter-btn" id="counter-btn">1</span> #}
 
-                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}} " disabled>
+                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}}" disabled>
                                                 <svg class="plus-cart-svg">
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-plus')}}"></use>
                                                 </svg>
                                             </a>
 
@@ -155,17 +155,17 @@
                                     <div class="input-counter">
                                         <div>
 
-                                            <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}} ">
+                                            <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}}">
                                                 <svg class="minus-cart-svg">
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-minus')}} "></use>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-minus')}}"></use>
                                                 </svg>
                                             </a>
 
                                             <input type="number" min="1" value="{{product.quantity}}" max="10" class="counter-btn" id="counter-btn" name="quantity" disabled> {# <span class="counter-btn" id="counter-btn">1</span> #}
 
-                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}} " disabled>
+                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}}" disabled>
                                                 <svg class="plus-cart-svg">
-                                                    <use xlink:href="{{asset('images/sprite.svg#icon-plus')}} "></use>
+                                                    <use xlink:href="{{asset('images/sprite.svg#icon-plus')}}"></use>
                                                 </svg>
                                             </a>
 
@@ -175,7 +175,7 @@
                                 <td class="product__subtotal">
                                     <a href="{{path('delete_cart',{'id': product.id}  )}} " class="remove__cart-item">
                                         <svg>
-                                            <use xlink:href="{{asset('images/sprite.svg#icon-trash')}} "></use>
+                                            <use xlink:href="{{asset('images/sprite.svg#icon-trash')}}"></use>
                                         </svg>
                                     </a>
                                 </td>
