@@ -24,7 +24,6 @@ class ProductCrudController extends AbstractCrudController
         return Product::class;
     }
 
-    
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -35,7 +34,7 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name','Nom du Produit'),
             SlugField::new('slug','Slug')->setTargetFieldName('name'),
             AssociationField::new('category','Categorie'),
-            TextareaField::new('description','Description')->hideOnIndex(),
+            TextAreaField::new('description','Description')->hideOnIndex(),
             BooleanField::new('isBest'),
             TextField::new('subtitle','Sous-Titre'),
             MoneyField::new('price')->setCurrency('MAD'),
@@ -43,9 +42,10 @@ class ProductCrudController extends AbstractCrudController
             ->setBasePath('uploads/')
             ->setUploadDir('public/uploads')
             ->setUploadedFileNamePattern('[randomhash].[extension]'),
-            
+
         ];
     }
-    
+
 }
+
 
