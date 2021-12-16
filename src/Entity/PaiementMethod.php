@@ -34,6 +34,7 @@ class PaiementMethod
      */
     private $myOrder;
 
+
     public function __construct()
     {
         $this->myOrder = new ArrayCollection();
@@ -97,4 +98,5 @@ class PaiementMethod
 
         return $this;
     }
+
 }
