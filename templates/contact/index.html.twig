@@ -7,7 +7,7 @@
         <div class="title">Contact</div>
         <div class="content">
             <div class="user-details">
-                {{form_start(form)}} {#
+                {{form_start(form,{'attr': {'autocomplete': 'off'} })}} {#
                 <div class="error"> {{form_errors(form,{'label':'Error'})}} </div> #}
                 <div class="input-box">
                     {{form_label(form.name,'Titre du message',{'label_attr':{'class':'details'}})}} {{form_widget(form.name,{'attr':{'class':'place'}})}}

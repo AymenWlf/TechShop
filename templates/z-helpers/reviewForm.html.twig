@@ -146,7 +146,7 @@
         <div class="rating"></div>
         <div class="contenue">
             <div class="review-form">
-                {{form_start(form)}}
+                {{form_start(form,{'attr': {'autocomplete': 'off'} })}}
                     <div class="input-box">
                         {{form_widget(form.title, {'attr' : {'class' : 'title-widg' , 'placeholder' : 'Titre du commentaire'} }  ) }}
                     </div>
