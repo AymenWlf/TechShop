@@ -82,9 +82,11 @@ class Order
     private $paiementMethod;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $strDelivery;
+
+  
 
 
     public function __construct()
@@ -272,6 +274,7 @@ class Order
 
         return $this;
     }
+
 
     
 }

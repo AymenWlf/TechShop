@@ -22,7 +22,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
             $product->setName('product_'.$nbProduct);
             $product->setSlug('product-'.$nbProduct);
-            $product->setIllustration('');
+            $product->setIllustration('iphone1.jpeg');
             $product->setSubtitle($faker->sentence(3));
             $product->setDescription($faker->Text(250));
             $product->setPrice(999900);
@@ -39,11 +39,11 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $variations = [
                 1 => [
                     'name' => "Marque",
-                    'illustration' => "",
+                    'illustration' => "iphone1.jpeg",
                 ],
                 2 => [
                     'name' => "Couleur",
-                    'illustration' => "",
+                    'illustration' => "iphone1.jpeg",
                 ]
             ];
 
@@ -75,7 +75,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                         $variationOpt->setName('variationOption_'.$nbVariationOpt);
                         $variationOpt->setVarCode(NULL);
                         $variationOpt->setStock($faker->numberBetween(20,50));
-                        $variationOpt->setIllustration(NULL);
+                        $variationOpt->setIllustration('iphone1.jpeg');
                         $product->addVariationOption($variationOpt);
     
                         $variation->addVariationOption($variationOpt);
@@ -88,16 +88,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 $manager->persist($variation);
             }
     
-
-            /*
-            $variationOpt = $this->getReference('marque');
-            $product->addVariationOption($variationOpt);
-
-            for($i = 1;$i <= 5;$i++)
-            {
-                $variationOpti = $this->getReference('variationOption_'.$i);
-                $product->addVariationOption($variationOpti);
-            }*/
             $manager->persist($product);
 
             //Reference ....

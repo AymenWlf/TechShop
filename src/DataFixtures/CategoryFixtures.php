@@ -19,6 +19,7 @@ class CategoryFixtures extends Fixture
         {
             $category = new Category();
             $category->setName('category_'.$nbCategory);
+            $category->setIllustration('collection_01.png');
 
             $manager->persist($category);
 

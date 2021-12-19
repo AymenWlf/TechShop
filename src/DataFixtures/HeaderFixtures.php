@@ -23,7 +23,7 @@ class HeaderFixtures extends Fixture
             $header->setMiddleCmnt($faker->paragraph());
             $header->setLastCmnt($faker->sentence(2));
             $header->setBtnTitle($faker->sentence(2));
-            $header->setIllustration('');
+            $header->setIllustration('banner_01.png');
 
             $manager->persist($header);
         }

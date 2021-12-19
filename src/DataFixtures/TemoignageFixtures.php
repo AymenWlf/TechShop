@@ -20,7 +20,7 @@ class TemoignageFixtures extends Fixture
 
             $temoignage->setName($faker->name());
             $temoignage->setTemoignage($faker->paragraph());
-            $temoignage->setIllustration('');
+            $temoignage->setIllustration('profile3.jpg');
             $temoignage->setNotoriety($faker->sentence(2));
 
             $manager->persist($temoignage);
