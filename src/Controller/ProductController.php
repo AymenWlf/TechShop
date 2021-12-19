@@ -37,6 +37,7 @@ class ProductController extends AbstractController
         $search = new Search();
         $form = $this->createForm(SearchType::class,$search);
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             //filtrer produits selon Search 
             $products = $this->em->getRepository(Product::class)->FindWithSearch($search);
