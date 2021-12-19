@@ -112,7 +112,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategoryFixtures::class,
-            VariationFixtures::class,
         ];
     }
 }
