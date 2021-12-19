@@ -22,19 +22,15 @@ class TemoignageRepository extends ServiceEntityRepository
     // /**
     //  * @return Temoignage[] Returns an array of Temoignage objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findThreeLastTemoignages()
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Temoignage

@@ -26,10 +26,10 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         //Initialisation
-        $headers = $this->em->getRepository(Header::class)->findAll();
-        $categories = $this->em->getRepository(Category::class)->findAll();
+        $headers = $this->em->getRepository(Header::class)->findThreeLastHeaders();
+        $categories = $this->em->getRepository(Category::class)->findTwoLastCategories();
         $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
-        $temoignages = $this->em->getRepository(Temoignage::class)->findAll();
+        $temoignages = $this->em->getRepository(Temoignage::class)->findThreeLastTemoignages();
 
         //Extras
         if ($this->getUser()) {

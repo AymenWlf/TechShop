@@ -22,19 +22,15 @@ class HeaderRepository extends ServiceEntityRepository
     // /**
     //  * @return Header[] Returns an array of Header objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findThreeLastHeaders()
     {
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('h.id', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Header

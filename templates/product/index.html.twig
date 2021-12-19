@@ -253,9 +253,13 @@ Category Center
                         </li>
                     </ul>
                 </div>
-
                 {% endfor %}
             </div>
+            <ul>
+                {% for i in 1..((totalProducts / 8)|round(0, 'ceil')) %}
+                    <li><a href="{{path('product',{page: i}) }}">{{i}}</a></li>
+                {% endfor %}
+            </ul>
         </div>
 </div>
 </section>

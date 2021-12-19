@@ -35,27 +35,37 @@ class ProductController extends AbstractController
     {
         // Cree le formulaire du filtre
         $search = new Search();
+        $Pages = 0;
+
         $form = $this->createForm(SearchType::class,$search);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             //filtrer produits selon Search 
-            $products = $this->em->getRepository(Product::class)->FindWithSearch($search);
+            $products = $this->em->getRepository(Product::class)->FindAllWithSearch($search);
+            $Pages = 1;
         }else{
             //Tous recuperer
-            $products = $this->em->getRepository(Product::class)->findAll();
+            $products = $this->em->getRepository(Product::class)->getPaginatedProducts((int) $request->query->get("page",1),8);
         }
         
+       
         //Responsive Filter Form
         $form2 = $this->createForm(SearchType::class,$search);
-        $form2->handleRequest($request);
-        if ($form2->isSubmitted() && $form2->isValid()) {
-            //filtrer produits selon Search 
-            $products = $this->em->getRepository(Product::class)->FindWithSearch($search);
-        }else{
-            //Tous recuperer
-            $products = $this->em->getRepository(Product::class)->findAll();
+        $form2->handleRequest($request); 
+
+        if($form2->isSubmitted())
+        {
+            if ($form2->isSubmitted() && $form2->isValid()) {
+                //filtrer produits selon Search 
+                $products = $this->em->getRepository(Product::class)->FindAllWithSearch($search);
+                $Pages = 1;
+            }else{
+                //Tous recuperer
+                $products = $this->em->getRepository(Product::class)->getPaginatedProducts((int) $request->query->get("page",1),8);;
+            }
         }
+        
 
         //EXTRAS
         if ($this->getUser()) {
@@ -64,8 +74,16 @@ class ProductController extends AbstractController
             $cart = null;
         }
 
+        if($Pages == 1)
+        {
+            $totalProducts = $Pages;
+        }else{
+            $totalProducts = $this->em->getRepository(Product::class)->countProductsById();
+        }
+        
         return $this->render('product/index.html.twig',[
             'products' => $products,
+            'totalProducts' => $totalProducts,
             'form' => $form->createView(),
             'form2' => $form2->createView(),
             'cart' => $cart
