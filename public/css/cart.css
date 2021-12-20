@@ -1,0 +1,85 @@
+/* Cart Style */
+section.cart .h2-panier-vide {
+    text-align: center;
+    padding: 3rem;
+}
+
+section.cart .btn-conf {
+    display: none;
+}
+
+section.cart .btn-modif,
+section.cart .btn-conf {
+    display: none;
+    border: 1px solid black;
+    padding: 1rem;
+    color: black;
+    transition: all 0.5s;
+    cursor: pointer;
+    float: right;
+    margin-left: auto;
+}
+
+section.cart .btn-modif:hover,
+.btn-conf:hover {
+    color: white;
+    background-color: red;
+    border-color: white;
+}
+
+section.cart .header-cartsection.cart  {
+    display: flex;
+    flex-direction: column;
+}
+
+section.cart .header-cart h1 {
+    margin-right: 2rem;
+}
+
+section.cart .line1 {
+    display: flex;
+    justify-content: normal;
+}
+
+section.cart .old__price {
+    font-size: 1.5rem;
+    color: var(--green);
+}
+
+section.cart .responsive-counter {
+    display: none;
+}
+
+section.cart .payment-method li {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    height: 5rem;
+}
+
+section.cart .cart__totals input.submit {
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 1.5rem;
+    padding: 1.2rem 3rem;
+    color: var(--black);
+    text-transform: uppercase;
+    border: 1px solid var(--black);
+    transition: all 0.4s ease-in-out;
+}
+
+section.cart .cart__totals input.submit:hover {
+    background-color: var(--black);
+    color: var(--white);
+    border: 1px solid var(--black);
+}
+
+@media screen and (max-width: 438px) {
+    section.cart .product__quantity .input-counter {
+        display: none;
+    }
+    section.cart .responsive-counter {
+        display: initial;
+        margin-top: 0.5rem;
+    }
+}

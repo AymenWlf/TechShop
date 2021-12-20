@@ -1,0 +1,115 @@
+/* WishList Page */
+/*
+======================
+Category Center
+======================
+*/
+/* .products-container{
+    max-width: 167rem;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+    display: grid;
+    grid-template-columns: auto;
+}
+.products-container .section {
+    padding: 3rem 0;
+    grid-column: 5;
+} */
+
+
+section.wishList .category_center {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 3rem 2rem;
+}
+
+@media only screen and (max-width: 999px) {section.wishList 
+    .category_center {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 568px) {section.wishList 
+    .category_center {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 1rem;
+    }
+    .category__products .product__header {
+        height: 10rem;
+    }
+    .category__products .product__header img {
+        object-fit: contain;
+    }
+}
+
+section.wishList #categories label {
+    font-size: 1.9rem;
+    font-weight: inherit;
+    opacity: 0.6;
+    padding-left: 0.5rem;
+    transition: opacity 0.3s ease-in-out;
+    margin: 0 50px 0 0
+}
+
+section.wishList #categories label:hover{
+    opacity: 1;
+} 
+
+section.wishList #categories input {
+    opacity: 1;
+}
+
+section.wishList #categories input:checked + label{
+    opacity: 1;
+}
+
+section.wishList .filter_search {
+    font-size: 1.4rem;
+    display: inline-block;
+    width: 37rem;
+    padding: 1.6rem;
+    background-color: #fff;
+    border: none;
+    text-indent: 1rem;
+}
+section.wishList .section_title form div{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+section.wishList .section_title{
+    width: 100%;
+}
+section.wishList .title__container{
+    width: 100%
+}
+
+
+section.wishList button.btn {
+    /* display: flex;
+    justify-content: center; */
+    height: 4rem;
+    width: 100%;
+    margin: 25px 0;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+
+section.wishList button.btn:hover {
+    /* transform: scale(0.99); */
+    background-color: #EB0028;
+    color: #fff;
+    border: 1px solid #fff;
+}
+

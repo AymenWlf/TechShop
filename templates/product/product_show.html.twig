@@ -1,26 +1,6 @@
 {% extends "base.html.twig" %} {% block title %}TechShop - {{product.name}} {% endblock title %} {% block header %}{% endblock header %} {% block content %}
-<style>
-    .select__option {
-        display: flex;
-    align-items: baseline;
-    }
-
-    .product-details__btn a {
-        background-color: var(--grey3);
-        transition: all 0.5s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .product-details__btn a:hover {
-        background-color: var(--orange);
-    }
-
-
-</style>
 <!-- Products Details -->
-<section class="section product-details__section">
+<section class="section product-details__section product-show">
     <div class="product-detail__container">
         <div class="product-detail__left">
             <div class="details__container--left">

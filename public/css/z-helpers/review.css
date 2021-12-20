@@ -1,0 +1,171 @@
+/* Review-form */
+section.review-form .review-sty .container{
+    margin-bottom: 3rem;
+}
+section.review-form .review-sty .title{
+    font-size: -webkit-xxx-large;
+    margin-bottom: 4rem;
+    text-align: center;
+    
+}
+section.review-form .review-sty .contenue{
+    height: 100%;
+    width: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+section.review-form .review-sty .review-form{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+section.review-form .review-sty h3{
+    font-weight: 600;
+    font-size: x-large;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    /* font-family: 'Archivo'; */
+}
+section.review-form .review-sty .input-box{
+    margin: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+section.review-form .review-sty input:focus,
+section.review-form .review-sty input:valid{
+    border-color: green;
+}
+section.review-form .review-sty .title-widg{
+    height: 4rem;
+    width: 50%;
+    padding: 1rem;
+}
+section.review-form .review-sty .desc-widg{
+    height: 10rem;
+    width: 70%;
+    padding: 1rem;
+}
+
+section.review-form .review-sty .input-box div{
+    height: 5rem;
+}
+section.review-form .review-sty .submit-widg {
+    height: 90%;
+    /* width: 100%; */
+    border-radius: 5px;
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+section.review-form .review-sty .submit-widg:hover{
+    background-color: #EB0028;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+
+@media screen and (max-width:570px) {
+    section.review-form .review-sty .container{
+        text-align: center;
+    }
+    section.review-form .review-sty .title-widg{
+    height: 4rem;
+    width: 80%;
+    padding: 1rem;
+    }
+    section.review-form .review-sty .desc-widg{
+        height: 8rem;
+        width: 100%;
+        padding: 1rem;
+    }
+    section.review-form .review-sty .submit-widg {
+    height: 71%;
+    width: 47%;
+    /* border-radius: 5px; */
+    border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid black;
+}
+}
+@media screen and (max-width:425px) {
+    section.review-form .review-sty h3{
+        font-size: 2rem;
+    }
+    section.review-form .review-sty .title{
+        font-size: 3rem;
+    }
+    section.review-form .review-sty .submit-widg{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Review */
+
+section.review section.reviews {
+    /* font-size: 2rem; */
+/* font-weight: 500; */
+/* color: var(--grey2); */
+/* border-bottom: 1px solid var(--primaryColor); */
+display: flex;
+flex-wrap: wrap;
+}
+section.review .review-container {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+background-color: var(--primaryColor);
+padding: 3rem;
+width: 47%;
+text-align: center;
+/* padding: 15px; */
+border-top: 1px solid #f0f0f0;
+/* margin-right: 2rem; */
+margin: 1rem;
+}
+
+section.review .name-rating {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-bottom: 2rem;
+}
+section.review .name{
+font-size: 2rem;
+color: black;
+margin-bottom: 1rem;
+}
+
+section.review .review-desc-div {
+font-size: 2rem;
+color: black;
+}
+
+section.review .title {
+text-align: center;
+margin: 5rem 0rem 2rem 0rem;
+}
+
+@media screen and (max-width: 425px) {
+    section.review .review-container{
+    width: 100%;
+    }
+}

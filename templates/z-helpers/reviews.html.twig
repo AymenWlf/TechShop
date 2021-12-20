@@ -1,101 +1,49 @@
-<style>
-  section.reviews {
-        /* font-size: 2rem; */
-    /* font-weight: 500; */
-    /* color: var(--grey2); */
-    /* border-bottom: 1px solid var(--primaryColor); */
-    display: flex;
-    flex-wrap: wrap;
-  }
-.review-container {
-  display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: var(--primaryColor);
-    padding: 3rem;
-    width: 47%;
-    text-align: center;
-    /* padding: 15px; */
-    border-top: 1px solid #f0f0f0;
-    /* margin-right: 2rem; */
-    margin: 1rem;
-}
-
-.name-rating {
-  display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 2rem;
-}
-.name{
-  font-size: 2rem;
-    color: black;
-    margin-bottom: 1rem;
-}
-
-.review-desc-div {
-  font-size: 2rem;
-    color: black;
-}
-
-.title {
-  text-align: center;
-    margin: 5rem 0rem 2rem 0rem;
-}
-
-@media screen and (max-width: 425px) {
-  .review-container{
-    width: 100%;
-  }
-}
-</style>
-
-<div class="title__container tabs">
-    <div class="section__titles category__titles">
-        <div class="section__title detail-btn active" data-id="description">
-            <span class="dot"></span>
-            <h1 class="primary__title">AVIS</h1>
+<section class="review">
+    <div class="title__container tabs">
+        <div class="section__titles category__titles">
+            <div class="section__title detail-btn active" data-id="description">
+                <span class="dot"></span>
+                <h1 class="primary__title">AVIS</h1>
+            </div>
         </div>
     </div>
-</div>
-{% if allReviews|length > 0 %}
+  {% if allReviews|length > 0 %}
 
-<section class="reviews">
-{% for review in allReviews %}
-<div class="review-container">
-  <div class="name-rating">
-     <div class="div-name">
-       <h1 class="name">{{review.user.firstname}} </h1>
-       {# <div class="div-rating">
-           <div class="rating">
-               <svg>
-             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-           </svg>
-               <svg>
-             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-           </svg>
-               <svg>
-             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-           </svg>
-               <svg>
-             <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-           </svg>
-               <svg>
-             <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-           </svg>
-           </div>
-       </div> #}
-     </div>
- </div>
-  <div class="reviw-desc-div">
-     <p class="desc">{{review.description}} </p>
+  <section class="reviews">
+  {% for review in allReviews %}
+  <div class="review-container">
+    <div class="name-rating">
+      <div class="div-name">
+        <h1 class="name">{{review.user.firstname}} </h1>
+        {# <div class="div-rating">
+            <div class="rating">
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
+            </svg>
+                <svg>
+              <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
+            </svg>
+            </div>
+        </div> #}
+      </div>
   </div>
-</div>
-{% endfor %}
-</section>
+    <div class="reviw-desc-div">
+      <p class="desc">{{review.description}} </p>
+    </div>
+  </div>
+  {% endfor %}
+  </section>
 
-{% else %}
-    <h1 style="text-align: center;padding: 4rem;">Aucun avis</h1>
-{% endif %}
+  {% else %}
+      <h1 style="text-align: center;padding: 4rem;">Aucun avis</h1>
+  {% endif %}
+</section>
