@@ -21,7 +21,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'class' => Category::class,
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => false
             ])
             ->add('string',TextType::class,[
                 'label' => false,
