@@ -30,7 +30,7 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbUser = 1;$nbUser <= 10;$nbUser++)
+        for($nbUser = 1;$nbUser <= 5;$nbUser++)
         {
             $user = new User();
             if($nbUser === 1)
@@ -53,7 +53,7 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setPseudoname($faker->userName());
 
-            for($nbAddress = 1;$nbAddress <= 3;$nbAddress++)
+            for($nbAddress = 1;$nbAddress <= 2;$nbAddress++)
             {
                 $address = new Address();
                 $address->setName($faker->title());

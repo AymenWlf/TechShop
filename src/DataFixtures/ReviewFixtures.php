@@ -15,10 +15,10 @@ class ReviewFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbReview = 1;$nbReview <= 100;$nbReview++)
+        for($nbReview = 1;$nbReview <= 20;$nbReview++)
         {
-            $user = $this->getReference('user_'.$faker->numberBetween(1,10));
-            $product = $this->getReference('product_'.$faker->numberBetween(1,20));
+            $user = $this->getReference('user_'.$faker->numberBetween(1,5));
+            $product = $this->getReference('product_'.$faker->numberBetween(1,10));
 
             $date = $faker->dateTimeBetween('-1 year', 'now');
 

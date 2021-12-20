@@ -14,7 +14,7 @@ class TemoignageFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbTemoignage = 1;$nbTemoignage<= 5;$nbTemoignage++)
+        for($nbTemoignage = 1;$nbTemoignage<= 3;$nbTemoignage++)
         {
             $temoignage = new Temoignage();
 

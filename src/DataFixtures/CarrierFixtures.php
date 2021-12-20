@@ -14,7 +14,7 @@ class CarrierFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbCarrier = 1;$nbCarrier <= 5;$nbCarrier++)
+        for($nbCarrier = 1;$nbCarrier <= 2;$nbCarrier++)
         {
             $carrier = new Carrier();
 

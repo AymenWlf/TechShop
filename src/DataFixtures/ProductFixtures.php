@@ -16,7 +16,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbProduct = 1;$nbProduct <= 20;$nbProduct++)
+        for($nbProduct = 1;$nbProduct <= 10;$nbProduct++)
         {
             $product = new Product();
 
@@ -29,7 +29,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
             for($i = 0;$i < 2;$i++)
             {       
-                $category = $this->getReference('category_'.$faker->numberBetween(1,5));
+                $category = $this->getReference('category_'.$faker->numberBetween(1,2));
                 $product->addCategory($category);
             }
             
@@ -68,7 +68,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                     $manager->persist($variationOpt);
                 }else
                 {
-                    for($nbVariationOpt = 1;$nbVariationOpt <= 5;$nbVariationOpt++)
+                    for($nbVariationOpt = 1;$nbVariationOpt <= 3;$nbVariationOpt++)
                     {
                         $variationOpt = new VariationOption();
     

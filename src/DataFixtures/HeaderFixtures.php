@@ -14,13 +14,13 @@ class HeaderFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbHeader = 1;$nbHeader <= 5;$nbHeader++)
+        for($nbHeader = 1;$nbHeader <= 3;$nbHeader++)
         {
             $header = new Header();
 
             $header->setName('header_'.$nbHeader);
             $header->setTopCmnt($faker->sentence(3));
-            $header->setMiddleCmnt($faker->paragraph());
+            $header->setMiddleCmnt($faker->sentence(3));
             $header->setLastCmnt($faker->sentence(2));
             $header->setBtnTitle($faker->sentence(2));
             $header->setIllustration('banner_01.png');

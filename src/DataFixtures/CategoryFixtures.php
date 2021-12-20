@@ -15,7 +15,7 @@ class CategoryFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        for($nbCategory = 1;$nbCategory <= 5;$nbCategory++)
+        for($nbCategory = 1;$nbCategory <= 2;$nbCategory++)
         {
             $category = new Category();
             $category->setName('category_'.$nbCategory);

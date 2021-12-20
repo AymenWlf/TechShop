@@ -49,9 +49,9 @@ Category Center
         transition: opacity 0.3s ease-in-out;
         margin: 0 50px 0 0
     }
-    
+    /* il faut que Expanded : false
     .products-container #categories {
-            /* padding: 1rem; */
+            /* padding: 1rem; 
         font-size: 1.5rem;
         width: 21rem;
         border-radius: 1rem;
@@ -59,7 +59,7 @@ Category Center
     .products-container #categories option {
         padding: 0.5rem;
     }
-    
+    */
     .products-container #categories label:hover {
         opacity: 1;
     }
@@ -168,7 +168,7 @@ Category Center
 
     section.product-show .select__option {
         display: flex;
-    align-items: baseline;
+        align-items: baseline;
     }
 
     section.product-show .product-details__btn a {
