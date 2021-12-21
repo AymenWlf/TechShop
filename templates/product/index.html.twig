@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %} {% block title %}TechShop - Nos-Produits{% endblock title %} {% block header %}{% endblock header %} {% block content %}
+<style>
+
+</style>
 <div class="products-container">
     <section class="category__section section" id="category">
         <div class="title__container">
@@ -97,11 +100,16 @@
                 </div>
                 {% endfor %}
             </div>
-            <ul>
-                {% for i in 1..((totalProducts / 8)|round(0, 'ceil')) %}
-                    <li><a href="{{path('product',{page: i}) }}">{{i}}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="pagination-div">
+                {# <li><a href="{{path('product',{page: i}) }}">{{i}}</a></li> #}
+                <div class="pagination">
+                    <a href="{{path('product',{page: 1}) }}">&laquo;</a>
+                    {% for i in 1..((totalProducts / 8)|round(0, 'ceil')) %}
+                        <a href="{{path('product',{page: i}) }}" {% if i ==  pageActif %} class="active" {% endif %}>{{i}}</a>
+                    {% endfor %}
+                    <a href="{{path('product',{page: ((totalProducts / 8)|round(0, 'ceil')) }) }}">&raquo;</a>
+                </div>
+            </div>
         </div>
 </div>
 </section>

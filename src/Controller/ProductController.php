@@ -86,7 +86,8 @@ class ProductController extends AbstractController
             'totalProducts' => $totalProducts,
             'form' => $form->createView(),
             'form2' => $form2->createView(),
-            'cart' => $cart
+            'cart' => $cart,
+            'pageActif' => (int) $request->query->get("page",1)
         ]);
     }
     

@@ -126,6 +126,35 @@ Category Center
     .products-container .section_title_resp {
         display: none;
     }
+
+    .products-container .pagination-div {
+        display: flex;
+        align-items: center;
+        padding: 3rem;
+        justify-content: center;
+    }
+    .products-container .pagination {
+      display: inline-block;
+    }
+    
+    .products-container .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: all .3s;
+      border: 1px solid #ddd;
+    }
+    
+    .products-container .pagination a.active {
+        background-color: var(--orange);
+        color: white;
+        border: 1px solid var(--orange);
+    }
+    
+    .products-container .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
     
     @media screen and (max-width: 768px) {
         .products-container .filter_search {
@@ -161,6 +190,12 @@ Category Center
         }
         .products-container #categories label {
             margin: 0 8px 0 0;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .products-container .pagination-div {
+            padding: 3rem 1rem;
         }
     }
 

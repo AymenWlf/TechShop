@@ -16,7 +16,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbProduct = 1;$nbProduct <= 10;$nbProduct++)
+        for($nbProduct = 1;$nbProduct <= 30;$nbProduct++)
         {
             $product = new Product();
 
