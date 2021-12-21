@@ -75,11 +75,6 @@
     transition: all 0.3s ease;
 }
 
-.formulaire-sty .user-details .input-box input:focus,
-.formulaire-sty .user-details .input-box input:valid {
-    /* border-color: var(--green); */
-}
-
 .formulaire-sty .user-details .input-box input:invalid {
     border-color: var(--orange);
 }
@@ -161,13 +156,6 @@
     font-size: 16px;
 }
 
-@media(max-height: 900px) {
-    .formulaire-sty .container {
-        /* overflow-y: scroll; */
-        /* margin: auto; */
-        /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); */
-    }
-}
 
 @media(max-width: 584px) {
     .formulaire-sty .container {
@@ -181,7 +169,6 @@
     .formulaire-sty .category {
         width: 100%;
     }
-    .formulaire-sty .content .user-details {}
     .formulaire-sty .user-details::-webkit-scrollbar {
         width: 5px;
     }

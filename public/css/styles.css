@@ -860,6 +860,7 @@ span.dot::before {
     display: inline-block;
     font-weight: 700;
     text-transform: uppercase;
+    background-color: snow;
     width: 100%;
     padding: 1.4rem 0;
     border: 1px solid var(--black);
