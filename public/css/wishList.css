@@ -113,3 +113,9 @@ section.wishList button.btn:hover {
     border: 1px solid #fff;
 }
 
+section.wishList .noProducts
+{
+    justify-content: center;
+    display: flex;
+    text-align: center;
+}
