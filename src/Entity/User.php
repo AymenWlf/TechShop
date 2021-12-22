@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *          minMessage = "L'email doit etre plus grand que {{ limit }}",
      *          maxMessage = "L'email doit etre plus petit que {{ limit }}"
      * )
+     * @Assert\Unique{
+     *      message = "Cet email est dejà utilisée"
+     * }
      */
     private $email;
 

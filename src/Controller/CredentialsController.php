@@ -189,14 +189,17 @@ class CredentialsController extends AbstractController
             return $this->redirectToRoute('home');
         
         }
-        $form = $this->createForm(ResetPassType::class,$user);
+        $form = $this->createForm(ResetPassType::class);
 
         //Envoie du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Recuperation de la data
             $data = $form->getData();
-            $email = $data->getEmail();
+            foreach ($data as $key => $value) {
+                $email = $value;
+            }
+            
             $user_reset = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
 
             //Verification du user
