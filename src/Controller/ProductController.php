@@ -204,13 +204,14 @@ class ProductController extends AbstractController
                 //Gerer les Items
                 foreach ($cartItems as $item) {
                         $variation = $item->getVariation()->getValues();
+
                         foreach ($variation as $var) {
                             $VarName = $var->getVariation()->getName();
-                            if ($VarName == 'Couleur') {
+                            if ($VarName == 'Couleur' /* AJOUTER CONDITION*/ ) {
                                 $variationName = $var->getName();
                             }
                         }
-                        if ($variationName == $color) {
+                        if ($variationName == $color && $item->getProduct() == $product) {
                             // Cas ou ils ont la meme couleur
                             //Incrementer la quantiter
                             $itemQuantity = $item->getQuantity();
