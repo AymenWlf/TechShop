@@ -19,10 +19,10 @@ class Address
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=25)
      * @Assert\Length(
      *          min = 3,
-     *          max = 40,
+     *          max = 25,
      *          minMessage = "Le nom de votre adresse doit etre plus grand que {{ limit }}",
      *          maxMessage = "Le nom de votre adresse doit etre plus petit que {{ limit }}"
      * )
@@ -36,10 +36,10 @@ class Address
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=25)
      * @Assert\Length(
      *          min = 3,
-     *          max = 40,
+     *          max = 25,
      *          minMessage = "Votre prénom doit etre plus grand que {{ limit }}",
      *          maxMessage = "Votre prénom doit etre plus petit que {{ limit }}"
      * )
@@ -47,10 +47,10 @@ class Address
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=25)
      * @Assert\Length(
      *          min = 3,
-     *          max = 40,
+     *          max = 25,
      *          minMessage = "Votre nom de votre adresse doit etre plus grand que {{ limit }}",
      *          maxMessage = "Votre nom de votre adresse doit etre plus petit que {{ limit }}"
      * )
@@ -58,10 +58,10 @@ class Address
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Length(
      *          min = 3,
-     *          max = 60,
+     *          max = 50,
      *          minMessage = "Le nom de votre entreprise doit etre plus grand que {{ limit }}",
      *          maxMessage = "Le nom de votre entreprise doit etre plus petit que {{ limit }}"
      * )
@@ -80,7 +80,7 @@ class Address
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=25)
      * @Assert\Length(
      *          min = 3,
      *          max = 15,
@@ -91,15 +91,15 @@ class Address
     private $postal;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=25)
      */
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=25)
      * @Assert\Length(
      *          min = 2,
-     *          max = 20,
+     *          max = 25,
      *          minMessage = "Le nom de votre ville doit etre plus grand que {{ limit }}",
      *          maxMessage = "Le nom de votre ville doit etre plus petit que {{ limit }}"
      * )

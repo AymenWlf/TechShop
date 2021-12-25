@@ -32,7 +32,7 @@ class Order
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=30)
      */
     private $carrierName;
 

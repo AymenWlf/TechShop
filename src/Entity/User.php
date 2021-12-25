@@ -30,10 +30,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=50, unique=true)
      * @Assert\Length(
      *          min = 10,
-     *          max = 40,
+     *          max = 50,
      *          minMessage = "L'email doit etre plus grand que {{ limit }}",
      *          maxMessage = "L'email doit etre plus petit que {{ limit }}"
      * )
@@ -61,10 +61,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)*
+     * @ORM\Column(type="string", length=25)*
      * @Assert\Length(
      *          min = 3,
-     *          max = 20,
+     *          max = 25,
      *          minMessage = "Le prénom doit etre plus grand que {{ limit }}",
      *          maxMessage = "Le prénom doit etre plus petit que {{ limit }}"
      * )
@@ -72,10 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=30)
      * @Assert\Length(
      *          min = 3,
-     *          max = 20,
+     *          max = 30,
      *          minMessage = "Le pseudoname doit etre plus grand que {{ limit }}",
      *          maxMessage = "Le pseudoname doit etre plus petit que {{ limit }}"
      * )
