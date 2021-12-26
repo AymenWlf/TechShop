@@ -133,7 +133,7 @@ class MailJet
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => $this->AdminEmail,
+                        'Email' => "$this->AdminEmail",
                         'Name' => "TechShop"
                     ],
                     'To' => [
@@ -170,7 +170,7 @@ class MailJet
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => $this->AdminEmail,
+                        'Email' => "$this->AdminEmail",
                         'Name' => "TechShop"
                     ],
                     'To' => [
@@ -207,7 +207,7 @@ class MailJet
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => $this->AdminEmail,
+                        'Email' => "$this->AdminEmail",
                         'Name' => "TechShop"
                     ],
                     'To' => [
@@ -245,7 +245,7 @@ class MailJet
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => $this->AdminEmail,
+                        'Email' => "$this->AdminEmail",
                         'Name' => "TechShop"
                     ],
                     'To' => [
@@ -284,7 +284,7 @@ class MailJet
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => $this->AdminEmail,
+                        'Email' => "$this->AdminEmail",
                         'Name' => "TechShop"
                     ],
                     'To' => [

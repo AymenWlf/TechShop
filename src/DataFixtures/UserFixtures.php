@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
-    private $ADMIN_EMAIL = $this->AdminEmail;
+    private $ADMIN_EMAIL = "rajawiaymen404@gmail.com";
     private $ADMIN_PSWD = "admin";
 
     private $USER_EMAIL = "sucrepaquet431@gmail.com";
