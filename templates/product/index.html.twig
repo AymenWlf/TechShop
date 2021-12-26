@@ -1,119 +1,99 @@
-{% extends 'base.html.twig' %} {% block title %}TechShop - Nos-Produits{% endblock title %} {% block header %}{% endblock header %} {% block content %}
-<style>
+{% extends 'base.html.twig' %}
+{% block title %}TechShop - Nos-Produits
+{% endblock title %}
+{% block header %}{% endblock header %}
+{% block content %}
+	<style></style>
+	<div class="products-container">
+		<section class="category__section section" id="category">
+			<div class="title__container">
+				<div class="section_title">
+					{{form(form)}}
+					{# <span class="dot"></span> #}
+						{# {{form_start(form)}}
+												                <div class="input-box-filter">
+												                    <div class="form-errors">
+												                        {{form_errors(form.categories)}}
+												                    </div>
+												                    {{form_widget(form.categories,{'attr':{'class':'place'}})}}
+												                </div>
+												                <div class="input-box-filter">
+												                    <div class="form-errors">
+												                        {{form_errors(form.string)}}
+												                    </div>
+												                    {{form_widget(form.string,{'attr':{'class':'place'}})}}
+												                </div>
+												                <div class="button">
+												                    {{ form_row(form.submit, { 'label': "Filtrer",'attr':{'class':'btn' } }) }} {# {{form_rest(form)}}
+												                </div>
+												                {{form_end(form)}} #}
+						{#
+												                <h1 class="primary__title">Meilleurs Ventes</h1> #}
+					</div>
+					<div class="section_title_resp">
+						{# {{form(form)}} #}
+						{# <span class="dot"></span> #}
+						{{form_start(form2)}}
+							<div class="input-box-filter"> <div class="form-errors">
+								{{form_errors(form2.categories)}}
+							</div>
+							{{form_widget(form2.categories,{'attr':{'class':'categorie_choice'}})}}
+						</div>
+						<div class="input-box-filter">
+							<div class="form-errors">
+								{{form_errors(form2.string)}}
+							</div>
+							{{form_widget(form2.string,{'attr':{'class':'place'}})}}
+						</div>
+						<div class="button">
+							{{ form_row(form2.submit, { 'label': "Filtrer",'attr':{'class':'btn' } }) }}
+							{{form_rest(form2)}}
+						</div>
+						{{form_end(form2)}}
+					</div>
+				</div>
 
-</style>
-<div class="products-container">
-    <section class="category__section section" id="category">
-        <div class="title__container">
-            <div class="section_title">
-                {{form(form)}} {# <span class="dot"></span> #} {# {{form_start(form)}}
-                <div class="input-box-filter">
-                    <div class="form-errors">
-                        {{form_errors(form.categories)}}
-                    </div>
-                    {{form_widget(form.categories,{'attr':{'class':'place'}})}}
-                </div>
-                <div class="input-box-filter">
-                    <div class="form-errors">
-                        {{form_errors(form.string)}}
-                    </div>
-                    {{form_widget(form.string,{'attr':{'class':'place'}})}}
-                </div>
-                <div class="button">
-                    {{ form_row(form.submit, { 'label': "Filtrer",'attr':{'class':'btn' } }) }} {# {{form_rest(form)}}
-                </div>
-                {{form_end(form)}} #} {#
-                <h1 class="primary__title">Meilleurs Ventes</h1> #}
-            </div>
-            <div class="section_title_resp">
-                {# {{form(form)}} #} {# <span class="dot"></span> #} {{form_start(form2)}}
-                <div class="input-box-filter">
-                    <div class="form-errors">
-                        {{form_errors(form2.categories)}}
-                    </div>
-                    {{form_widget(form2.categories,{'attr':{'class':'categorie_choice'}})}}
-                </div>
-                <div class="input-box-filter">
-                    <div class="form-errors">
-                        {{form_errors(form2.string)}}
-                    </div>
-                    {{form_widget(form2.string,{'attr':{'class':'place'}})}}
-                </div>
-                <div class="button">
-                    {{ form_row(form2.submit, { 'label': "Filtrer",'attr':{'class':'btn' } }) }} {{form_rest(form2)}}
-                </div>
-                {{form_end(form2)}}
-            </div>
-        </div>
+				<div class="category__container" data-aos="fade-up" data-aos-duration="1200">
+					{% if products == null %}
+						<h2 style="text-align: center;">Aucun produit trouvé !</h2>
+					{% endif %}
+					<div class="category_center">
+						{% for product in products %}
+							<div class="product">
+								<div class="product__header">
+									<img src="/uploads/{{product.illustration}}" alt="product">
+								</div>
+								<div class="product__footer">
+									<h3>{{product.name}}
+									</h3>
+									<div class="product__price">
+										<h4>{{(product.price / 100)|number_format(2,',','.')}}
+											DH
+										</h4>
+									</div>
+									<a href="{{path('product_show' ,{'slug': product.slug} )}}">
+										<button type="submit" class="product__btn">VOIR LE PRODUIT</button>
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div
+						class="pagination-div">
+						{# <li><a href="{{path('product',{page: i}) }}">{{i}}</a></li> #}
+						<div class="pagination">
+							<a href="{{path('product',{page: 1}) }}">&laquo;</a>
+							{% for i in 1..((totalProducts / 8)|round(0, 'ceil')) %}
+								<a href="{{path('product',{page: i}) }}" {% if i == pageActif %} class="active" {% endif %}>{{i}}</a>
+							{% endfor %}
+							<a href="{{path('product',{page: ((totalProducts / 8)|round(0, 'ceil')) }) }}">&raquo;</a>
+						</div>
 
-        <div class="category__container" data-aos="fade-up" data-aos-duration="1200">
-            {% if products == null %}
-                <h2 style="text-align: center;">Aucun produit trouvé !</h2>
-            {% endif %}
-            <div class="category_center">
-                {% for product in products %}
-                <div class="product">
-                    <div class="product__header">
-                        <img src="/uploads/{{product.illustration}}" alt="product">
-                    </div>
-                    <div class="product__footer">
-                        <h3>{{product.name}} </h3>
-                        {#
-                        <div class="rating">
-                            <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                            <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                            <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                            <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                        </svg>
-                            <svg>
-                          <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-                        </svg>
-                        </div> #}
-                        <div class="product__price">
-                            <h4>{{(product.price / 100)|number_format(2,',','.')}} DH </h4>
-                        </div>
-                        <a href="{{path('product_show' ,{'slug': product.slug} )}}"><button type="submit" class="product__btn">VOIR LE PRODUIT</button></a>
-                    </div>
-                    <ul>
-                        <li>
-                            <a data-tip="Quick View" data-place="left" href="{{path('product_show' ,{'slug': product.slug} )}}">
-                                <svg>
-                            <use xlink:href="{{asset('images/sprite.svg#icon-eye')}}"></use>
-                          </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-tip="Add To Wishlist" data-place="left" href="{{path('wish_list_add',{'slug' : product.slug})}}">
-                                <svg>
-                            <use xlink:href="{{asset('images/sprite.svg#icon-heart-o')}}"></use>
-                          </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="pagination-div">
-                {# <li><a href="{{path('product',{page: i}) }}">{{i}}</a></li> #}
-                <div class="pagination">
-                    <a href="{{path('product',{page: 1}) }}">&laquo;</a>
-                    {% for i in 1..((totalProducts / 8)|round(0, 'ceil')) %}
-                        <a href="{{path('product',{page: i}) }}" {% if i ==  pageActif %} class="active" {% endif %}>{{i}}</a>
-                    {% endfor %}
-                    <a href="{{path('product',{page: ((totalProducts / 8)|round(0, 'ceil')) }) }}">&raquo;</a>
-                </div>
-                
-            </div>
-        </div>
-</div>
-</section>
-</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
 
-{% endblock content %} {% block footer %}{% endblock footer %}
+{% endblock content %}
+{% block footer %}{% endblock footer %}

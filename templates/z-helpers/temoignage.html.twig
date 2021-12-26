@@ -1,49 +1,34 @@
 <!-- Testimonial Section -->
 <section class="section testimonial" id="testimonial">
-    <div class="testimonial__container">
-        <div class="glide" id="glide_4">
-            <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides">
-                {% if temoignages == null %}
-                    <li class="glide__slide">
-                        <div class="testimonial__box">
-                            <div class="client__image">
-                                <img src=" " alt="profile">
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, est! </p>
-                            <div class="client__info">
-                                <h3>Lorem, ipsum</h3>
-                                <span>Lorem, ipsum dolor</span>
-                            </div>
-                        </div>
-                    </li>
-                {% else %}
+    {% if temoignages %}
+        <div class="testimonial__container">
+            <div class="glide" id="glide_4">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        {% for temoignage in temoignages %}
+                            <li class="glide__slide">
+                                <div class="testimonial__box">
+                                    <div class="client__image">
+                                        <img src="/uploads/{{temoignage.illustration}}" alt="profile">
+                                    </div>
+                                    <p>{{temoignage.temoignage}} </p>
+                                    <div class="client__info">
+                                        <h3>{{temoignage.name}} </h3>
+                                        <span>{{temoignage.notoriety}} </span>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="glide__bullets" data-glide-el="controls[nav]">
+                    {% set key = 0 %}
                     {% for temoignage in temoignages %}
-                    <li class="glide__slide">
-                        <div class="testimonial__box">
-                            <div class="client__image">
-                                <img src="/uploads/{{temoignage.illustration}}" alt="profile">
-                            </div>
-                            <p>{{temoignage.temoignage}} </p>
-                            <div class="client__info">
-                                <h3>{{temoignage.name}} </h3>
-                                <span>{{temoignage.notoriety}} </span>
-                            </div>
-                        </div>
-                    </li>
+                        <button class="glide__bullet" data-glide-dir="={{key}}"></button>
+                        {% set key = key + 1 %}
                     {% endfor %}
-                {% endif %}
-                    
-                </ul>
-            </div>
-            <div class="glide__bullets" data-glide-el="controls[nav]">
-            {% set key = 0 %}
-            {% for temoignage in temoignages %}
-                <button class="glide__bullet" data-glide-dir="={{key}}"></button>
-                {% set key = key + 1 %}
-            {% endfor %}
-                
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 </section>

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -80,8 +81,8 @@ class Product
      */
     private $orderDetails;
 
-    
-   
+
+
 
     public function __construct()
     {
@@ -97,7 +98,7 @@ class Product
     {
         return $this->name;
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -181,7 +182,6 @@ class Product
     public function getCategory(): Collection
     {
         return $this->category;
-
     }
 
     public function addCategory(Category $category): self
@@ -330,4 +330,20 @@ class Product
         return $this;
     }
 
+    /**
+     * Permet de savoir si ce produit se trouve dans ma wishList
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isItOnMyWishList(User $user): bool
+    {
+        foreach ($this->wishLists as $w) {
+            if ($w->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -1,20 +1,7 @@
 <section id="collection" class="section collection">
-        <div class="collection__container" >
-            {% if categories == null %}
-                <div class="collection__box">
-                    <div class="img__container">
-                        <img class="collection_02" src="" alt="">
-                    </div>
-                    <div class="collection__content">
-                        <div class="collection__data">
-                            <span>Exclusivité TechShop</span>
-                            <h1 class=" text-uppercase"> Lorem, ipsum dolor</h1>
-                            <a href="{{path("product")}}">ACHETER MAINTENANT</a>
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                {% for category in categories %}
+    {% if categories %}
+        <div class="collection__container">
+            {% for category in categories %}
                 <div class="collection__box">
                     <div class="img__container">
                         <img class="collection_02" src="/uploads/{{category.illustration}}" alt="">
@@ -22,12 +9,14 @@
                     <div class="collection__content">
                         <div class="collection__data">
                             <span>Exclusivité TechShop</span>
-                            <h1 class=" text-uppercase"> {{category.name}} </h1>
+                            <h1 class=" text-uppercase">
+                                {{category.name}}
+                            </h1>
                             <a href="{{path("product")}}">ACHETER MAINTENANT</a>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-            {% endif %}
+            {% endfor %}
         </div>
+    {% endif %}
 </section>

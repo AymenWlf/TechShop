@@ -8,10 +8,10 @@
 
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" crossorigin="anonymous">
 
 		<link
 		rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon"/>
-
 		<!-- Carousel -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
@@ -22,7 +22,7 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{asset("css/z-helpers/review.css?t=<?9>")}}"/>
 			<link rel="stylesheet" href="{{asset("css/wishList.css?t=<?6>")}}"/>
-			<link rel="stylesheet" href="{{asset("css/product.css?t=<?0>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/product.css?t=<?7>")}}"/>
 			<link rel="stylesheet" href="{{asset("css/cart.css?t=<?9>")}}"/>
 			<link rel="stylesheet" href="{{asset("css/recapitulatif.css?t=<?9>")}}"/>
 			<link rel="stylesheet" href="{{asset("css/styles.css?t=<?2>")}}"/>
@@ -109,14 +109,13 @@
 
 		<!-- Custom JavaScript -->
 		{% block script %}{% endblock script %}
-		<script src="{{asset('js/products.js?t= <?9>')}}"></script>
+		<script src="{{asset('js/products.js?t= <?8>')}}"></script>
 		<script src="{{asset('js/filter.js?t= <?9>')}}"></script>
 		<script src="{{asset('js/header.js?t= <?7>')}}"></script>
 		<script src="{{asset('js/index.js?t= <? echo time(); ?>')}}"></script>
 		<script src="{{asset('js/slider.js?t= <? echo time(); ?>')}}"></script>
 		<script src="{{asset('js/script.js?t= <? echo time(); ?>')}}"></script>
-
-
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	</body>
 
 </html>

@@ -1,234 +1,155 @@
-{% extends "base.html.twig" %} {% block title %}TechShop - {{product.name}} {% endblock title %} {% block header %}{% endblock header %} {% block content %}
-<!-- Products Details -->
-<section class="section product-details__section product-show">
-    <div class="product-detail__container">
-        <div class="product-detail__left">
-            <div class="details__container--left">
-                <div class="product__pictures">
-                    {# {% for illustration in illustrations %}
-                    <div class="pictures__container">
-                        <img class="picture" src="/uploads/{{illustration}}" id="/uploads/{{illustration}}" />
-                    </div>
-                    {% endfor %} #}
-                </div>
-                <div class="product__picture" id="product__picture">
-                    <!-- <div class="rect" id="rect"></div> -->
-                    <div class="picture__container">
-                        <img src="/uploads/{{product.illustration}}" id="pic" />
-                    </div>
-                </div>
-                <div class="zoom" id="zoom"></div>
-            </div>
+{% extends "base.html.twig" %}
+{% block title %}TechShop -
+	{{product.name}}
+{% endblock title %}
+{% block header %}{% endblock header %}
+{% block content %}
+	<!-- Products Details -->
+	<section class="section product-details__section product-show">
+		<div class="product-detail__container">
+			<div class="product-detail__left">
+				<div class="details__container--left">
+					<div class="product__pictures"></div>
+					<div
+						class="product__picture" id="product__picture">
+						<!-- <div class="rect" id="rect"></div> -->
+						<div class="picture__container">
+							<img src="/uploads/{{product.illustration}}" id="pic"/>
+						</div>
+					</div>
+					<div class="zoom" id="zoom"></div>
+				</div>
+			</div>
 
-            {#
-            <div class="product-details__btn">
-                <a class="add" href="#">
-                    <span>
-                  <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-cart-plus')}} "></use>
-                  </svg>
-                </span>AJOUTER AU PANIER</a>
+			<div class="product-detail__right">
+				<div class="product-detail__content">
+					<h3>{{product.name}}</h3>
+					<div class="price">
+						<span class="new__price">{{(product.price / 100)|number_format(2,',','.')}}
+							DH</span>
+					</div>
+					<div class="product__review">
+						<a href="#j" class="rating__quatity">{{allReviews|length}}
+							Avis</a>
+					</div>
+					<p>
+						{{product.description}}
+					</p>
+					<div class="product__info-container">
+						<form action="" method="post">
+							<ul class="product__info">
+								<li class="select">
+									<div class="select__option">
 
-                {#
-                <a class="buy" href="#">
-                    <span>
-                  <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-credit-card')}} "></use>
-                  </svg>
-                </span> BUY NOW</a> #} {# </div> #}
-        </div>
+										<label class="label" for="colors">Couleur</label>
+										<select name="colors" id="colors" class="select-box">
+											{% for couleur in couleurs %}
+												<option>{{couleur}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</li>
+								<li>
 
-        <div class="product-detail__right">
-            <div class="product-detail__content">
-                <h3>{{product.name}}</h3>
-                <div class="price">
-                    <span class="new__price">{{(product.price / 100)|number_format(2,',','.')}} DH</span>
-                </div>
-                <div class="product__review">
-                    {# <div class="rating">
-                        <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                  </svg>
-                        <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                  </svg>
-                        <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                  </svg>
-                        <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-                  </svg>
-                        <svg>
-                    <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-                  </svg>
-                    </div> #}
-                    <a href="#j" class="rating__quatity">{{allReviews|length}} Avis</a>
-                </div>
-                <p>
-                    {{product.description}}
-                </p>
-                <div class="product__info-container">
-                    <form action="" method="post">
-                        <ul class="product__info">
-                            <li class="select">
-                                <div class="select__option">
+									<div class="input-counter">
+										<span>Quantity:</span>
+										<div>
 
-                                    <label class="label" for="colors">Couleur</label>
-                                    <select name="colors" id="colors" class="select-box">
-                                            {% for couleur in couleurs %}
-                                                <option>{{couleur}}</option>
-                                            {% endfor %}
-                                            </select>
+											<a class="minus-btn">
+												<svg class="minus-svg">
+													<use xlink:href="{{asset('images/sprite.svg#icon-minus')}}"></use>
+												</svg>
 
+											</a>
+											<input type="number" min="1" value="1" max="10" class="counter-btn" id="counter-btn" name="quantity">
+											<a class="plus-btn">
+												<svg class="plus-svg">
+													<use xlink:href="{{asset('images/sprite.svg#icon-plus')}}"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</li>
 
-                                </div>
-                                {#
-                                <div class="select__option">
-                                    <label for="size">Inches</label>
-                                    <select name="size" id="size" class="select-box">
-                                                <option value="6.65">6.65</option>
-                                                <option value="7.50">7.50</option>
-                                            </select>
-                                </div> #}
-                            </li>
-                            <li>
+								<li>
+									<span>Total:</span>
+									<a href="#" class="new__price" id="new__price">{{(product.price / 100)}}</a>
+									<a href="#" class="new__price">
+										DH</a>
+								</li>
+								<li>
+									<span>Marque:</span>
+									<a href="#">{{marque}}</a>
+								</li>
+								<li>
+									<span>Categorie:</span>
+									{% for category in product.category %}
+										<a href="#">{{category.name}}</a>
+									{% endfor %}
+								</li>
+							</ul>
+							<div class="product-info__btn"></div>
+							<div class="product-details__btn">
+								<input type="submit" name="submit" value="Ajouter au panier" class="btn">
+								<a class="js-wishlistAdd" href="{{path('wish_list_add' ,{'slug': product.slug} )}} ">
+									{% if app.user and product.isItOnMyWishList(app.user) %}
+										<span class="icon-hearth-link">
+											<i class="fas fa-heart"></i>
+										</span>
+									{% else %}
+										<span class="icon-hearth-link">
+											<i class="far fa-heart"></i>
+										</span>
+									{% endif %}
+								</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="product-detail__bottom">
+			<div>
+				{% include "z-helpers/reviewForm.html.twig" %}
+				{% include "z-helpers/reviews.html.twig" %}
+			</div>
+		</div>
+	</section>
 
-                                <div class="input-counter">
-                                    <span>Quantity:</span>
-                                    <div>
-
-                                        <a class="minus-btn">
-                                            <svg class="minus-svg">
-                            <use xlink:href="{{asset('images/sprite.svg#icon-minus')}}"></use>
-                          </svg>
-
-                                        </a> <input type="number" min="1" value="1" max="10" class="counter-btn" id="counter-btn" name="quantity"> {#
-                                        <span
-                                            class="counter-btn" id="counter-btn">1</span> #}
-                                            <a class="plus-btn">
-                                                <svg class="plus-svg">
-                            <use xlink:href="{{asset('images/sprite.svg#icon-plus')}}"></use>
-                          </svg>
-                                            </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <span>Total:</span>
-                                <a href="#" class="new__price" id="new__price">{{(product.price / 100)}}</a><a href="#" class="new__price"> DH</a>
-                            </li>
-                            <li>
-                                <span>Marque:</span>
-                                <a href="#">{{marque}}</a>
-                            </li>
-                            <li>
-                                <span>Categorie:</span> {% for category in product.category %}
-                                <a href="#">{{category.name}}</a> {% endfor %}
-                            </li>
-                            {#
-                            <li>
-                                <span>Availability:</span>
-                                <a href="#" class="in-stock">En Stock ({{product.qtestock}} pièce)</a>
-                            </li> #}
-                        </ul>
-                        <div class="product-info__btn">
-                            {#
-                            <a href="#">
-                                <span>
-                      <svg>
-                        <use xlink:href="{{asset('images/sprite.svg#icon-crop')}} "></use>
-                      </svg>
-                    </span>&nbsp; Guide de taille
-                            </a> #} {#
-                            <a href="#">
-                                <span>
-                      <svg>
-                        <use xlink:href="{{asset('images/sprite.svg#icon-truck')}} "></use>
-                      </svg>
-                    </span>&nbsp; LIVRAISON
-                            </a> #}
-                            {# <a href="#">
-                                <span>
-                      <svg>
-                        <use xlink:href="{{asset('images/sprite.svg#icon-envelope-o')}} "></use>
-                      </svg>&nbsp;
-                    </span> EN SAVOIR PLUS
-                            </a> #}
-                        </div>
-                        <div class="product-details__btn">
-                                <input type="submit" name="submit" value="Ajouter au panier" class="btn">
-                                    <a href="{{path('wish_list_add' ,{'slug': product.slug} )}} ">
-                                        <svg>
-                                            <use xlink:href="{{asset('images/sprite.svg#icon-heart-o')}}"></use>
-                                        </svg>
-                                    </a> 
-                                {#
-                                <a class="add submit-btn" href="#">
-                                    <span>
-                          <svg>
-                            <use xlink:href="{{asset('images/sprite.svg#icon-cart-plus')}} "></use>
-                          </svg>
-                        </span>AJOUTER AU PANIER</a> #} {#
-                                <a class="buy" href="#">
-                                    <span>
-                          <svg>
-                            <use xlink:href="{{asset('images/sprite.svg#icon-credit-card')}} "></use>
-                          </svg>
-                        </span> BUY NOW
-                                </a> #}
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="product-detail__bottom">
-        {# <div class="title__container tabs">
-            <div class="section__titles category__titles ">
-                <div class="section__title detail-btn active" data-id="description">
-                    <span class="dot"></span>
-                    <h1 class="primary__title">Description</h1>
-                </div>
-            </div>
-        </div> #}
-{# 
-        <div class="detail__content">
-            <div class="content active">
-                <p>{{product.description}} </p>
-            </div>
-        </div> #}
-        
-        <div>
-            {#
-            <h1>Customer Reviews</h1>
-            <div class="rating">
-                <svg>
-              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-            </svg>
-                <svg>
-              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-            </svg>
-                <svg>
-              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-            </svg>
-                <svg>
-              <use xlink:href="{{asset('images/sprite.svg#icon-star-full')}} "></use>
-            </svg>
-                <svg>
-              <use xlink:href="{{asset('images/sprite.svg#icon-star-empty')}} "></use>
-            </svg>
-            </div> #} {% include "z-helpers/reviewForm.html.twig" %} {% include "z-helpers/reviews.html.twig" %}
+	<!--AIDE-->
+	<p id="valueCount" style="color: #FFF;">
+		9</p>
 
 
-        </div>
-    </div>
-</section>
+{% endblock content %}
+{% block footer %}{% endblock footer %}
 
-<!--AIDE-->
+{% block script %}
+	<script>
+		document.querySelectorAll('.js-wishlistAdd').forEach(function (link) {
+			link.addEventListener('click', function (event)
+			{
+				event.preventDefault();
+				const url = this.href;
+				icone = this.querySelector('i');
 
-<p id="valueCount" style="color: #FFF;">9</p>
+				axios.get(url).then(function (response) {
+					if (icone.classList.contains('fas'))
+            		{
+                		icone.classList.replace('fas', 'far');
+            		} else {
+                		icone.classList.replace('far', 'fas');
+            		}
+				}).catch(function (error) {
+					if (error.response.status === 403) {
+						window.alert("Connecter vous d'abord pour ajouter un produit dans votre wishList !");
+					}else {
+						window.alert("Une erreur s'est produit, réesseyez !");
+					}
+				});
+			})
+		})
+	</script>
+{% endblock script %}
 
 
-{% endblock content %} {% block footer %}{% endblock footer %}
