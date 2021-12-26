@@ -17,7 +17,11 @@ class AccountController extends AbstractController
         $this->em = $em;
     }
 
-    //Programme de la page account
+    /**
+     * Programme de la page account
+     *
+     * @return Response
+     */
     #[Route('/account', name: 'account')]
     public function index(): Response
     {
@@ -25,13 +29,13 @@ class AccountController extends AbstractController
         //EXTRAS
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
-        }else{
+        } else {
             $cart = null;
         }
 
 
-        return $this->render('account/index.html.twig',[
-            
+        return $this->render('account/index.html.twig', [
+
             'cart' => $cart
         ]);
     }

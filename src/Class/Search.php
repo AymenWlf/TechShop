@@ -2,7 +2,7 @@
 
 namespace App\Class;
 
-class Search 
+class Search
 {
     /**
      * Recherche sur inputText par caractere
@@ -10,7 +10,7 @@ class Search
      * @var string
      */
     public $string = '';
-    
+
     /**
      * Recherche par CheckBox EntityType Category
      *

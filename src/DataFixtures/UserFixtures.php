@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
-    private $ADMIN_EMAIL = "rajawiaymen404@gmail.com";
+    private $ADMIN_EMAIL = $this->AdminEmail;
     private $ADMIN_PSWD = "admin";
 
     private $USER_EMAIL = "sucrepaquet431@gmail.com";
@@ -30,31 +30,26 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for($nbUser = 1;$nbUser <= 5;$nbUser++)
-        {
+        for ($nbUser = 1; $nbUser <= 5; $nbUser++) {
             $user = new User();
-            if($nbUser === 1)
-            {
+            if ($nbUser === 1) {
                 $user->setEmail($this->ADMIN_EMAIL);
-                $user->setPassword($this->encoder->encodePassword($user,$this->ADMIN_PSWD));
+                $user->setPassword($this->encoder->encodePassword($user, $this->ADMIN_PSWD));
                 $user->setRoles(['ROLE_ADMIN']);
-            }else if($nbUser === 2)
-            {
+            } else if ($nbUser === 2) {
                 $user->setEmail($this->USER_EMAIL);
                 $user->setRoles(['ROLE_USER']);
-                $user->setPassword($this->encoder->encodePassword($user,$this->USER_PSWD));
-            }else
-            {
+                $user->setPassword($this->encoder->encodePassword($user, $this->USER_PSWD));
+            } else {
                 $user->setEmail($faker->email());
                 $user->setRoles(['ROLE_USER']);
-                $user->setPassword($this->encoder->encodePassword($user,'azerty'));
+                $user->setPassword($this->encoder->encodePassword($user, 'azerty'));
             }
 
             $user->setFirstname($faker->firstName());
             $user->setPseudoname($faker->userName());
 
-            for($nbAddress = 1;$nbAddress <= 2;$nbAddress++)
-            {
+            for ($nbAddress = 1; $nbAddress <= 2; $nbAddress++) {
                 $address = new Address();
                 $address->setName($faker->title());
                 $address->setFirstname($user->getFirstName());
@@ -75,7 +70,7 @@ class UserFixtures extends Fixture
             $manager->persist($user);
 
             //Enregistrer une reference au USER mais pas en DB
-            $this->addReference('user_'.$nbUser,$user);
+            $this->addReference('user_' . $nbUser, $user);
         }
 
         $manager->flush();
