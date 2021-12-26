@@ -73,18 +73,18 @@
 
 								<li>
 									<span>Total:</span>
-									<a href="#" class="new__price" id="new__price">{{(product.price / 100)}}</a>
-									<a href="#" class="new__price">
+									<a  class="new__price" id="new__price">{{(product.price / 100)}}</a>
+									<a  class="new__price">
 										DH</a>
 								</li>
 								<li>
 									<span>Marque:</span>
-									<a href="#">{{marque}}</a>
+									<a >{{marque}}</a>
 								</li>
 								<li>
 									<span>Categorie:</span>
-									{% for category in product.category %}
-										<a href="#">{{category.name}}</a>
+									{% for category in product.category %} 
+										<a> {{category.name}} //</a>
 									{% endfor %}
 								</li>
 							</ul>
@@ -124,32 +124,5 @@
 {% endblock content %}
 {% block footer %}{% endblock footer %}
 
-{% block script %}
-	<script>
-		document.querySelectorAll('.js-wishlistAdd').forEach(function (link) {
-			link.addEventListener('click', function (event)
-			{
-				event.preventDefault();
-				const url = this.href;
-				icone = this.querySelector('i');
-
-				axios.get(url).then(function (response) {
-					if (icone.classList.contains('fas'))
-            		{
-                		icone.classList.replace('fas', 'far');
-            		} else {
-                		icone.classList.replace('far', 'fas');
-            		}
-				}).catch(function (error) {
-					if (error.response.status === 403) {
-						window.alert("Connecter vous d'abord pour ajouter un produit dans votre wishList !");
-					}else {
-						window.alert("Une erreur s'est produit, réesseyez !");
-					}
-				});
-			})
-		})
-	</script>
-{% endblock script %}
 
 
