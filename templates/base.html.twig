@@ -1,121 +1,122 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="UTF-8"/>
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
 
-  <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon" />
+		<link
+		rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon"/>
 
-  <!-- Carousel -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+		<!-- Carousel -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
+		<link
+		rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 
-  <!-- Custom StyleSheet -->
-  {% block stylesheets %}
-  <link rel="stylesheet" href="{{asset("css/z-helpers/review.css?t=<?9>")}}" />
-  <link rel="stylesheet" href="{{asset("css/wishList.css?t=<?6>")}}" />
-  <link rel="stylesheet" href="{{asset("css/product.css?t=<?0>")}}" />
-  <link rel="stylesheet" href="{{asset("css/cart.css?t=<?9>")}}" />
-  <link rel="stylesheet" href="{{asset("css/recapitulatif.css?t=<?9>")}}" />
-  <link rel="stylesheet" href="{{asset("css/styles.css?t=<?8>")}}" />
-  <link rel="stylesheet" href="{{asset("css/address.css?t=<?7>")}}" />
-  <link rel="stylesheet" href="{{asset("css/account.css?t=<?2>")}}" />
-  <link rel="stylesheet" href="{{asset("css/successPage.css?t=<?3>")}}"/>
-  <link rel="stylesheet" href="{{asset("css/orders.css?t=<?0>")}}" />
-  <link rel="stylesheet" href="{{asset("css/credentials.css?t=<?1>")}}" />
-  <link rel="stylesheet" href="{{asset("css/alert.css?t=<?8>")}}" />
-  <link rel="stylesheet" href="{{asset('css/form.css?9')}}"/>
-  {% endblock %}
-  
-  {# <link type="text/css" rel="stylesheet" href="styles.css?t=<? echo time(); ?>" media="all">         #}
+		<!-- Custom StyleSheet -->
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{asset("css/z-helpers/review.css?t=<?9>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/wishList.css?t=<?6>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/product.css?t=<?0>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/cart.css?t=<?9>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/recapitulatif.css?t=<?9>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/styles.css?t=<?2>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/address.css?t=<?7>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/account.css?t=<?2>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/successPage.css?t=<?2>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/orders.css?t=<?0>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/credentials.css?t=<?1>")}}"/>
+			<link rel="stylesheet" href="{{asset("css/alert.css?t=<?8>")}}"/>
+			<link rel="stylesheet" href="{{asset('css/form.css?9')}}"/>
+		{% endblock %}
 
-  <title> {% block title %}{% endblock title %} </title>
-</head>
-    {% for message in app.flashes('warning') %}
-        {% include "z-helpers/alerts/warning.html.twig" %}
-    {% endfor %}
-    {% for message in app.flashes('erreur') %}
-        {% include "z-helpers/alerts/erreur.html.twig" %}
-    {% endfor %}
-    {% for message in app.flashes('info') %}
-        {% include "z-helpers/alerts/info.html.twig" %}
-    {% endfor %}
-    {% for message in app.flashes('success') %}
-        {% include "z-helpers/alerts/success.html.twig" %}
-    {% endfor %}
-<body>
+		{# <link type="text/css" rel="stylesheet" href="styles.css?t=<? echo time(); ?>" media="all">         #}
 
-    <!-- Header -->
-    {% include "z-helpers/header.html.twig" %}
+		<title>
+			{% block title %}{% endblock title %}
+		</title>
+	</head>
+	{% for message in app.flashes('warning') %}
+		{% include "z-helpers/alerts/warning.html.twig" %}
+	{% endfor %}
+	{% for message in app.flashes('erreur') %}
+		{% include "z-helpers/alerts/erreur.html.twig" %}
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		{% include "z-helpers/alerts/info.html.twig" %}
+	{% endfor %}
+	{% for message in app.flashes('success') %}
+		{% include "z-helpers/alerts/success.html.twig" %}
+	{% endfor %}
+	<body>
 
-   
-    <!-- End Header -->
-
-    <!-- Carousel -->
-    {% if block('carousel') is defined %}
-        {% include "z-helpers/carousel.html.twig" %}
-    {% endif %}
-    <!-- End Carousel -->
-
-    <!-- Main -->
-    <main id="main">
-        <div class="container">
-            {% if block('category') is defined %}
-                {% include "z-helpers/category.html.twig" %}
-            {% endif %}
-            {% if block('bestSeller') is defined %}
-                {% include "z-helpers/bestSeller.html.twig" %}
-            {% endif %}
-            {% block content %}{% endblock content %}
-            {% if block('services') is defined %}
-                {% include "z-helpers/services.html.twig" %}
-            {% endif %}
-        </div>
-        {% block products %}{% endblock products %}
-        {% if block('temoignage') is defined %}
-            {% include "z-helpers/temoignage.html.twig" %}
-        {% endif %}
-        {% if block('newsletter') is defined %}
-            {% include "z-helpers/newsletter.html.twig" %}
-        {% endif %}
-    </main>    
-    <!-- End Main -->
-
-    <!-- Footer -->
-    {% if block('footer') is defined %}
-            {% include "z-helpers/footer.html.twig" %}
-    {% endif %}
-    <!-- End Footer -->
-
-    <!-- PopUp -->
-    <!-- End PopUp -->
-    
-    <!-- Go To -->
-    <!-- End Go To -->
+		<!-- Header -->
+		{% include "z-helpers/header.html.twig" %}
 
 
+		<!-- End Header -->
+
+		<!-- Carousel -->
+			{% if block('carousel') is defined %}
+		{% include "z-helpers/carousel.html.twig" %}
+		{% endif %}
+		<!-- End Carousel -->
+
+		<!-- Main -->
+			<main id="main"> <div class="container">
+				{% if block('category') is defined %}
+					{% include "z-helpers/category.html.twig" %}
+				{% endif %}
+				{% if block('bestSeller') is defined %}
+					{% include "z-helpers/bestSeller.html.twig" %}
+				{% endif %}
+				{% block content %}{% endblock content %}
+				{% if block('services') is defined %}
+					{% include "z-helpers/services.html.twig" %}
+				{% endif %}
+			</div>
+			{% block products %}{% endblock products %}
+			{% if block('temoignage') is defined %}
+				{% include "z-helpers/temoignage.html.twig" %}
+			{% endif %}
+			{% if block('newsletter') is defined %}
+				{% include "z-helpers/newsletter.html.twig" %}
+			{% endif %}
+		</main>
+		<!-- End Main -->
+
+		<!-- Footer -->
+		{% if block('footer') is defined %}
+			{% include "z-helpers/footer.html.twig" %}
+		{% endif %}
+		<!-- End Footer -->
+
+		<!-- PopUp -->
+		<!-- End PopUp -->
+
+		<!-- Go To -->
+		<!-- End Go To -->
 
 
-  <!-- Glide Carousel Script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
-  <!-- Animate On Scroll -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<!-- Glide Carousel Script --><script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"> </script>
+		<!-- Animate On Scroll -->
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  <!-- Custom JavaScript -->
-  {% block script %}{% endblock script %}
- <script src="{{asset('js/products.js?t= <?9>')}}"></script>
- <script src="{{asset('js/filter.js?t= <?9>')}}"></script>
- <script src="{{asset('js/header.js?t= <?7>')}}"></script>
-  <script src="{{asset('js/index.js?t= <? echo time(); ?>')}}"></script>
-  <script src="{{asset('js/slider.js?t= <? echo time(); ?>')}}"></script>
-  <script src="{{asset('js/script.js?t= <? echo time(); ?>')}}"></script>
-  
+		<!-- Custom JavaScript -->
+		{% block script %}{% endblock script %}
+		<script src="{{asset('js/products.js?t= <?9>')}}"></script>
+		<script src="{{asset('js/filter.js?t= <?9>')}}"></script>
+		<script src="{{asset('js/header.js?t= <?7>')}}"></script>
+		<script src="{{asset('js/index.js?t= <? echo time(); ?>')}}"></script>
+		<script src="{{asset('js/slider.js?t= <? echo time(); ?>')}}"></script>
+		<script src="{{asset('js/script.js?t= <? echo time(); ?>')}}"></script>
 
-</body>
+
+	</body>
 
 </html>

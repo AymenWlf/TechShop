@@ -1,126 +1,181 @@
-{% extends 'base.html.twig' %} {% block title %}TechShop - Ma commande{% endblock %} {% block content %}
-<section class="success">
-    <div class="container">
-        <section class="thanks-purchase">
-            <div class="thanks-text">
-                <h1>Commande Num : "{{order.reference}}"</h1>
-                </br>
-                {% if order.state == 1 %}
-                    <p>- Etat : <strong style="color: orange">(En attente)</strong>
-                    {% elseif order.state == 2 %}
-                    <p>- Etat : <strong style="color: orange">(Préparation en cours)</strong>
-                    {% elseif order.state == 3 %}
-                    <p>- Etat : <strong style="color: orange"> Livraison en cours)</strong>
-                    {% elseif order.state == 4 %}
-                    <p>- Etat : <strong style="color: green">(Livrée)</strong>   
-                    {% elseif order.state == 5 or order.state == 6 %}
-                    <p>- Etat : <strong style="color: var(--orange)">(Annulée)</strong> 
-                {% endif %}
-                {% if order.isPaid == 0 %}
-                    <strong style="color: var(--orange)">(Non Payée)</strong><p>
-                    {% elseif order.isPaid == 1 %}
-                    <strong style="color: green">(Payée)</strong><p>
-                {% endif %}
-                <br>
-                <p>- Prenom : <strong>{{order.user.firstname}} </strong></p>
-                </br>
-                {% for item in order.livraison %}
-                <p>- Nom : <strong>{{item.lastname}} </strong></p><br>
-                <p>- Mode de paiement : <strong>Paiement cash à la livraison</strong></p><br>
-                <p>- Adresse :
-                    <ul class="content-form">
-                        <li>Nom de l'adresse : <strong>{{item.name}} </strong></li>
-                        <li>Adresse de livraison : <strong>{{item.address}} {{item.country}} {{item.city}}</strong> </li>
-                        <li>Adresse de postal : <strong>{{item.postal}}</strong></li>
-                        <li>Téléphone : <strong>0{{item.phone}}</strong></li>
-                    </ul>
-                </p>
-                {% endfor %}
-            </div>
-            <div class="continue-btn"></div>
-        </section>
-        <section class="resume">
-            <div class="resume-div">
-                <div class="resume-table">
-                    <table class="resumeTable">
-                        <thead>
-                            <tr>
-                                <th class="product-cl">Produit</th>
-                                <th>Quantité</th>
-                                <th>Sous-Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for product in orderDetails %}
-                            <tr>
-                                <td class="product-cl">{{product.product.name}} </td>
-                                <td class="quantity-cl">x{{product.quantity}} </td>
-                                <td class="sous-total-cl"><strong>{{(product.total / 100)|number_format(2,",",".")}} DH </strong></td>
-                            </tr>
-                            {% endfor %}
+{% extends 'base.html.twig' %}
+{% block title %}TechShop - Ma commande
+{% endblock %}
+{% block content %}
+	<section class="success">
 
-                        </tbody>
-                    </table>
-                    <table class="totalTable">
-                        <tbody>
-                            <tr>
-                                <th>Frais de port</th>
-                                <td> <strong class="price">{{(order.carrierPrice / 100)|number_format(2,",",".")}} DH </strong></td>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <td><strong class="total_price">{{((order.total) / 100)|number_format(2,",",".")}} DH</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="resume-table-responsive">
+		<div class="container">
+			<div class="backBtnDiv">
+				<a href="{{path('orders')}}" class="backBtn">Voir tous mes commandes</a>
+			</div>
+			<section class="thanks-purchase">
+				<div class="thanks-text">
+					<h1>Commande Num : "{{order.reference}}"</h1>
+				</br>
+				{% if order.state == 1 %}
+					<p>- Etat :
+						<strong style="color: orange">(En attente)</strong>
+					{% elseif order.state == 2 %}
+						<p>- Etat :
+							<strong style="color: orange">(Préparation en cours)</strong>
+						{% elseif order.state == 3 %}
+							<p>- Etat :
+								<strong style="color: orange">
+									Livraison en cours)</strong>
+							{% elseif order.state == 4 %}
+								<p>- Etat :
+									<strong style="color: green">(Livrée)</strong>
+								{% elseif order.state == 5 or order.state == 6 %}
+									<p>- Etat :
+										<strong style="color: var(--orange)">(Annulée)</strong>
+									{% endif %}
+									{% if order.isPaid == 0 %}
+										<strong style="color: var(--orange)">(Non Payée)</strong>
+										<p>
+										{% elseif order.isPaid == 1 %}
+											<strong style="color: green">(Payée)</strong>
+											<p>
+											{% endif %}
+											<br>
+												<p>- Prenom :
+													<strong>{{order.user.firstname}}
+													</strong>
+												</p>
+											</br>
+											{% for item in order.livraison %}
+												<p>- Nom :
+													<strong>{{item.lastname}}
+													</strong>
+												</p><br>
+												<p>- Mode de paiement :
+													<strong>Paiement cash à la livraison</strong>
+												</p><br>
+												<p>- Adresse :
+													<ul class="content-form">
+														<li>Nom de l'adresse :
+															<strong>{{item.name}}
+															</strong>
+														</li>
+														<li>Adresse de livraison :
+															<strong>{{item.address}}
+																{{item.country}}
+																{{item.city}}</strong>
+														</li>
+														<li>Adresse de postal :
+															<strong>{{item.postal}}</strong>
+														</li>
+														<li>Téléphone :
+															<strong>0{{item.phone}}</strong>
+														</li>
+													</ul>
+												</p>
+											{% endfor %}
+										</div>
+										<div class="continue-btn"></div>
+									</section>
+									<section class="resume">
+										<div class="resume-div">
+											<div class="resume-table">
+												<table class="resumeTable">
+													<thead>
+														<tr>
+															<th class="product-cl">Produit</th>
+															<th>Quantité</th>
+															<th>Sous-Total</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for product in orderDetails %}
+															<tr>
+																<td class="product-cl">{{product.product.name}}
+																</td>
+																<td class="quantity-cl">x{{product.quantity}}
+																</td>
+																<td class="sous-total-cl">
+																	<strong>{{(product.total / 100)|number_format(2,",",".")}}
+																		DH
+																	</strong>
+																</td>
+															</tr>
+														{% endfor %}
 
-                    {% for product in orderDetails %}
-                    <table class="resumeTable">
-                        <tbody>
-                            <tr>
-                                <th>Produit</th>
-                                <td>{{product.product.name}}</td>
-                            </tr>
-                            <tr>
-                                <th>Quantité</th>
-                                <td>x{{product.quantity}} </td>
-                            </tr>
-                            <tr>
-                                <th>Sous-Total</th>
-                                <td>{{(product.total / 100)|number_format(2,",",".")}} DH</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    {% endfor %}
-                    <table class="totalTable">
-                        <tbody>
-                            <tr>
-                                <th>Frais de port</th>
-                                <td> <strong class="price">{{(order.carrierPrice / 100)|number_format(2,",",".")}} DH</strong></td>
-                            </tr>
-                            <tr>
-                                <th>Total</th>
-                                <td><strong class="total_price">{{((order.total) / 100)|number_format(2,",",".")}} DH</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-        <div class="track-btn-div">
-        {% if (order.state >= 1) and (order.state <= 3) %}
-            <a href="{{path('cancel_order',{'reference':order.reference})}}" class="track-btn">Annulée ma commande</a>
-        {% elseif order.state == 4 %}
-            <a href="#" class="track-btn">Demander un remboursement</a>
-        {% else %}
-            <a href="{{path('account')}}" class="track-btn">Mon compte</a>
-        {% endif %}
-            
-        </div>
-        
-    </div>
-</section>
-{% endblock content %}
-{% block footer %}{% endblock footer %}
+													</tbody>
+												</table>
+												<table class="totalTable">
+													<tbody>
+														<tr>
+															<th>Frais de port</th>
+															<td>
+																<strong class="price">{{(order.carrierPrice / 100)|number_format(2,",",".")}}
+																	DH
+																</strong>
+															</td>
+														</tr>
+														<tr>
+															<th>Total</th>
+															<td>
+																<strong class="total_price">{{((order.total) / 100)|number_format(2,",",".")}}
+																	DH</strong>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="resume-table-responsive">
+
+												{% for product in orderDetails %}
+													<table class="resumeTable">
+														<tbody>
+															<tr>
+																<th>Produit</th>
+																<td>{{product.product.name}}</td>
+															</tr>
+															<tr>
+																<th>Quantité</th>
+																<td>x{{product.quantity}}
+																</td>
+															</tr>
+															<tr>
+																<th>Sous-Total</th>
+																<td>{{(product.total / 100)|number_format(2,",",".")}}
+																	DH</td>
+															</tr>
+														</tbody>
+													</table>
+												{% endfor %}
+												<table class="totalTable">
+													<tbody>
+														<tr>
+															<th>Frais de port</th>
+															<td>
+																<strong class="price">{{(order.carrierPrice / 100)|number_format(2,",",".")}}
+																	DH</strong>
+															</td>
+														</tr>
+														<tr>
+															<th>Total</th>
+															<td>
+																<strong class="total_price">{{((order.total) / 100)|number_format(2,",",".")}}
+																	DH</strong>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</section>
+									<div class="track-btn-div">
+										{% if (order.state >= 1) and (order.state <= 3) %}
+											<a href="{{path('cancel_order',{'reference':order.reference})}}" class="track-btn">Annulée ma commande</a>
+										{% elseif order.state == 4 %}
+											<a href="#" class="track-btn">Demander un remboursement</a>
+										{% else %}
+											<a href="{{path('account')}}" class="track-btn">Mon compte</a>
+										{% endif %}
+
+									</div>
+
+								</div>
+							</section>
+						{% endblock content %}
+						{% block footer %}{% endblock footer %}

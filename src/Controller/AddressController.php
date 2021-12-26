@@ -30,17 +30,22 @@ class AddressController extends AbstractController
         // Extras :
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
-        }else{
+        } else {
             $cart = null;
         }
 
-        return $this->render('address/index.html.twig',[
+        return $this->render('address/index.html.twig', [
             'cart' => $cart,
             'addresses' => $addresses
         ]);
     }
-    
-    //Programme page Nouvel adresse
+
+    /**
+     * Cree une nouvel adresse
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/account/nouvel-adresse', name: 'new_address')]
     public function new(Request $request): Response
     {
@@ -48,7 +53,7 @@ class AddressController extends AbstractController
         $address = new Address();
 
         //Creation du formulaire d'adresse
-        $form = $this->createForm(AddressType::class,$address);
+        $form = $this->createForm(AddressType::class, $address);
 
         //Recuperation de cartItem pour redirier vers le panier (A faire mieux !!!!)
         $cartItems = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
@@ -62,22 +67,22 @@ class AddressController extends AbstractController
             $this->em->flush();
 
             //Notif
-            $this->addFlash('success',"Votre nouvel adresse est enregistrer avec success");
+            $this->addFlash('success', "Votre nouvel adresse est enregistrer avec success");
 
             //Redirection ...
             if ($cartItems) {
                 return $this->redirectToRoute('cart');
-            }else{
+            } else {
                 return  $this->redirectToRoute('address');
             }
-            
+
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
         //EXTRAS
         if ($this->getUser()) {
             $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
-        }else{
+        } else {
             $cart = null;
         }
 
@@ -101,21 +106,20 @@ class AddressController extends AbstractController
             $this->em->flush();
 
             //Notif
-            $this->addFlash('success',"Votre adresse a été supprimer avec success");
+            $this->addFlash('success', "Votre adresse a été supprimer avec success");
 
             return $this->redirectToRoute('address');
-        }else{
+        } else {
             //Notif
-            $this->addFlash('erreur',"Ce lien n'est pas valid !");
-            
+            $this->addFlash('erreur', "Ce lien n'est pas valid !");
+
             return $this->redirectToRoute('account');
         }
-        
     }
 
     //Programme de modification d'adresse
     #[Route('/account/modifier-adresse/{id}', name: 'modif_address')]
-    public function modify($id,Request $request): Response
+    public function modify($id, Request $request): Response
     {
         //Recuperation de l'adresse en question
         $address = $this->em->getRepository(Address::class)->findOneBy(['id' => $id]);
@@ -123,25 +127,25 @@ class AddressController extends AbstractController
         //Verifier si l'adresse est celle de User
         if ($address && $this->getUser() == $address->getUser()) {
             //Creation du formulaire
-            $form = $this->createForm(AddressType::class,$address);
+            $form = $this->createForm(AddressType::class, $address);
 
             //Envoie du formulaire
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 //Stocker la data
                 $address = $form->getData();
-                 $this->em->flush();
+                $this->em->flush();
 
-                 //Notif
-                 $this->addFlash('success',"Votre adresse a été modifier avec success");
+                //Notif
+                $this->addFlash('success', "Votre adresse a été modifier avec success");
 
-                 return $this->redirectToRoute('address');
+                return $this->redirectToRoute('address');
             }
 
             // Extras :
             if ($this->getUser()) {
                 $cart = $this->em->getRepository(CartItem::class)->findBy(['user' => $this->getUser()]);
-            }else{
+            } else {
                 $cart = null;
             }
 
@@ -149,15 +153,11 @@ class AddressController extends AbstractController
                 'form' => $form->createView(),
                 'cart' => $cart
             ]);
-
-        }else{
+        } else {
             //Notif
-            $this->addFlash('erreur',"Ce lien n'est pas valid !");
+            $this->addFlash('erreur', "Ce lien n'est pas valid !");
 
             return $this->redirectToRoute('account');
         }
-
-        
-        
     }
 }
