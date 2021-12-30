@@ -86,6 +86,11 @@ class Order
      */
     private $strDelivery;
 
+    /**
+     * @ORM\OneToOne(targetEntity=PromoCode::class, inversedBy="myOrder", cascade={"persist", "remove"})
+     */
+    private $promoCode;
+
   
 
 
@@ -271,6 +276,18 @@ class Order
     public function setStrDelivery(string $strDelivery): self
     {
         $this->strDelivery = $strDelivery;
+
+        return $this;
+    }
+
+    public function getPromoCode(): ?PromoCode
+    {
+        return $this->promoCode;
+    }
+
+    public function setPromoCode(?PromoCode $promoCode): self
+    {
+        $this->promoCode = $promoCode;
 
         return $this;
     }

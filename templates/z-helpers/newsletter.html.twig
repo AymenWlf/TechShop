@@ -7,9 +7,9 @@
             <p>Voous receverez un code de promos de 20% lors de votre abonnement ,<br>
              veuillez donner votre adresse email et on s'occupe du reste ;)</p>
           </div>
-          <form action="#">
-            <input type="email" placeholder="Entrer votre email" class="newsletter__email">
-            <a class="newsletter__link" href="#">S'abonner</a>
+          <form method="POST">
+            <input type="email" name="email" placeholder="Entrer votre email" class="newsletter__email">
+            <input type="submit" name="submitEmail" class="newsletter__link" value="S'abonner">
           </form>
         </div>
       </div>

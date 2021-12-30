@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %} {% block title %}TechShop - Choix d'adresse de livraison{% endblock title %} {% block content %}
+<style>
+    
+</style>
 <section class="section content__area">
     <div class="container">
         <div class="responsive__cart-area">
@@ -26,12 +29,9 @@
                                     <td class="product__name">
                                         <p>
                                             <a href="#" style="margin-right: 1rem;">{{product.product.name}} </a><br> =>
-                                            <span class="old__price" style="margin-left: 1rem">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small> x{{product.quantity}} </p>
-                                        <small>{{product.variation}}</small> {% set totalPriceProduct = (product.product.price / 100) * product.quantity %}
-                                        <div class="price">
-
-                                        </div>
-                                        
+                                            <span class="old__price" style="margin-left: 1rem">{{(product.product.price / 100)|number_format(2, ',', '.')}} DH </span><small>/Pièce</small> x{{product.quantity}} 
+                                        </p>
+                                        <small>{{product.variation}}</small> {% set totalPriceProduct = (product.product.price / 100) * product.quantity %}                                        
                                     </td>
                                 </tr>
                                 {% set key = key + 1 %} {% set total = total + totalPriceProduct %} {% if key == cart|length %}
@@ -57,6 +57,12 @@
                                 <tr>
                                     <div class="recap-btn-div">
                                         <input type="submit" name="submitAd"  id="submitAd" value="Confirmer" class="btn btn-conf-recap">
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="input-promo-div">
+                                        <label for="promoCode">Vous avez un code promo ?</label>
+                                        <input type="text" name="promoCode" id="promoCode" placeholder="Votre code de promo" class="input-promo-code" autocomplete="off">
                                     </div>
                                 </tr>
                             </tbody>
@@ -158,6 +164,13 @@
                                         <input type="submit" name="submitAd"  id="submitAd" value="Confirmer" class="btn btn-conf-recap">
                                     </div>
                                 </tr>
+                                <tr>
+                                    <div class="input-promo-div">
+                                        <label for="promoCode">Vous avez un code promo ?</label>
+                                        <input type="text" name="promoCodeResp" id="promoCode" placeholder="Votre code de promo" class="input-promo-code" autocomplete="off">
+                                    </div>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>

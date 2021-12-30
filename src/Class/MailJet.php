@@ -307,4 +307,32 @@ class MailJet
         $response = $mj->post(Resources::$Email, ['body' => $body]);
         $response->success();
     }
+
+    public function PromoCode($toEmail, $PromoCode)
+    {
+        $mj = new Client($this->P_Key, $this->S_Key, true, ['version' => 'v3.1']);
+        $body = [
+            'Messages' => [
+                [
+                    'From' => [
+                        'Email' => "$this->AdminEmail",
+                        'Name' => "TechShop"
+                    ],
+                    'To' => [
+                        [
+                            'Email' => $toEmail
+                        ]
+                    ],
+                    'TemplateID' => 3461171,
+                    'TemplateLanguage' => true,
+                    'Subject' => "Felicitation, vous avez gagner un code promo !",
+                    'Variables' => [
+                        'PromoCode' => $PromoCode
+                    ]
+                ]
+            ]
+        ];
+        $response = $mj->post(Resources::$Email, ['body' => $body]);
+        $response->success();
+    }
 }

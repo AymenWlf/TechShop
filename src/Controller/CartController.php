@@ -105,22 +105,35 @@ class CartController extends AbstractController
         if ($quantity >= 10) {
             //Cas superieur a 10
             $quantity = 10;
+            $cartItem->setQuantity($quantity);
+            $this->em->flush();
+
 
             //Notif
             $this->addFlash('warning',"le maximum de piece pour ce produit est de 10 piece,pour en commandez plus veuillez nous contacter en privé dans la page CONTACT !");
+            return $this->json([
+                'code' => 201,
+                'message' => 'maximum atteint !'
+            ],201);
+           
         }else if ($quantity >=1 && $quantity < 10) {
             //Incrementation
             $quantity++;
+            $cartItem->setQuantity($quantity);
+            $this->em->flush();
+
 
             //Notif
-            $this->addFlash('success',"Vous avez : ".$quantity." x ".$productNameItem." de couleur ".$color." dans votre panier");
+            // $this->addFlash('success',"Vous avez : ".$quantity." x ".$productNameItem." de couleur ".$color." dans votre panier");
+            return $this->json([
+            'code' => 200,
+            'message' => '+1'
+            ],200);
         }
-        $cartItem->setQuantity($quantity);
-        $this->em->flush();
-
         
+        //  return $this->redirectToRoute("cart");
 
-        return $this->redirectToRoute('cart');
+        // return $this->redirectToRoute('cart');
     }
 
 

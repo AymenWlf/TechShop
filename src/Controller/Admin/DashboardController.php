@@ -11,6 +11,8 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Contact;
 use App\Entity\PaiementMethod;
+use App\Entity\PromoCode;
+use App\Entity\Subscriber;
 use App\Entity\Variation;
 use App\Entity\Temoignage;
 use App\Entity\VariationOption;
@@ -41,6 +43,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('User');
         yield MenuItem::linkToCrud('Users', 'fa fa-users',User::class);
+        yield MenuItem::linkToCrud('Subscribers', 'fa fa-user-tag',Subscriber::class);
         yield MenuItem::linkToCrud('Orders', 'fas fa-shopping-cart', Order::class);
         yield MenuItem::linkToCrud('Reviews', 'fa fa-star',Review::class);
         yield MenuItem::section('Products');
@@ -54,6 +57,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Temoignages', 'fa fa-user-tie',Temoignage::class);
         yield MenuItem::linkToCrud('Headers', 'fa fa-tv',Header::class);
         yield MenuItem::linkToCrud('Contacts', 'fa fa-envelope-open',Contact::class);
+        yield MenuItem::linkToCrud('Discount', 'fa fa-tags',PromoCode::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

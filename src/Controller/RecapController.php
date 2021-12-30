@@ -11,6 +11,7 @@ use App\Entity\Confirmation;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Entity\PaiementMethod;
+use App\Entity\PromoCode;
 use App\Entity\VariationOption;
 use App\Form\AddressType;
 use DateTime;
@@ -99,6 +100,46 @@ class RecapController extends AbstractController
 
         //Confirmation
         if (isset($_POST['submitAd'])) {
+            $promoCode = null;
+            if($_POST['promoCode'])
+            {
+                $promoCode = $_POST['promoCode'];
+            }else if($_POST['promoCodeResp'])
+            {
+                $promoCode = $_POST['promoCodeResp'];
+                
+            }
+            
+            //   dd($_POST);
+            $now = new DateTime();
+
+            $promoEntity = $this->em->getRepository(PromoCode::class)->findOneBy(['code' => $promoCode]);
+            //  dd($promoCode);
+            $promoCodeUser = $this->em->getRepository(PromoCode::class)->findOneBy(['user' => $user]);
+            if($promoCode)
+            {
+                
+                if(!$promoEntity)
+                {
+                    $this->addFlash("erreur","Ce code de promos n'existe pas !");
+                    return $this->redirect($_SERVER['HTTP_REFERER']);
+
+                }elseif($promoCodeUser != $promoEntity)
+                {
+                    $this->addFlash("erreur","Ce code de prmos ne vous appartient pas !");
+                    return $this->redirect($_SERVER['HTTP_REFERER']);
+
+                }elseif ($now > $promoEntity->getCreatedAt()->modify("+ 30 days")) {
+                    $this->addFlash("erreur","Votre code promos a expirer");
+                    return $this->redirect($_SERVER['HTTP_REFERER']);
+
+                }elseif ($promoEntity->getUsed() == true)
+                {
+                    $this->addFlash("erreur","Votre code est dejà utilisé");
+                    return $this->redirect($_SERVER['HTTP_REFERER']);
+                }
+            }
+
             $addressCompany = null;
             $date = new DateTime();
             $carrierId = $_POST['carrier'];
@@ -126,14 +167,15 @@ class RecapController extends AbstractController
 
 
             $carrierName = $carrierPost->getName();
-            $price = $carrierPost->getPrice();
-            $total = $price;
+            $Carrierprice = $carrierPost->getPrice();
+            $total = 0;
+
             //Remplissage de Order
             $order = new Order();
             $order->setUser($user);
             $order->setCreatedAt($datetime);
             $order->setCarrierName($carrierName);
-            $order->setCarrierPrice($price);
+            $order->setCarrierPrice($Carrierprice);
             $order->setState(1);
             $order->setIsPaid(0);
             $order->setLivraison($delivery);
@@ -169,6 +211,7 @@ class RecapController extends AbstractController
                 $orderDetails->setQuantity($quantity);
                 $orderDetails->setPrice($price);
                 $orderDetails->setTotal($price * $quantity);
+                
                 // dd($product->getVariationOptions);
                 $this->em->persist($orderDetails);
 
@@ -179,11 +222,27 @@ class RecapController extends AbstractController
             foreach ($cartItems as $cartItem) {
                 $this->em->remove($cartItem);
             }
+
+            if($promoEntity)
+            {
+                $discount = $promoEntity->getDiscount()/100;
+                $total = $total - ($total) * $discount;
+            }
             
+            
+            $total += $Carrierprice;
+
             //Ajout du total
             $order->setTotal($total);
             $this->em->persist($order);
             $this->em->flush();
+
+            if($promoEntity)
+            {
+                $promoEntity->setUsed(True);
+                $this->em->flush();
+            }
+            
 
             //Confirmation par mail
             $mail = new MailJet();

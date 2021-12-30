@@ -92,34 +92,3 @@ document.querySelector('.minus-btn').addEventListener("click", function() {
 
 
 
-var CounterValue = document.getElementById('counter-btn').value;
-var modifierText = document.getElementById('btn-modif-span').innerText;
-var input = null;
-
-document.querySelector('.btn-modif').addEventListener("click", function() {
-    if (document.getElementById('btn-modif-span').innerText == "Modifier") {
-        document.getElementById('btn-modif-span').innerText = "Confirmer";
-        input = document.querySelectorAll('.counter-btn')
-        console.log(input);
-        for (let index = 0; index < input.length; index++) {
-            const element = input[index];
-            console.log(element);
-            element.removeAttribute("disabled");
-        }
-
-
-    } else if (document.getElementById('btn-modif-span').innerText == "Confirmer") {
-
-        document.getElementById('btn-modif-span').innerText = "Modifier";
-
-        input = document.querySelectorAll('.counter-btn')
-
-        for (let index = 0; index < input.length; index++) {
-            const element = input[index];
-            element.setAttribute("disabled", "disabled");
-        }
-
-
-    }
-})
-
