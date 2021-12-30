@@ -1979,9 +1979,7 @@ Product Details
 }
 
 .minus-btn,
-.plus-btn,
-.js-quantity-plus,
-.js-quantity-minus {
+.plus-btn {
   display: inline-block;
   border: 1px solid var(--primaryColor);
   padding: 0.8rem 1rem;
@@ -1989,23 +1987,19 @@ Product Details
   cursor: pointer;
 }
 
-.disabled-btn,
-.js-disabled-btn {
+.disabled-btn {
   fill: var(--grey3);
 }
 
-.plus-btn,
-.js-quantity-plus {
+.plus-btn {
   border-left-color: transparent;
 }
 
-.minus-btn,
-.js-quantity-minus {
+.minus-btn {
   border-right-color: transparent;
 }
 
-.counter-btn,
-.js-counter-btn {
+.counter-btn {
   width: 7rem;
   padding: 1rem 0;
   text-align: center;
