@@ -104,7 +104,7 @@ class WishListController extends AbstractController
             $this->em->flush();
 
             //Notif
-            // $this->addFlash('success', 'Produit ajoutée à la wishList avec succes !');
+            $this->addFlash('success', 'Produit ajoutée à la wishList avec succes !');
 
             return $this->json([
                 'code' => 200,

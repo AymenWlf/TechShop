@@ -40,7 +40,6 @@
 							<ul class="product__info">
 								<li class="select">
 									<div class="select__option">
-
 										<label class="label" for="colors">Couleur</label>
 										<select name="colors" id="colors" class="select-box">
 											{% for couleur in couleurs %}
@@ -91,7 +90,7 @@
 							<div class="product-info__btn"></div>
 							<div class="product-details__btn">
 								<input type="submit" name="submit" value="Ajouter au panier" class="btn">
-								<a class="js-wishlistAdd" href="{{path('wish_list_add' ,{'slug': product.slug} )}} ">
+								<a class="js-wishlistAdd" href="{{path('wish_list_add' ,{'slug': product.slug} )}}">
 									{% if app.user and product.isItOnMyWishList(app.user) %}
 										<span class="icon-hearth-link">
 											<i class="fas fa-heart"></i>

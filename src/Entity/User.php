@@ -122,6 +122,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $modifPasswords;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PromoCode::class, mappedBy="user")
+     */
+    private $promoCodes;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -130,6 +135,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->orders = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->modifPasswords = new ArrayCollection();
+        $this->promoCodes = new ArrayCollection();
     }
 
     public function __toString()
@@ -459,6 +465,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($modifPassword->getUser() === $this) {
                 $modifPassword->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PromoCode[]
+     */
+    public function getPromoCodes(): Collection
+    {
+        return $this->promoCodes;
+    }
+
+    public function addPromoCode(PromoCode $promoCode): self
+    {
+        if (!$this->promoCodes->contains($promoCode)) {
+            $this->promoCodes[] = $promoCode;
+            $promoCode->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromoCode(PromoCode $promoCode): self
+    {
+        if ($this->promoCodes->removeElement($promoCode)) {
+            // set the owning side to null (unless already changed)
+            if ($promoCode->getUser() === $this) {
+                $promoCode->setUser(null);
             }
         }
 

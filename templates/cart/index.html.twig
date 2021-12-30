@@ -48,7 +48,6 @@
                                     </div>
                                     <div class="input-counter responsive-counter">
                                         <div>
-
                                             <a class="minus-btn" href="{{path('minus_cart',{'id':product.id})}}">
                                                 <svg class="minus-cart-svg">
                                                     <use xlink:href="{{asset('images/sprite.svg#icon-minus')}}"></use>
@@ -57,7 +56,7 @@
 
                                             <input type="number" min="1" value="{{product.quantity}}" max="10" class="counter-btn" id="counter-btn" name="quantity" disabled> {# <span class="counter-btn" id="counter-btn">1</span> #}
 
-                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}}" disabled>
+                                            <a class="plus-btn" href="{{path('plus_cart',{'id':product.id})}} " disabled>
                                                 <svg class="plus-cart-svg">
                                                     <use xlink:href="{{asset('images/sprite.svg#icon-plus')}}"></use>
                                                 </svg>

@@ -141,12 +141,38 @@ td.payment-method {
 td.payment-method h5 {
     color: var(--orange);
 }
+.input-promo-div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 1rem 0rem 1rem;
+}
+
+.input-promo-code
+{
+    height: 4rem;
+    width: 50%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--black4);
+}
+
+.input-promo-div label{
+    font-kerning: none;
+    font-weight: bolder;
+}
 
 @media screen and (max-width: 768px) {
     td.payment-method,
     td.price-row {
         font-size: 1.4rem;
         height: 1rem;
+    }
+    .input-promo-code
+    {
+        width: 100%;
     }
 }
 

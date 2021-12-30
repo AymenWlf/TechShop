@@ -1605,17 +1605,18 @@ NewsLetter
   outline: none;
 }
 
-.newsletter__link:link,
-.newsletter__link:visited {
+input.newsletter__link{
+  cursor: pointer;
   display: inline-block;
   padding: 1.4rem 3rem;
   margin-left: -0.5rem;
   background-color: var(--black);
   color: var(--white);
   transition: 0.3s;
+  border: none;
 }
 
-.newsletter__link:hover {
+input.newsletter__link:hover {
   background-color: #000;
 }
 
@@ -1665,8 +1666,8 @@ Newsletter Media Query
   .newsletter__data p {
     font-size: 1rem;
   }
-  .newsletter__link:link,
-  .newsletter__link:visited {
+  input.newsletter__link:link,
+  input.newsletter__link:visited {
     padding: 1.2rem 2rem;
     margin-left: 0;
   }
