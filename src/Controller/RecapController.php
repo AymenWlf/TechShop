@@ -126,7 +126,7 @@ class RecapController extends AbstractController
 
                 }elseif($promoCodeUser != $promoEntity)
                 {
-                    $this->addFlash("erreur","Ce code de prmos ne vous appartient pas !");
+                    $this->addFlash("erreur","Ce code de promos ne vous appartient pas !");
                     return $this->redirect($_SERVER['HTTP_REFERER']);
 
                 }elseif ($now > $promoEntity->getCreatedAt()->modify("+ 30 days")) {
@@ -183,6 +183,10 @@ class RecapController extends AbstractController
             $order->setSessionCheckoutId(1111);
             $order->setReference($reference);
             $order->setPaiementMethod($paymentMethod);
+            if($promoEntity)
+            {
+                $order->setPromoCode($promoEntity);
+            }
 
             //Remplissage des OrderDetails
             foreach ($cart as $item) {

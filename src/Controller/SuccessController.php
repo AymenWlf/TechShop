@@ -32,12 +32,13 @@ class SuccessController extends AbstractController
         //Recuperation des donnees de la commande
         $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
         $orderDetails = $order->getOrderDetails()->getValues();
-        
+        $promoCode = $order->getPromoCode();
 
         return $this->render('success/index.html.twig',[
             'cart' => $cart,
             'order' => $order,
-            'orderDetails' => $orderDetails
+            'orderDetails' => $orderDetails,
+            'promoCode' => $promoCode
         ]);
     }
 

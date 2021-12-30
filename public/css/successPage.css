@@ -122,6 +122,11 @@ section.success table .product-cl {
   border: 1px solid var(--black);
 }
 
+.promoStyle
+{
+	color: orange;
+}
+
 /* RESPONSIVE */
 @media screen and (max-width: 1024px) {
   section.success .backBtnDiv {
