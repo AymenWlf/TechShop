@@ -28,7 +28,7 @@ class PromoCode
     private $created_at;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=200)
      */
     private $code;
 
