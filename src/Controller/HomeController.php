@@ -2,23 +2,27 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\User;
 use App\Class\MailJet;
-use App\Entity\CartItem;
-use App\Entity\Category;
 use App\Entity\Header;
 use App\Entity\Product;
+use App\Entity\CartItem;
+use App\Entity\Category;
 use App\Entity\PromoCode;
 use App\Entity\Subscriber;
 use App\Entity\Temoignage;
-use App\Entity\User;
 use App\Repository\UserRepository;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\HeaderRepository;
+use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\TemoignageRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -35,13 +39,13 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(HeaderRepository $headerRepository,CategoryRepository $categoryRepository,ProductRepository $productRepository,TemoignageRepository $temoignageRepository): Response
     {
         //Initialisation
-        $headers = $this->em->getRepository(Header::class)->findThreeLastHeaders();
-        $categories = $this->em->getRepository(Category::class)->findTwoLastCategories();
-        $best_products = $this->em->getRepository(Product::class)->findBy(['isBest' => 1]);
-        $temoignages = $this->em->getRepository(Temoignage::class)->findThreeLastTemoignages();
+        $headers = $headerRepository->findThreeLastHeaders();
+        $categories = $categoryRepository->findTwoLastCategories();
+        $best_products = $productRepository->findBy(['isBest' => 1]);
+        $temoignages = $temoignageRepository->findThreeLastTemoignages();
         $this->Newsletter();
 
         //Extras

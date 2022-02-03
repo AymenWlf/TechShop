@@ -28,12 +28,12 @@ class WishListController extends AbstractController
 
     //Programme de wishList
     #[Route('/wishlist', name: 'wish_list')]
-    public function index(): Response
+    public function index(WishListRepository $wishListRepository): Response
     {
         //Verification si l'utilisateur et connecter et recuperations des produits de la wishList
         $user = $this->getUser();
         if ($user) {
-            $wishList = $this->em->getRepository(WishList::class)->findByWish($user);
+            $wishList = $wishListRepository->findByWish($user);
             if (!$wishList) {
                 $wishList = new WishList();
                 $wishList->setUser($user);

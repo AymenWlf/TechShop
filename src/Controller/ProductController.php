@@ -12,6 +12,7 @@ use App\Form\ReviewType;
 use App\Form\SearchType;
 use App\Entity\VariationOption;
 use App\Form\CartType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class ProductController extends AbstractController
 
     //Programme de la ProductsPage
     #[Route('/products', name: 'product')]
-    public function index(Request $request): Response
+    public function index(Request $request,ProductRepository $productRepository): Response
     {
         // Cree le formulaire du filtre
         $search = new Search();
@@ -42,11 +43,11 @@ class ProductController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             //filtrer produits selon Search 
-            $products = $this->em->getRepository(Product::class)->FindAllWithSearch($search);
+            $products = $productRepository->FindAllWithSearch($search);
             $Pages = 1;
         }else{
             //Tous recuperer
-            $products = $this->em->getRepository(Product::class)->getPaginatedProducts((int) $request->query->get("page",1),8);
+            $products = $productRepository->getPaginatedProducts((int) $request->query->get("page",1),8);
         }
         
        
@@ -58,11 +59,11 @@ class ProductController extends AbstractController
         {
             if ($form2->isSubmitted() && $form2->isValid()) {
                 //filtrer produits selon Search 
-                $products = $this->em->getRepository(Product::class)->FindAllWithSearch($search);
+                $products = $productRepository->FindAllWithSearch($search);
                 $Pages = 1;
             }else{
                 //Tous recuperer
-                $products = $this->em->getRepository(Product::class)->getPaginatedProducts((int) $request->query->get("page",1),8);;
+                $products = $productRepository->getPaginatedProducts((int) $request->query->get("page",1),8);;
             }
         }
         
@@ -78,7 +79,7 @@ class ProductController extends AbstractController
         {
             $totalProducts = $Pages;
         }else{
-            $totalProducts = $this->em->getRepository(Product::class)->countProductsById();
+            $totalProducts = $productRepository->countProductsById();
         }
         
         return $this->render('product/index.html.twig',[
