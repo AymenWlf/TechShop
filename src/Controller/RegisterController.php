@@ -51,7 +51,7 @@ class RegisterController extends AbstractController
             $search_email = $this->em->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
             //Si email utiliser
             if (!$search_email) {
-                //Cryptage du password
+                //Cryptage du mot de passe
                 if($email == self::ADMIN_EMAIL)
                 {
                     $user->setRoles(['ROLE_ADMIN']);
