@@ -59,7 +59,7 @@ class UserFixtures extends Fixture
                 $address->setCountry($faker->country());
                 $address->setCity($faker->city());
                 $address->setPostal($faker->postcode());
-                $address->setPhone($faker->e164phoneNumber());
+                $address->setPhone($faker->randomNumber(5, false));
                 $address->setUser($user);
 
                 $manager->persist($address);

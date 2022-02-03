@@ -2,17 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
  * @UniqueEntity(
  *              fields = "email",
  *              message = "Cet email est dejà utilisée"
@@ -37,9 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *          minMessage = "L'email doit etre plus grand que {{ limit }}",
      *          maxMessage = "L'email doit etre plus petit que {{ limit }}"
      * )
-     * @Assert\Unique{
-     *      message = "Cet email est dejà utilisée"
-     * }
      */
     private $email;
 

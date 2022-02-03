@@ -19,10 +19,10 @@ class HeaderFixtures extends Fixture
             $header = new Header();
 
             $header->setName('header_'.$nbHeader);
-            $header->setTopCmnt($faker->sentence(3));
-            $header->setMiddleCmnt($faker->sentence(3));
-            $header->setLastCmnt($faker->sentence(2));
-            $header->setBtnTitle($faker->sentence(2));
+            $header->setTopCmnt($faker->sentence(1));
+            $header->setMiddleCmnt($faker->sentence(1));
+            $header->setLastCmnt($faker->sentence(1));
+            $header->setBtnTitle($faker->sentence(1));
             $header->setIllustration('banner_01.png');
 
             $manager->persist($header);
