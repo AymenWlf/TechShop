@@ -2,11 +2,11 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Header;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
 class HeaderFixtures extends Fixture
 {
