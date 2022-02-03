@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegisterController extends AbstractController
 {
     //Entity Manager
+    const ADMIN_EMAIL ="alinzgohi@gmail.com";
     private $em;
     public function __construct(EntityManagerInterface $em)
     {
@@ -51,6 +52,10 @@ class RegisterController extends AbstractController
             //Si email utiliser
             if (!$search_email) {
                 //Cryptage du password
+                if($email == self::ADMIN_EMAIL)
+                {
+                    $user->setRoles(['ROLE_ADMIN']);
+                }
                 $password = $encoder->encodePassword($user,$user->getPassword());
                 $user->setPassword($password);
                 $user->setConfirmation($conf);
