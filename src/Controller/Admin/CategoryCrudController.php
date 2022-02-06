@@ -20,7 +20,7 @@ class CategoryCrudController extends AbstractCrudController
         return [
             ImageField::new('illustration')
             ->setBasePath('uploads/')
-            ->setUploadDir(self::PUBLIC_DIR.'/uploads')
+            ->setUploadDir('public_html/uploads')
             ->setUploadedFileNamePattern('[randomhash].[extension]'),
             TextField::new('name','Nom de la categorie'),
 

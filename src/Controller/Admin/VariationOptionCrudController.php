@@ -30,7 +30,7 @@ class VariationOptionCrudController extends AbstractCrudController
             TextField::new('var_code','code'),
             ImageField::new('illustration')
             ->setBasePath('uploads/')
-            ->setUploadDir(self::PUBLIC_DIR.'/uploads')
+            ->setUploadDir('public_html/uploads')
             ->setUploadedFileNamePattern('[randomhash].[extension]'),
             IntegerField::new('stock','Stock'),
         ];
