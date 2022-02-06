@@ -7,19 +7,21 @@ use App\Entity\Order;
 use App\Entity\Header;
 use App\Entity\Review;
 use App\Entity\Carrier;
+use App\Entity\Contact;
 use App\Entity\Product;
 use App\Entity\Category;
-use App\Entity\Contact;
-use App\Entity\PaiementMethod;
 use App\Entity\PromoCode;
-use App\Entity\Subscriber;
 use App\Entity\Variation;
+use App\Entity\Subscriber;
 use App\Entity\Temoignage;
+use App\Entity\PaiementMethod;
 use App\Entity\VariationOption;
+use App\Controller\Admin\OrderCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
@@ -29,7 +31,10 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        // redirect to some CRUD controller
+        $routeBuilder = $this->get(AdminUrlGenerator::class);
+
+        return $this->redirect($routeBuilder->setController(OrderCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
